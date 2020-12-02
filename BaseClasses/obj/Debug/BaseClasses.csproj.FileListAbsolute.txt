@@ -1,0 +1,68 @@
+D:\TFS\微信服务号\BaseClasses\bin\Debug\BaseClasses.dll
+D:\TFS\微信服务号\BaseClasses\bin\Debug\BaseClasses.pdb
+D:\TFS\微信服务号\BaseClasses\bin\Debug\Billing.Core.dll
+D:\TFS\微信服务号\BaseClasses\bin\Debug\Com.QfGame.Sso.dll
+D:\TFS\微信服务号\BaseClasses\bin\Debug\Enyim.Caching.dll
+D:\TFS\微信服务号\BaseClasses\bin\Debug\log4net.dll
+D:\TFS\微信服务号\BaseClasses\bin\Debug\LotteryAlgorithm.Client.dll
+D:\TFS\微信服务号\BaseClasses\bin\Debug\Newtonsoft.Json.dll
+D:\TFS\微信服务号\BaseClasses\bin\Debug\ServiceStack.Text.dll
+D:\TFS\微信服务号\BaseClasses\bin\Debug\WebApiCommonClient.dll
+D:\TFS\微信服务号\BaseClasses\obj\Debug\BaseClasses.csprojResolveAssemblyReference.cache
+D:\TFS\微信服务号\BaseClasses\obj\Debug\BaseClasses.dll
+D:\TFS\微信服务号\BaseClasses\obj\Debug\BaseClasses.pdb
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\BaseClasses.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\BaseClasses.pdb
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\Billing.Core.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\Com.QfGame.Sso.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\Enyim.Caching.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\log4net.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\LotteryAlgorithm.Client.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\Newtonsoft.Json.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\ServiceStack.Text.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Debug\WebApiCommonClient.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\obj\Debug\BaseClasses.csprojResolveAssemblyReference.cache
+D:\TFS\微信服务号 - 副本\BaseClasses\obj\Debug\BaseClasses.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\obj\Debug\BaseClasses.pdb
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\BaseClasses.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\BaseClasses.pdb
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\Billing.Core.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\Com.QfGame.Sso.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\Enyim.Caching.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\log4net.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\LotteryAlgorithm.Client.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\Newtonsoft.Json.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\ServiceStack.Text.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\bin\Debug\WebApiCommonClient.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\obj\Debug\BaseClasses.csprojResolveAssemblyReference.cache
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\obj\Debug\BaseClasses.dll
+D:\TFS\微信服务号 - 副本\微信号-11对战平台\BaseClasses\obj\Debug\BaseClasses.pdb
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\BaseClasses.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\BaseClasses.pdb
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\Billing.Core.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\Com.QfGame.Sso.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\Enyim.Caching.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\log4net.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\LotteryAlgorithm.Client.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\Newtonsoft.Json.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\ServiceStack.Text.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Debug\WebApiCommonClient.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\obj\Debug\BaseClasses.csprojResolveAssemblyReference.cache
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\obj\Debug\BaseClasses.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\obj\Debug\BaseClasses.pdb
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\bin\Debug\BaseClasses.dll
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\bin\Debug\BaseClasses.pdb
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\bin\Debug\Com.QfGame.Sso.dll
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\bin\Debug\Newtonsoft.Json.dll
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\obj\Debug\BaseClasses.dll
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\obj\Debug\BaseClasses.pdb
+E:\TFS\新游乐中心\BaseClasses\bin\Debug\BaseClasses.dll
+E:\TFS\新游乐中心\BaseClasses\bin\Debug\BaseClasses.pdb
+E:\TFS\新游乐中心\BaseClasses\bin\Debug\Com.QfGame.Sso.dll
+E:\TFS\新游乐中心\BaseClasses\bin\Debug\log4net.dll
+E:\TFS\新游乐中心\BaseClasses\bin\Debug\Newtonsoft.Json.dll
+E:\TFS\新游乐中心\BaseClasses\bin\Debug\log4net.xml
+E:\TFS\新游乐中心\BaseClasses\bin\Debug\Newtonsoft.Json.xml
+E:\TFS\新游乐中心\BaseClasses\obj\Debug\BaseClasses.csprojResolveAssemblyReference.cache
+E:\TFS\新游乐中心\BaseClasses\obj\Debug\BaseClasses.dll
+E:\TFS\新游乐中心\BaseClasses\obj\Debug\BaseClasses.pdb

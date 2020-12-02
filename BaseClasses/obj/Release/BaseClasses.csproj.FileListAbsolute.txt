@@ -1,0 +1,79 @@
+D:\TFS\微信服务号\BaseClasses\bin\Release\BaseClasses.dll
+D:\TFS\微信服务号\BaseClasses\bin\Release\BaseClasses.pdb
+D:\TFS\微信服务号\BaseClasses\bin\Release\Billing.Core.dll
+D:\TFS\微信服务号\BaseClasses\bin\Release\Com.QfGame.Sso.dll
+D:\TFS\微信服务号\BaseClasses\bin\Release\Enyim.Caching.dll
+D:\TFS\微信服务号\BaseClasses\bin\Release\log4net.dll
+D:\TFS\微信服务号\BaseClasses\bin\Release\LotteryAlgorithm.Client.dll
+D:\TFS\微信服务号\BaseClasses\bin\Release\Newtonsoft.Json.dll
+D:\TFS\微信服务号\BaseClasses\bin\Release\ServiceStack.Text.dll
+D:\TFS\微信服务号\BaseClasses\bin\Release\WebApiCommonClient.dll
+D:\TFS\微信服务号\BaseClasses\obj\Release\BaseClasses.csprojResolveAssemblyReference.cache
+D:\TFS\微信服务号\BaseClasses\obj\Release\BaseClasses.dll
+D:\TFS\微信服务号\BaseClasses\obj\Release\BaseClasses.pdb
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\BaseClasses.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\BaseClasses.pdb
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\Billing.Core.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\Com.QfGame.Sso.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\Enyim.Caching.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\log4net.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\LotteryAlgorithm.Client.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\Newtonsoft.Json.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\ServiceStack.Text.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\bin\Release\WebApiCommonClient.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\obj\Release\BaseClasses.csprojResolveAssemblyReference.cache
+D:\TFS\微信服务号 - 副本\BaseClasses\obj\Release\BaseClasses.dll
+D:\TFS\微信服务号 - 副本\BaseClasses\obj\Release\BaseClasses.pdb
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\BaseClasses.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\BaseClasses.pdb
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\Billing.Core.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\Com.QfGame.Sso.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\Enyim.Caching.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\log4net.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\LotteryAlgorithm.Client.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\Newtonsoft.Json.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\ServiceStack.Text.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\bin\Release\WebApiCommonClient.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\obj\Release\BaseClasses.csprojResolveAssemblyReference.cache
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\obj\Release\BaseClasses.dll
+E:\TFS\微信号-11对战平台-2018-10-29\微信号-11对战平台\BaseClasses\obj\Release\BaseClasses.pdb
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\bin\Release\BaseClasses.dll
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\bin\Release\BaseClasses.pdb
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\bin\Release\Com.QfGame.Sso.dll
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\bin\Release\Newtonsoft.Json.dll
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\obj\Release\BaseClasses.csprojResolveAssemblyReference.cache
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\obj\Release\BaseClasses.dll
+E:\TFS\游戏支持\微信号-11对战平台\BaseClasses\obj\Release\BaseClasses.pdb
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\bin\Release\BaseClasses.dll
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\bin\Release\BaseClasses.pdb
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\bin\Release\Com.QfGame.Sso.dll
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\bin\Release\log4net.dll
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\bin\Release\Newtonsoft.Json.dll
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\bin\Release\log4net.xml
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\bin\Release\Newtonsoft.Json.xml
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\obj\Release\BaseClasses.csproj.CoreCompileInputs.cache
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\obj\Release\BaseClasses.csproj.CopyComplete
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\obj\Release\BaseClasses.dll
+E:\TFS\SysPackage\5.6.0\src\BaseClasses\obj\Release\BaseClasses.pdb
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\bin\Release\BaseClasses.dll
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\bin\Release\BaseClasses.pdb
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\bin\Release\Com.QfGame.Sso.dll
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\bin\Release\log4net.dll
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\bin\Release\Newtonsoft.Json.dll
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\bin\Release\log4net.xml
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\bin\Release\Newtonsoft.Json.xml
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\obj\Release\BaseClasses.csprojAssemblyReference.cache
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\obj\Release\BaseClasses.csproj.CoreCompileInputs.cache
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\obj\Release\BaseClasses.csproj.CopyComplete
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\obj\Release\BaseClasses.dll
+E:\游戏支持\SysPackage\5.6.0\src\BaseClasses\obj\Release\BaseClasses.pdb
+E:\TFS\新游乐中心\BaseClasses\bin\Release\BaseClasses.dll
+E:\TFS\新游乐中心\BaseClasses\bin\Release\BaseClasses.pdb
+E:\TFS\新游乐中心\BaseClasses\bin\Release\Com.QfGame.Sso.dll
+E:\TFS\新游乐中心\BaseClasses\bin\Release\log4net.dll
+E:\TFS\新游乐中心\BaseClasses\bin\Release\Newtonsoft.Json.dll
+E:\TFS\新游乐中心\BaseClasses\bin\Release\log4net.xml
+E:\TFS\新游乐中心\BaseClasses\bin\Release\Newtonsoft.Json.xml
+E:\TFS\新游乐中心\BaseClasses\obj\Release\BaseClasses.csprojResolveAssemblyReference.cache
+E:\TFS\新游乐中心\BaseClasses\obj\Release\BaseClasses.dll
+E:\TFS\新游乐中心\BaseClasses\obj\Release\BaseClasses.pdb
