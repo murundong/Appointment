@@ -56,23 +56,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_DbContext.cs" />
+    <Compile Include="Data\UserInfo.cs" />
     <Compile Include="DbContextProvider\DbContextProvider.cs" />
     <Compile Include="DbContextProvider\IDbContextProvider.cs" />
+    <Compile Include="Enum\Enum_Gender.cs" />
     <Compile Include="MappingConfigProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rep\IRepository.cs" />
     <Compile Include="Rep\RepositoryBase.cs" />
     <Compile Include="Uow\IUnitOfWork.cs" />
     <Compile Include="Uow\UnitOfWork.cs" />
+    <Compile Include="ViewData\View_UinfoOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Dto\" />
-    <Folder Include="Enum\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

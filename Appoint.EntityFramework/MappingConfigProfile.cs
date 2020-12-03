@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Appoint.EntityFramework.Data;
+using Appoint.EntityFramework.ViewData;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace Appoint.EntityFramework
     {
         public MappingConfigProfile()
         {
-            
+            CreateMap<UserInfo, View_UinfoOutput>();
         }
     }
 }

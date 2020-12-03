@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Appoint.EntityFramework.Data;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Appoint.EntityFramework
         {
 
         }
+
+        public DbSet<UserInfo> Set_UserInfo { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
