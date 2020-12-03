@@ -119,6 +119,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Appoint.Application\Appoint.Application.csproj">
+      <Project>{A40B689E-C758-4D42-BCDC-80FDB0953558}</Project>
+      <Name>Appoint.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Appoint.EntityFramework\Appoint.EntityFramework.csproj">
       <Project>{4EFBB2A7-17CD-409F-B2A3-6BCEE6273EE9}</Project>
       <Name>Appoint.EntityFramework</Name>

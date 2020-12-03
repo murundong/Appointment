@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Appoint.Application.IWeixinApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,7 @@ namespace Appoint.Web.Base
     public class ApiControllerBase: ApiController
     {
 
+        public IWeixinService _weixinService = new WeixinService();
 
     }
 }

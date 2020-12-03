@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_DbContext.cs" />
+    <Compile Include="ConstConfig.cs" />
     <Compile Include="Data\UserInfo.cs" />
     <Compile Include="DbContextProvider\DbContextProvider.cs" />
     <Compile Include="DbContextProvider\IDbContextProvider.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Uow\IUnitOfWork.cs" />
     <Compile Include="Uow\UnitOfWork.cs" />
     <Compile Include="ViewData\View_UinfoOutput.cs" />
+    <Compile Include="WeixData\W_AUTH_RETURN.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -74,6 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dto\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BaseClasses\BaseClasses.csproj">
+      <Project>{EE8922E9-C88F-4941-BBFB-E7B491F51DE7}</Project>
+      <Name>BaseClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

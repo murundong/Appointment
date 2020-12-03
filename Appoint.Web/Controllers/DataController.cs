@@ -12,11 +12,23 @@ namespace Appoint.Web.Controllers
 
     public class DataController : ApiControllerBase
     {
+
         [HttpGet]
-        public IHttpActionResult DecodeUserInfo(string raw, string signature, string encryptedData, string iv)
+        public IHttpActionResult GetOpenidByCode(string code)
+        {
+            var res= _weixinService.GetOpenIdByCode(code);
+            return Json(res);
+        }
+
+
+        //openid: "odMBJ49aydSHPVtW1VmrlanhFj14",
+        //session_key: "V82avOgYWmjquaduJDkPWw==",
+
+        [HttpGet]
+        public IHttpActionResult DecodeUserInfo(string signature, string encryptedData, string iv,string sk)
         {
 
-            string session_key = string.Empty;
+            string session_key = sk;
 
             byte[] iv2 = Convert.FromBase64String(iv);
 
@@ -36,5 +48,7 @@ namespace Appoint.Web.Controllers
 
             return Json(Encoding.UTF8.GetString(resultArray));
         }
+
+
     }
 }
