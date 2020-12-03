@@ -14,7 +14,7 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
+#*.dll
 
 # Fortran module files
 *.mod
@@ -34,3 +34,5 @@
 #folder
 bin/
 obj/
+debug/
+packages/
