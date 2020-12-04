@@ -10,5 +10,7 @@ namespace Appoint.Application.IWeixinApi
     public interface IWeixinService:IApplicationService
     {
         W_AUTH_RETURN GetOpenIdByCode(string code);
+
+       
     }
 }

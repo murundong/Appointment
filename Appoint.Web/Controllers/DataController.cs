@@ -1,4 +1,6 @@
-﻿using Appoint.Web.Base;
+﻿using Appoint.EntityFramework.Data;
+using Appoint.Web.Base;
+using Appoint.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,19 @@ namespace Appoint.Web.Controllers
         public IHttpActionResult GetOpenidByCode(string code)
         {
             var res= _weixinService.GetOpenIdByCode(code);
+            if (!string.IsNullOrWhiteSpace(res.openid))
+            {
+                res.hasdata = _userInfoService.CheckHasUser(res.openid);
+            }
             return Json(res);
         }
 
+
+        public IHttpActionResult FirstSaveUserInfo(UserInfo model)
+        {
+
+            return Json("");
+        }
 
         //openid: "odMBJ49aydSHPVtW1VmrlanhFj14",
         //session_key: "V82avOgYWmjquaduJDkPWw==",

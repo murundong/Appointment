@@ -25,5 +25,21 @@ namespace Appoint.Application.Services
             var res = _repository.FirstOrDefault(s => s.open_id == openid);
             return Mapper.Map<View_UinfoOutput>(res);
         }
+
+        public bool CheckHasUser(string openid)
+        {
+            return _repository.Count(s => s.open_id == openid) > 0;
+        }
+
+        public void AddUser(UserInfo model)
+        {
+            _repository.Insert(model);
+        }
+
+        public bool SaveUserInfo(UserInfo model)
+        {
+             _repository.Insert(model);
+            return uof.SaveChange() > 0;
+        }
     }
 }

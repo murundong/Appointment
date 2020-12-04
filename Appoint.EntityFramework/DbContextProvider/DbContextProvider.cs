@@ -29,6 +29,7 @@ namespace Appoint.EntityFramework.DbContextProvider
             var dbContext = CallContext.LogicalGetData(key) as DbContext;
             if (dbContext != null)
             {
+                dbContext.SaveChanges();
                 dbContext.Dispose();
                 dbContext = null;
                 CallContext.LogicalSetData(key, dbContext);
