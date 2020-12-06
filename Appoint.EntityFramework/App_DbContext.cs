@@ -15,8 +15,9 @@ namespace Appoint.EntityFramework
 
         }
 
-        public DbSet<UserInfo> Set_UserInfo { get; set; }
-
+        public DbSet<UserInfos> Set_UserInfo { get; set; }
+        public DbSet<Banners> Set_Banners { get; set; }
+        public DbSet<Doors> Set_Doors { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

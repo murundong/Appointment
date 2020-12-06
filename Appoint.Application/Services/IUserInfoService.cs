@@ -12,8 +12,12 @@ namespace Appoint.Application.Services
     {
         View_UinfoOutput GetUserInfo(string openid);
 
-        bool CheckHasUser(string openid);
+        View_UinfoOutput UpdateUserInfo_home(UserInfos model);
+        View_UinfoOutput UpdateUserInfo_setting(UserInfos model);
 
-        bool SaveUserInfo(UserInfo model);
+        bool CheckHasUser(string openid);
+        View_UinfoOutput GetUinfoByOpenid(string openid);
+
+        bool SaveUserInfo(UserInfos model);
     }
 }

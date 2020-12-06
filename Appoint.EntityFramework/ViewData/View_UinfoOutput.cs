@@ -16,8 +16,10 @@ namespace Appoint.EntityFramework.ViewData
         public Enum_Gender gender { get; set; }
 
         public string tel { get; set; }
-        public int age { get; set; }
-        
+
+        public Enum_UserRole role { get; set; }
+        public string real_name { get; set; }
+        public string birthday { get; set; }
 
     }
 }

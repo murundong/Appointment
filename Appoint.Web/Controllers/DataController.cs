@@ -1,4 +1,5 @@
 ﻿using Appoint.EntityFramework.Data;
+using Appoint.EntityFramework.ViewData;
 using Appoint.Web.Base;
 using Appoint.Web.Models;
 using System;
@@ -19,18 +20,50 @@ namespace Appoint.Web.Controllers
         public IHttpActionResult GetOpenidByCode(string code)
         {
             var res= _weixinService.GetOpenIdByCode(code);
-            if (!string.IsNullOrWhiteSpace(res.openid))
-            {
-                res.hasdata = _userInfoService.CheckHasUser(res.openid);
-            }
             return Json(res);
         }
 
 
-        public IHttpActionResult FirstSaveUserInfo(UserInfo model)
+        [HttpPost]
+        public IHttpActionResult UpdateUserInfoHome(UserInfos model)
         {
+            var res = _userInfoService.UpdateUserInfo_home(model);
+            return ReturnJsonResult(res);
+        }
 
-            return Json("");
+        [HttpPost]
+        public IHttpActionResult UpdateUserInfoSetting(UserInfos model)
+        {
+            var res = _userInfoService.UpdateUserInfo_setting(model);
+            return ReturnJsonResult(res);
+        }
+
+
+        public IHttpActionResult GetUserInfoByOpenId(string openid)
+        {
+            if (string.IsNullOrWhiteSpace(openid)) return ReturnJsonResult("无效的参数",-1); 
+            var res = _userInfoService.GetUinfoByOpenid(openid);
+            return ReturnJsonResult(res);
+        }
+
+        public IHttpActionResult GetBanners()
+        {
+            var res = _bannerService.GetBanners();
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetDoors(View_DoorInput input)
+        {
+            var res= _doorService.GetDoors(input);
+            return ReturnJsonResult(res);
+        }
+
+        public IHttpActionResult CreateDoors(Doors model)
+        {
+            var res = _doorService.CreateDoors(model);
+            if (res != null) return ReturnJsonResult(res);
+            return ReturnJsonResult("创建失败！", -1);
         }
 
         //openid: "odMBJ49aydSHPVtW1VmrlanhFj14",

@@ -17,6 +17,5 @@ namespace Appoint.EntityFramework.WeixData
         public int errcode { get; set; }
         public string errmsg { get; set; }
 
-        public bool hasdata { get; set; }
     }
 }

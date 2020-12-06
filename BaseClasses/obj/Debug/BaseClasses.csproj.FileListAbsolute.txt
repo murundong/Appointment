@@ -66,3 +66,15 @@ E:\TFS\新游乐中心\BaseClasses\bin\Debug\Newtonsoft.Json.xml
 E:\TFS\新游乐中心\BaseClasses\obj\Debug\BaseClasses.csprojResolveAssemblyReference.cache
 E:\TFS\新游乐中心\BaseClasses\obj\Debug\BaseClasses.dll
 E:\TFS\新游乐中心\BaseClasses\obj\Debug\BaseClasses.pdb
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\bin\Debug\BaseClasses.dll
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\bin\Debug\BaseClasses.pdb
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\bin\Debug\Com.QfGame.Sso.dll
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\bin\Debug\log4net.dll
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\bin\Debug\Newtonsoft.Json.dll
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\bin\Debug\log4net.xml
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\bin\Debug\Newtonsoft.Json.xml
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\obj\Debug\BaseClasses.csprojAssemblyReference.cache
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\obj\Debug\BaseClasses.csproj.CoreCompileInputs.cache
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\obj\Debug\BaseClasses.csproj.CopyComplete
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\obj\Debug\BaseClasses.dll
+C:\Users\murun\Desktop\纯享\Appoint\BaseClasses\obj\Debug\BaseClasses.pdb

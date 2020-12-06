@@ -35,5 +35,8 @@ namespace Appoint.EntityFramework.DbContextProvider
                 CallContext.LogicalSetData(key, dbContext);
             }
         }
+
+
+      
     }
 }

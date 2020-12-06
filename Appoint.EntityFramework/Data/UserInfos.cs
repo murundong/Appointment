@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Appoint.EntityFramework.Data
 {
-    public class UserInfo
+    public class UserInfos
     {
         [Key]
         public int uid   { get; set; }
@@ -18,8 +19,10 @@ namespace Appoint.EntityFramework.Data
 
         public string open_id { get; set; }
         public string tel { get; set; }
-        public int age { get; set; }
-        public DateTime create_time { get; set; }
-        
+        public DateTime create_time { get; set; } = DateTime.Now;
+
+        public Enum_UserRole role { get; set; }
+        public string real_name { get; set; }
+        public DateTime? birthday { get; set; }
     }
 }

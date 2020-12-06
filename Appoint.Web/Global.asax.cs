@@ -14,7 +14,7 @@ namespace Appoint.Web
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-
+            
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile(new MappingConfigProfile());
