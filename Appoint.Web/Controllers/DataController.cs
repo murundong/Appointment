@@ -59,6 +59,12 @@ namespace Appoint.Web.Controllers
             return ReturnJsonResult(res);
         }
 
+        [HttpPost]
+        public  IHttpActionResult GetTeacherDoors(View_TeacherDoorInput input)
+        {
+            var res = _doorService.GetTeacherDoors(input);
+            return ReturnJsonResult(res);
+        }
         public IHttpActionResult CreateDoors(Doors model)
         {
             var res = _doorService.CreateDoors(model);

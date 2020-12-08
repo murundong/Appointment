@@ -12,6 +12,7 @@ namespace Appoint.Application.Services
     {
         List<View_DoorsOutput> GetDoors(View_DoorInput input);
 
+        List<Doors> GetTeacherDoors(View_TeacherDoorInput input);
         Doors CreateDoors(Doors model);
     }
 }

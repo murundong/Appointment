@@ -34,5 +34,17 @@ namespace Appoint.Application.Services
                 .Take(input.page_size);
             return AutoMapper.Mapper.Map<List<View_DoorsOutput>>(res.ToList());
         }
+
+        public List<Doors> GetTeacherDoors(View_TeacherDoorInput input)
+        {
+            if (input == null || string.IsNullOrWhiteSpace(input.open_id)) return null;
+
+            var res= _repository.GetAll()
+                .Where(s=>s.create_openid == input.open_id)
+                .OrderByDescending(s => s.create_time)
+                 .Skip((input.page_index - 1) * input.page_size)
+                .Take(input.page_size);
+            return res.ToList();
+        }
     }
 }
