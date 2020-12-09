@@ -35,6 +35,11 @@ namespace Appoint.Application.Services
             return AutoMapper.Mapper.Map<List<View_DoorsOutput>>(res.ToList());
         }
 
+        public Doors GetDoorsById(int id)
+        {
+            return _repository.FirstOrDefault(s => s.id == id);
+        }
+
         public List<Doors> GetTeacherDoors(View_TeacherDoorInput input)
         {
             if (input == null || string.IsNullOrWhiteSpace(input.open_id)) return null;

@@ -2,6 +2,7 @@
 using Appoint.EntityFramework.ViewData;
 using Appoint.Web.Base;
 using Appoint.Web.Models;
+using BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,13 +61,34 @@ namespace Appoint.Web.Controllers
         }
 
         [HttpPost]
+        public IHttpActionResult GetDoorsById(int? id)
+        {
+            if (id == null || id <= 0) return ReturnJsonResult("参数错误",-1);
+            var res = _doorService.GetDoorsById((int)id);
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
         public  IHttpActionResult GetTeacherDoors(View_TeacherDoorInput input)
         {
             var res = _doorService.GetTeacherDoors(input);
             return ReturnJsonResult(res);
         }
+
+        [HttpPost]
         public IHttpActionResult CreateDoors(Doors model)
         {
+            if (!string.IsNullOrWhiteSpace(model.door_img))
+            {
+                string path = ConfigurationHelper.GetAppSetting<string>("UploadFile");
+                model.door_img.Split(',').ToList().ForEach(s =>
+                {
+                    WebClient client = new WebClient();
+                    string fileName = $"{path}_{Guid.NewGuid().ToString().Replace("-", "")}.jpg";
+                    client.DownloadFile(s, fileName);
+
+                });
+            }
             var res = _doorService.CreateDoors(model);
             if (res != null) return ReturnJsonResult(res);
             return ReturnJsonResult("创建失败！", -1);
@@ -103,3 +125,4 @@ namespace Appoint.Web.Controllers
 
     }
 }
+
