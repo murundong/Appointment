@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using Appoint.EntityFramework.DbContextProvider;
 using Appoint.EntityFramework;
+using BaseClasses;
 
 namespace Appoint.Web.Base
 {
@@ -26,6 +27,7 @@ namespace Appoint.Web.Base
         public IUserInfoService _userInfoService = new UserInfoService();
         public IBannerService _bannerService = new BannerService();
         public IDoorsService _doorService = new DoorsService();
+        public static string errImg = ConfigurationHelper.GetAppSetting<string>("ErrorImg");
         IDbContextProvider<App_DbContext> _provider = new DbContextProvider<App_DbContext>();
 
         public IHttpActionResult ReturnJsonResult()

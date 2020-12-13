@@ -16,6 +16,7 @@ namespace Appoint.EntityFramework.Data
         public string door_desc { get; set; }
         public string door_tel { get; set; }
         public string door_img { get; set; }
+        public string door_banners { get; set; }
         public string door_address { get; set; }
         public bool only_allow_member { get; set; }
         public Enum_DoorStatus status { get; set; }

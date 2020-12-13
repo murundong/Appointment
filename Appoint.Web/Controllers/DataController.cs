@@ -57,14 +57,14 @@ namespace Appoint.Web.Controllers
         public IHttpActionResult GetDoors(View_DoorInput input)
         {
             var res= _doorService.GetDoors(input);
-            return ReturnJsonResult(res);
+            var return_res = AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(res);
+            return ReturnJsonResult(return_res);
         }
-
-        [HttpPost]
-        public IHttpActionResult GetDoorsById(int? id)
+        
+        public IHttpActionResult GetDoorsById(int? doorid)
         {
-            if (id == null || id <= 0) return ReturnJsonResult("参数错误",-1);
-            var res = _doorService.GetDoorsById((int)id);
+            if (doorid == null || doorid <= 0) return ReturnJsonResult("参数错误",-1);
+            var res = _doorService.GetDoorsById((int)doorid);
             return ReturnJsonResult(res);
         }
 
@@ -72,26 +72,26 @@ namespace Appoint.Web.Controllers
         public  IHttpActionResult GetTeacherDoors(View_TeacherDoorInput input)
         {
             var res = _doorService.GetTeacherDoors(input);
-            return ReturnJsonResult(res);
+            var return_res= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(res);
+            return ReturnJsonResult(return_res);
         }
 
         [HttpPost]
         public IHttpActionResult CreateDoors(Doors model)
         {
-            if (!string.IsNullOrWhiteSpace(model.door_img))
-            {
-                string path = ConfigurationHelper.GetAppSetting<string>("UploadFile");
-                model.door_img.Split(',').ToList().ForEach(s =>
-                {
-                    WebClient client = new WebClient();
-                    string fileName = $"{path}_{Guid.NewGuid().ToString().Replace("-", "")}.jpg";
-                    client.DownloadFile(s, fileName);
-
-                });
-            }
             var res = _doorService.CreateDoors(model);
             if (res != null) return ReturnJsonResult(res);
             return ReturnJsonResult("创建失败！", -1);
+        }
+
+
+
+        [HttpPost]
+        public IHttpActionResult UpdateDoors(Doors model)
+        {
+            var res = _doorService.UpdateDoors(model);
+            if (res) return ReturnJsonResult();
+            return ReturnJsonResult("更新失败！", -1);
         }
 
         //openid: "odMBJ49aydSHPVtW1VmrlanhFj14",

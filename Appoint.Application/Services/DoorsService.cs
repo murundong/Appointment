@@ -51,5 +51,21 @@ namespace Appoint.Application.Services
                 .Take(input.page_size);
             return res.ToList();
         }
+
+        public bool UpdateDoors(Doors model)
+        {
+            var entity = _repository.FirstOrDefault(s => s.id == model.id);
+            entity.door_name = model.door_name;
+            entity.door_desc = model.door_desc;
+            entity.door_tel = model.door_tel;
+            entity.door_img = model.door_img;
+            entity.door_banners = model.door_banners;
+            entity.door_address = model.door_address;
+            entity.only_allow_member = model.only_allow_member;
+            entity.status = model.status;
+            entity.active = model.active;
+            _repository.Update(entity);
+            return uof.SaveChange() > 0;
+        }
     }
 }

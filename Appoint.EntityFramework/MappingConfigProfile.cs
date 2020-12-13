@@ -13,6 +13,7 @@ namespace Appoint.EntityFramework
     {
         public MappingConfigProfile()
         {
+            CreateMap<Doors, View_TearcherDoorOutput>();
             CreateMap<UserInfos, View_UinfoOutput>()
                 .ForMember(des => des.birthday, opt => opt.MapFrom(src => ConvertTimeToString(src.birthday)));
                 //.ForMember(des => des.name, opt => opt.MapFrom(src => src.show_name));
