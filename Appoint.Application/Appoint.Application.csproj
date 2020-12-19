@@ -63,8 +63,10 @@
     <Compile Include="IWeixinApi\WeixinService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BannerService.cs" />
+    <Compile Include="Services\CardTemplateService.cs" />
     <Compile Include="Services\DoorsService.cs" />
     <Compile Include="Services\IBannerService.cs" />
+    <Compile Include="Services\ICardTemplateService.cs" />
     <Compile Include="Services\IDoorsService.cs" />
     <Compile Include="Services\IUserInfoService.cs" />
     <Compile Include="Services\UserInfoService.cs" />

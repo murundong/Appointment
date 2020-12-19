@@ -10,13 +10,14 @@ namespace Appoint.Application.Services
 {
     public interface IDoorsService:IApplicationService
     {
-        List<View_DoorsOutput> GetDoors(View_DoorInput input);
+        Base_PageOutput< List<View_TearcherDoorOutput>> GetDoors(View_DoorInput input);
 
-        List<Doors> GetTeacherDoors(View_TeacherDoorInput input);
+        Base_PageOutput<List<View_TearcherDoorOutput>> GetTeacherDoors(View_TeacherDoorInput input);
         Doors CreateDoors(Doors model);
 
         bool UpdateDoors(Doors model);
 
         Doors GetDoorsById(int id);
+        View_LessonDoorInfoOutput GetDoorInfo(int doorid);
     }
 }

@@ -14,11 +14,15 @@ namespace Appoint.EntityFramework
         public MappingConfigProfile()
         {
             CreateMap<Doors, View_TearcherDoorOutput>();
+            CreateMap<CardTemplate, View_CardTemplateOutputItem>();
             CreateMap<UserInfos, View_UinfoOutput>()
                 .ForMember(des => des.birthday, opt => opt.MapFrom(src => ConvertTimeToString(src.birthday)));
                 //.ForMember(des => des.name, opt => opt.MapFrom(src => src.show_name));
             CreateMap<Banners, View_BannerOutput>();
             CreateMap<Doors, View_DoorsOutput>();
+
+
+            CreateMap<CardTemplate, CardTemplate>();
         }
 
         Func<DateTime?, string> ConvertTimeToString = delegate (DateTime? s)

@@ -15,16 +15,21 @@ namespace Appoint.EntityFramework.ViewData
         public int id { get; set; }
         public string door_name { get; set; }
         public string door_desc { get; set; }
-        public string door_img { get {
+        public string door_img
+        {
+            get
+            {
                 if (string.IsNullOrWhiteSpace(_door_img))
                 {
                     return ConfigurationHelper.GetAppSetting<string>("ErrorImg");
                 }
                 return _door_img;
             }
-            set {
+            set
+            {
                 _door_img = value;
-            } }
+            }
+        }
         public string door_address { get; set; }
         public Enum_DoorStatus status { get; set; }
     }

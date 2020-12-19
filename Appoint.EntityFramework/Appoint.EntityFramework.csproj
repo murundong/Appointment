@@ -58,10 +58,12 @@
     <Compile Include="App_DbContext.cs" />
     <Compile Include="ConstConfig.cs" />
     <Compile Include="Data\Banners.cs" />
+    <Compile Include="Data\CardTemplate.cs" />
     <Compile Include="Data\Doors.cs" />
     <Compile Include="Data\UserInfos.cs" />
     <Compile Include="DbContextProvider\DbContextProvider.cs" />
     <Compile Include="DbContextProvider\IDbContextProvider.cs" />
+    <Compile Include="Enum\Enum_CardType.cs" />
     <Compile Include="Enum\Enum_DoorStatus.cs" />
     <Compile Include="Enum\Enum_Gender.cs" />
     <Compile Include="Enum\Enum_UserRole.cs" />
@@ -72,7 +74,11 @@
     <Compile Include="Uow\IUnitOfWork.cs" />
     <Compile Include="Uow\UnitOfWork.cs" />
     <Compile Include="ViewData\Base_PageInput.cs" />
+    <Compile Include="ViewData\Base_PageOutput.cs" />
+    <Compile Include="ViewData\View_LessonDoorInfoOutput.cs" />
     <Compile Include="ViewData\View_BannerOutput.cs" />
+    <Compile Include="ViewData\View_CardTemplateInput.cs" />
+    <Compile Include="ViewData\View_CardTemplateOutput.cs" />
     <Compile Include="ViewData\View_DoorInput.cs" />
     <Compile Include="ViewData\View_DoorsOutput.cs" />
     <Compile Include="ViewData\View_TeacherDoorInput.cs" />

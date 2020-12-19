@@ -16,6 +16,7 @@ namespace Appoint.Application.Services
     {
         public static IDbContextProvider<App_DbContext> _provider = new DbContextProvider<App_DbContext>();
         public IRepository<Doors> _repository = new RepositoryBase<App_DbContext, Doors>(_provider);
+        public IRepository<UserInfos> _repositoryUInfos = new RepositoryBase<App_DbContext, UserInfos>(_provider);
         public IUnitOfWork uof = new UnitOfWork<App_DbContext, IDbContextProvider<App_DbContext>>(_provider);
 
         public Doors CreateDoors(Doors model)
@@ -25,14 +26,36 @@ namespace Appoint.Application.Services
             return null;
         }
 
-        public List<View_DoorsOutput> GetDoors(View_DoorInput input)
+        public View_LessonDoorInfoOutput GetDoorInfo(int doorid)
         {
+            View_LessonDoorInfoOutput res = new View_LessonDoorInfoOutput();
+            var itemModel = _repository.FirstOrDefault(s => s.id == doorid);
+            if(itemModel!=null && itemModel.id > 0)
+            {
+                var UModel = _repositoryUInfos.FirstOrDefault(s => s.open_id == itemModel.create_openid);
+                if (!string.IsNullOrWhiteSpace(itemModel.door_banners)) res.banners = itemModel.door_banners.Split(',').ToList();
+                res.door_name = itemModel.door_name;
+                res.door_desc = itemModel.door_desc;
+                if (UModel != null && UModel.uid > 0) res.door_manager = UModel.real_name ?? UModel.nick_name;
+                res.door_tel = itemModel.door_tel;
+                res.door_address = itemModel.door_address;
+            }
+            return res;
+        }
+
+        public Base_PageOutput<List<View_TearcherDoorOutput>> GetDoors(View_DoorInput input)
+        {
+            Base_PageOutput<List<View_TearcherDoorOutput>> return_res = new Base_PageOutput<List<View_TearcherDoorOutput>>() {  data = new List<View_TearcherDoorOutput>()};
             if (input == null) input = new View_DoorInput();
-            var res = _repository.GetAll().Where(s => s.active)
-                .OrderByDescending(s=>s.create_time)
+            var query = _repository.GetAll().Where(s => s.active);
+            return_res.total = query.Count();
+
+            var query_end= query.OrderByDescending(s=>s.create_time)
                 .Skip((input.page_index - 1) * input.page_size)
                 .Take(input.page_size);
-            return AutoMapper.Mapper.Map<List<View_DoorsOutput>>(res.ToList());
+            var lst= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end.ToList());
+            return_res.data = lst;
+            return return_res;
         }
 
         public Doors GetDoorsById(int id)
@@ -40,16 +63,19 @@ namespace Appoint.Application.Services
             return _repository.FirstOrDefault(s => s.id == id);
         }
 
-        public List<Doors> GetTeacherDoors(View_TeacherDoorInput input)
+        public Base_PageOutput<List<View_TearcherDoorOutput>> GetTeacherDoors(View_TeacherDoorInput input)
         {
-            if (input == null || string.IsNullOrWhiteSpace(input.open_id)) return null;
+            Base_PageOutput<List<View_TearcherDoorOutput>> res = new Base_PageOutput<List<View_TearcherDoorOutput>>() { data = new List<View_TearcherDoorOutput>() };
+            if (input == null || string.IsNullOrWhiteSpace(input.open_id)) return res;
+            var query = _repository.GetAll()
+                .Where(s => s.create_openid == input.open_id);
+            res.total = query.Count();
 
-            var res= _repository.GetAll()
-                .Where(s=>s.create_openid == input.open_id)
-                .OrderByDescending(s => s.create_time)
+            var query_end= query.OrderByDescending(s => s.create_time)
                  .Skip((input.page_index - 1) * input.page_size)
                 .Take(input.page_size);
-            return res.ToList();
+            res.data= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end.ToList());
+            return res;
         }
 
         public bool UpdateDoors(Doors model)

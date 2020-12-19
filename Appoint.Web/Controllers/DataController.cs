@@ -20,7 +20,7 @@ namespace Appoint.Web.Controllers
         [HttpGet]
         public IHttpActionResult GetOpenidByCode(string code)
         {
-            var res= _weixinService.GetOpenIdByCode(code);
+            var res = _weixinService.GetOpenIdByCode(code);
             return Json(res);
         }
 
@@ -42,63 +42,13 @@ namespace Appoint.Web.Controllers
 
         public IHttpActionResult GetUserInfoByOpenId(string openid)
         {
-            if (string.IsNullOrWhiteSpace(openid)) return ReturnJsonResult("无效的参数",-1); 
+            if (string.IsNullOrWhiteSpace(openid)) return ReturnJsonResult("无效的参数", -1);
             var res = _userInfoService.GetUinfoByOpenid(openid);
             return ReturnJsonResult(res);
         }
 
-        public IHttpActionResult GetBanners()
-        {
-            var res = _bannerService.GetBanners();
-            return ReturnJsonResult(res);
-        }
-
-        [HttpPost]
-        public IHttpActionResult GetDoors(View_DoorInput input)
-        {
-            var res= _doorService.GetDoors(input);
-            var return_res = AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(res);
-            return ReturnJsonResult(return_res);
-        }
-        
-        public IHttpActionResult GetDoorsById(int? doorid)
-        {
-            if (doorid == null || doorid <= 0) return ReturnJsonResult("参数错误",-1);
-            var res = _doorService.GetDoorsById((int)doorid);
-            return ReturnJsonResult(res);
-        }
-
-        [HttpPost]
-        public  IHttpActionResult GetTeacherDoors(View_TeacherDoorInput input)
-        {
-            var res = _doorService.GetTeacherDoors(input);
-            var return_res= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(res);
-            return ReturnJsonResult(return_res);
-        }
-
-        [HttpPost]
-        public IHttpActionResult CreateDoors(Doors model)
-        {
-            var res = _doorService.CreateDoors(model);
-            if (res != null) return ReturnJsonResult(res);
-            return ReturnJsonResult("创建失败！", -1);
-        }
-
-
-
-        [HttpPost]
-        public IHttpActionResult UpdateDoors(Doors model)
-        {
-            var res = _doorService.UpdateDoors(model);
-            if (res) return ReturnJsonResult();
-            return ReturnJsonResult("更新失败！", -1);
-        }
-
-        //openid: "odMBJ49aydSHPVtW1VmrlanhFj14",
-        //session_key: "V82avOgYWmjquaduJDkPWw==",
-
         [HttpGet]
-        public IHttpActionResult DecodeUserInfo(string signature, string encryptedData, string iv,string sk)
+        public IHttpActionResult DecodeUserInfo(string signature, string encryptedData, string iv, string sk)
         {
 
             string session_key = sk;
@@ -122,6 +72,97 @@ namespace Appoint.Web.Controllers
             return Json(Encoding.UTF8.GetString(resultArray));
         }
 
+
+        #region MainPage
+        public IHttpActionResult GetBanners()
+        {
+            var res = _bannerService.GetBanners();
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetDoors(View_DoorInput input)
+        {
+            var res = _doorService.GetDoors(input);
+            return ReturnJsonResult(res);
+        }
+
+        public IHttpActionResult GetDoorsById(int? doorid)
+        {
+            if (doorid == null || doorid <= 0) return ReturnJsonResult("参数错误", -1);
+            var res = _doorService.GetDoorsById((int)doorid);
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetTeacherDoors(View_TeacherDoorInput input)
+        {
+            var res = _doorService.GetTeacherDoors(input);
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateDoors(Doors model)
+        {
+            var res = _doorService.CreateDoors(model);
+            if (res != null) return ReturnJsonResult(res);
+            return ReturnJsonResult("创建失败！", -1);
+        }
+
+        [HttpPost]
+        public IHttpActionResult UpdateDoors(Doors model)
+        {
+            var res = _doorService.UpdateDoors(model);
+            if (res) return ReturnJsonResult();
+            return ReturnJsonResult("更新失败！", -1);
+        }
+        #endregion
+
+
+        #region CardTemplate
+        [HttpPost]
+        public IHttpActionResult GetCardTempalte(View_CardTemplateInput input)
+        {
+            var res = _cardTemplateService.PageCardTemplate(input);
+            return ReturnJsonResult(res);
+        }
+
+        public IHttpActionResult GetCardTemplateById(int? cardId)
+        {
+            if (cardId == null || cardId <= 0) return ReturnJsonResult("参数错误", -1);
+            var res = _cardTemplateService.GetCardsTemplateById((int)cardId);
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateCardTempalte(CardTemplate model)
+        {
+
+            var res = _cardTemplateService.CreateCardTemplate(model);
+            if (res != null) return ReturnJsonResult(res);
+            return ReturnJsonResult("创建失败！", -1);
+        }
+
+        [HttpPost]
+        public IHttpActionResult UpdateCardtemplate(CardTemplate model)
+        {
+            var res = _cardTemplateService.UpdateCardTemplate(model);
+            if (res) return ReturnJsonResult();
+            return ReturnJsonResult("更新失败！", -1);
+        }
+        #endregion
+
+
+        #region Lessons
+
+        public IHttpActionResult GetDoorInfo(int? doorid)
+        {
+            if (doorid == null || doorid <= 0) return ReturnJsonResult("参数错误", -1);
+            var res = _doorService.GetDoorInfo((int)doorid);
+            return ReturnJsonResult(res);
+        }
+
+        #endregion
 
     }
 }

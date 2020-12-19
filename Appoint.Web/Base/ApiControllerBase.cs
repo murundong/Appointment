@@ -27,6 +27,7 @@ namespace Appoint.Web.Base
         public IUserInfoService _userInfoService = new UserInfoService();
         public IBannerService _bannerService = new BannerService();
         public IDoorsService _doorService = new DoorsService();
+        public ICardTemplateService _cardTemplateService = new CardTemplateService();
         public static string errImg = ConfigurationHelper.GetAppSetting<string>("ErrorImg");
         IDbContextProvider<App_DbContext> _provider = new DbContextProvider<App_DbContext>();
 

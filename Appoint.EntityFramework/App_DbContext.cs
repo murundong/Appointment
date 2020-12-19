@@ -14,7 +14,7 @@ namespace Appoint.EntityFramework
         {
 
         }
-
+        public DbSet<CardTemplate> Set_CardTemplete { get; set; }
         public DbSet<UserInfos> Set_UserInfo { get; set; }
         public DbSet<Banners> Set_Banners { get; set; }
         public DbSet<Doors> Set_Doors { get; set; }
