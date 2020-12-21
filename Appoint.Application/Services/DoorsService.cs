@@ -36,9 +36,14 @@ namespace Appoint.Application.Services
                 if (!string.IsNullOrWhiteSpace(itemModel.door_banners)) res.banners = itemModel.door_banners.Split(',').ToList();
                 res.door_name = itemModel.door_name;
                 res.door_desc = itemModel.door_desc;
-                if (UModel != null && UModel.uid > 0) res.door_manager = UModel.real_name ?? UModel.nick_name;
+                if (UModel != null && UModel.uid > 0)
+                {
+                    res.door_manager = UModel.real_name ?? UModel.nick_name;
+                    res.door_manager_img = UModel.avatar;
+                }
                 res.door_tel = itemModel.door_tel;
                 res.door_address = itemModel.door_address;
+                
             }
             return res;
         }
