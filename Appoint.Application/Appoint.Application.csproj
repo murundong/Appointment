@@ -62,14 +62,16 @@
     <Compile Include="IWeixinApi\IWeixinService.cs" />
     <Compile Include="IWeixinApi\WeixinService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BannerService.cs" />
-    <Compile Include="Services\CardTemplateService.cs" />
-    <Compile Include="Services\DoorsService.cs" />
-    <Compile Include="Services\IBannerService.cs" />
-    <Compile Include="Services\ICardTemplateService.cs" />
-    <Compile Include="Services\IDoorsService.cs" />
-    <Compile Include="Services\IUserInfoService.cs" />
-    <Compile Include="Services\UserInfoService.cs" />
+    <Compile Include="Services\Iservices\ISubjectsService.cs" />
+    <Compile Include="Services\Services\BannerService.cs" />
+    <Compile Include="Services\Services\CardTemplateService.cs" />
+    <Compile Include="Services\Services\DoorsService.cs" />
+    <Compile Include="Services\Iservices\IBannerService.cs" />
+    <Compile Include="Services\Iservices\ICardTemplateService.cs" />
+    <Compile Include="Services\Iservices\IDoorsService.cs" />
+    <Compile Include="Services\Iservices\IUserInfoService.cs" />
+    <Compile Include="Services\Services\SubjectsService.cs" />
+    <Compile Include="Services\Services\UserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Appoint.EntityFramework\Appoint.EntityFramework.csproj">

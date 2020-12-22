@@ -21,8 +21,11 @@ namespace Appoint.EntityFramework
             CreateMap<Banners, View_BannerOutput>();
             CreateMap<Doors, View_DoorsOutput>();
 
+            CreateMap<Subjects, View_SubjectsOutput>();
+
 
             CreateMap<CardTemplate, CardTemplate>();
+            CreateMap<Subjects, Subjects>();
         }
 
         Func<DateTime?, string> ConvertTimeToString = delegate (DateTime? s)

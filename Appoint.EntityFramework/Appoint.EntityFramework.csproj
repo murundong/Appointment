@@ -60,6 +60,7 @@
     <Compile Include="Data\Banners.cs" />
     <Compile Include="Data\CardTemplate.cs" />
     <Compile Include="Data\Doors.cs" />
+    <Compile Include="Data\Subjects.cs" />
     <Compile Include="Data\UserInfos.cs" />
     <Compile Include="DbContextProvider\DbContextProvider.cs" />
     <Compile Include="DbContextProvider\IDbContextProvider.cs" />
@@ -81,6 +82,8 @@
     <Compile Include="ViewData\View_CardTemplateOutput.cs" />
     <Compile Include="ViewData\View_DoorInput.cs" />
     <Compile Include="ViewData\View_DoorsOutput.cs" />
+    <Compile Include="ViewData\View_SubjectsInput.cs" />
+    <Compile Include="ViewData\View_SubjectsOutput.cs" />
     <Compile Include="ViewData\View_TeacherDoorInput.cs" />
     <Compile Include="ViewData\View_TearcherDoorOutput.cs" />
     <Compile Include="ViewData\View_UinfoOutput.cs" />

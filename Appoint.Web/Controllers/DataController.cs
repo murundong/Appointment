@@ -152,6 +152,37 @@ namespace Appoint.Web.Controllers
         }
         #endregion
 
+        #region Subjects
+        [HttpPost]
+        public IHttpActionResult GetSubjects(View_SubjectsInput input)
+        {
+            var res = _subjectService.GetSubjects(input);
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateSubject(Subjects model)
+        {
+            var res = _subjectService.CreateSubject(model);
+            if (res != null) return ReturnJsonResult(res);
+            return ReturnJsonResult("创建失败！", -1);
+        }
+        
+
+        public IHttpActionResult GetSubjectById(int id)
+        {
+            var res = _subjectService.GetSubjectById(id);
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
+        public IHttpActionResult UpdateSubject(Subjects model)
+        {
+            var res = _subjectService.UpdateSubject(model);
+            if (res) return ReturnJsonResult();
+            return ReturnJsonResult("更新失败！", -1);
+        }
+        #endregion
 
         #region Lessons
 
