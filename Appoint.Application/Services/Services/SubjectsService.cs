@@ -36,7 +36,7 @@ namespace Appoint.Application.Services
         public Base_PageOutput<List<View_SubjectsOutput>> GetSubjects(View_SubjectsInput input)
         {
             Base_PageOutput<List<View_SubjectsOutput>> res = new Base_PageOutput<List<View_SubjectsOutput>>();
-            var query = _repository.GetAll().Where(s => s.active && s.door_id == input.door_id);
+            var query = _repository.GetAll().Where(s => s.door_id == input.door_id);
             res.total = query.Count();
             var query_end = query.OrderByDescending(s => s.create_time)
                 .Skip((input.page_index - 1) * input.page_size)

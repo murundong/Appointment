@@ -14,6 +14,7 @@ namespace Appoint.EntityFramework.Data
 
         public int door_id { get; set; }
         public string subject_name { get; set; }
+        public string subject_tag { get; set; }
         public string subject_teacher { get; set; }
         public int subject_duration { get; set; }
         public int? subject_price { get; set; }
