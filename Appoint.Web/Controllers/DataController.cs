@@ -127,6 +127,13 @@ namespace Appoint.Web.Controllers
             return ReturnJsonResult(res);
         }
 
+        public IHttpActionResult GetDoorCardSelect(int? doorId)
+        {
+            if (doorId == null || doorId <= 0) return ReturnJsonResult("参数错误！", -1);
+             var res= _cardTemplateService.GetDoorCards((int)doorId);
+            return ReturnJsonResult(res);
+        }
+
         public IHttpActionResult GetCardTemplateById(int? cardId)
         {
             if (cardId == null || cardId <= 0) return ReturnJsonResult("参数错误", -1);
@@ -195,6 +202,32 @@ namespace Appoint.Web.Controllers
 
         #endregion
 
+        #region Course
+
+        [HttpPost]
+        public IHttpActionResult GetAdminCourseByDate(View_CoursesInput input)
+        {
+            var res = _courseService.GetCourses(input);
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateCourse(Courses model)
+        {
+            var res = _courseService.CreateCourse(model);
+            if (res != null) return ReturnJsonResult(res);
+            return ReturnJsonResult("新增失败",-1);
+        }
+
+        [HttpPost]
+        public IHttpActionResult UpdateCourse(Courses model)
+        {
+            if (_courseService.UpdateCourse(model))
+                return ReturnJsonResult();
+            return ReturnJsonResult("更新失败！", -1);
+        }
+        
+        #endregion
     }
 }
 

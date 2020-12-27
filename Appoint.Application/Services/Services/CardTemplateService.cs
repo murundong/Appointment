@@ -31,6 +31,12 @@ namespace Appoint.Application.Services
             return _repository.FirstOrDefault(s => s.id == id);
         }
 
+        public List<ViewDoorCardsSelect> GetDoorCards(int doorId)
+        {
+            var res= _repository.GetAll().Where(s => s.door_id == doorId);
+            return AutoMapper.Mapper.Map<List<ViewDoorCardsSelect>>(res.ToList());
+        }
+
         public Base_PageOutput<View_CardTemplateOutputItem> PageCardTemplate(View_CardTemplateInput input)
         {
             Base_PageOutput<View_CardTemplateOutputItem> res = new Base_PageOutput<View_CardTemplateOutputItem>() {  data = new View_CardTemplateOutputItem() {  temps = new List<View_CardTemplateOutput>()} };

@@ -59,6 +59,7 @@
     <Compile Include="ConstConfig.cs" />
     <Compile Include="Data\Banners.cs" />
     <Compile Include="Data\CardTemplate.cs" />
+    <Compile Include="Data\Courses.cs" />
     <Compile Include="Data\Doors.cs" />
     <Compile Include="Data\Subjects.cs" />
     <Compile Include="Data\UserInfos.cs" />
@@ -76,6 +77,9 @@
     <Compile Include="Uow\UnitOfWork.cs" />
     <Compile Include="ViewData\Base_PageInput.cs" />
     <Compile Include="ViewData\Base_PageOutput.cs" />
+    <Compile Include="ViewData\ViewDoorCardsSelect.cs" />
+    <Compile Include="ViewData\View_CoursesInput.cs" />
+    <Compile Include="ViewData\View_CoursesOutput.cs" />
     <Compile Include="ViewData\View_LessonDoorInfoOutput.cs" />
     <Compile Include="ViewData\View_BannerOutput.cs" />
     <Compile Include="ViewData\View_CardTemplateInput.cs" />
