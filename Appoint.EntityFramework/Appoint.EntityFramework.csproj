@@ -78,6 +78,7 @@
     <Compile Include="ViewData\Base_PageInput.cs" />
     <Compile Include="ViewData\Base_PageOutput.cs" />
     <Compile Include="ViewData\ViewDoorCardsSelect.cs" />
+    <Compile Include="ViewData\View_AddCourseData.cs" />
     <Compile Include="ViewData\View_CoursesInput.cs" />
     <Compile Include="ViewData\View_CoursesOutput.cs" />
     <Compile Include="ViewData\View_LessonDoorInfoOutput.cs" />

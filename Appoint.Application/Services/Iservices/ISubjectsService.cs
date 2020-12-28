@@ -12,6 +12,8 @@ namespace Appoint.Application.Services
     {
         Base_PageOutput<List<View_SubjectsOutput>> GetSubjects(View_SubjectsInput input);
 
+
+        List<View_SubjectsOutput> GetSubjectsByDoorID(int doorId);
         Subjects CreateSubject(Subjects model);
         bool UpdateSubject(Subjects model);
         Subjects GetSubjectById(int id);

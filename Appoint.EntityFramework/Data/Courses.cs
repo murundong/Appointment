@@ -42,6 +42,11 @@ namespace Appoint.EntityFramework.Data
         public int? limit_appoint_duration { get; set; }
 
         public bool active { get; set; } = true;
+
+        /// <summary>
+        /// 临时替换老师
+        /// </summary>
+        public string temp_teacher { get; set; }
         public string create_openid { get; set; }
         public DateTime create_time { get; set; } = DateTime.Now;
 

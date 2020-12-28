@@ -167,6 +167,8 @@ namespace Appoint.Web.Controllers
             return ReturnJsonResult(res);
         }
 
+       
+
         [HttpPost]
         public IHttpActionResult CreateSubject(Subjects model)
         {
@@ -217,6 +219,15 @@ namespace Appoint.Web.Controllers
             var res = _courseService.CreateCourse(model);
             if (res != null) return ReturnJsonResult(res);
             return ReturnJsonResult("新增失败",-1);
+        }
+
+        public IHttpActionResult GetAddCourseData(int? doorId)
+        {
+            if (doorId == null || doorId <= 0) return ReturnJsonResult("参数错误！", -1);
+            View_AddCourseData res = new View_AddCourseData();
+            res.subjects=_subjectService.GetSubjectsByDoorID((int)doorId);
+            res.cards = _cardTemplateService.GetDoorCards((int)doorId);
+            return ReturnJsonResult(res);
         }
 
         [HttpPost]

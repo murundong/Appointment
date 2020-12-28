@@ -46,6 +46,12 @@ namespace Appoint.Application.Services
             return res;
         }
 
+        public List<View_SubjectsOutput> GetSubjectsByDoorID(int doorId)
+        {
+            var query= _repository.GetAll().Where(s => s.door_id == doorId);
+            return AutoMapper.Mapper.Map<List<View_SubjectsOutput>>(query.ToList());
+        }
+
         public bool UpdateSubject(Subjects model)
         {
             var entity = _repository.FirstOrDefault(s => s.id == model.id);
