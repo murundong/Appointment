@@ -221,6 +221,13 @@ namespace Appoint.Web.Controllers
             return ReturnJsonResult("新增失败",-1);
         }
 
+
+        public IHttpActionResult GetCourseById(int id)
+        {
+            var res = _courseService.GetCourseById(id);
+            return ReturnJsonResult(res);
+        }
+
         public IHttpActionResult GetAddCourseData(int? doorId)
         {
             if (doorId == null || doorId <= 0) return ReturnJsonResult("参数错误！", -1);
