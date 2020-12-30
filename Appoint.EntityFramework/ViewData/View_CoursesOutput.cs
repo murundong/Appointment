@@ -39,5 +39,7 @@ namespace Appoint.EntityFramework.ViewData
         /// 预约时间限制（离课程开始多长时间不能预约）
         /// </summary>
         public int? limit_appoint_duration { get; set; }
+
+        public string temp_teacher { get; set; }
     }
 }
