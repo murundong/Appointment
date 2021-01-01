@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aliyun.OSS, Version=2.12.0.0, Culture=neutral, PublicKeyToken=0ad4175f0dac0b9b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aliyun.OSS.SDK.2.12.0\lib\net45\Aliyun.OSS.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper, Version=6.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.0\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
@@ -63,6 +66,7 @@
     <Compile Include="IWeixinApi\WeixinService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Iservices\ICoursesService.cs" />
+    <Compile Include="Services\Iservices\IOssService.cs" />
     <Compile Include="Services\Iservices\ISubjectsService.cs" />
     <Compile Include="Services\Services\BannerService.cs" />
     <Compile Include="Services\Services\CardTemplateService.cs" />
@@ -72,6 +76,7 @@
     <Compile Include="Services\Iservices\ICardTemplateService.cs" />
     <Compile Include="Services\Iservices\IDoorsService.cs" />
     <Compile Include="Services\Iservices\IUserInfoService.cs" />
+    <Compile Include="Services\Services\OssService.cs" />
     <Compile Include="Services\Services\SubjectsService.cs" />
     <Compile Include="Services\Services\UserInfoService.cs" />
   </ItemGroup>

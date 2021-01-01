@@ -1,4 +1,5 @@
-﻿using Appoint.Web.Base;
+﻿using Appoint.Application.Services;
+using Appoint.Web.Base;
 using BaseClasses;
 using System;
 using System.Collections.Generic;
@@ -11,28 +12,40 @@ namespace Appoint.Web.Controllers
 {
     public class HomemvcController : Controller
     {
+        IOssService ossService = new OssService();
         // GET: Homemvc
         public ActionResult UploadFile()
         {
             string dir = ConfigurationHelper.GetAppSetting<string>("UploadFile");
+            string OssDir = ConfigurationHelper.GetAppSetting<string>("BucketDir");
+            bool UseOSS = ConfigurationHelper.GetAppSetting<bool>("UseOSS");
             string date = DateTime.Now.ToString("yyyyMMdd");
             string realPath = Path.Combine(dir, date);
             string dirName = Request.MapPath(realPath);
             List<string> lstRealNames = new List<string>();
-            if (!Directory.Exists(dirName))
-            {
-                Directory.CreateDirectory(dirName);
-            }
             var files = Request.Files;
             if(files.Count>0)
             {
                 foreach (string item in files)
                 {
                     HttpPostedFileBase itemFile = Request.Files[item] as HttpPostedFileBase;
-                    // item.SaveAs(Path.Combine(dirName, item.fileName));
                     string fileName = Path.Combine(dirName, itemFile.FileName);
-                    lstRealNames.Add(Path.Combine(realPath , itemFile.FileName).Replace(@"\",@"//"));
-                    itemFile.InputStream.SaveFile(fileName);
+                   
+                    if (UseOSS)
+                    {
+                        string ossUploadPath = $"{OssDir}{itemFile.FileName}";
+                        ossService.UploadFile(ossUploadPath, itemFile.InputStream);
+                        lstRealNames.Add(ossUploadPath);
+                    }
+                    else
+                    {
+                        if (!Directory.Exists(dirName))
+                        {
+                            Directory.CreateDirectory(dirName);
+                        }
+                        itemFile.InputStream.SaveFile(fileName);
+                        lstRealNames.Add(Path.Combine(realPath, itemFile.FileName).Replace(@"\", @"//"));
+                    }
                 }
             }
             return Json(new { data = string.Join(",", lstRealNames) }, JsonRequestBehavior.AllowGet);

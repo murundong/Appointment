@@ -8,11 +8,13 @@ using System.Net.Http;
 using System.Web.Http;
 using System.IO;
 using System.Web.Hosting;
+using Appoint.Application.Services;
 
 namespace Appoint.Web.Controllers
 {
     public class HomeController : ApiControllerBase
     {
+      
         public IHttpActionResult UploadFile()
         {
             string dir = ConfigurationHelper.GetAppSetting<string>("UploadFile");
