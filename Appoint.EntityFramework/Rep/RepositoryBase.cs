@@ -173,6 +173,9 @@ namespace Appoint.EntityFramework.Rep
             return Task.FromResult(entity);
         }
 
-
+        public void Insert(List<TEntity> entitys)
+        {
+            Table.AddRange(entitys);
+        }
     }
 }

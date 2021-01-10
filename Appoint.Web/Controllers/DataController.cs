@@ -244,7 +244,24 @@ namespace Appoint.Web.Controllers
                 return ReturnJsonResult();
             return ReturnJsonResult("更新失败！", -1);
         }
-        
+
+        [HttpGet]
+        public IHttpActionResult QuickCourse(string sdate, string cdate,int? doorid, string openid)
+        {
+            if (string.IsNullOrWhiteSpace(sdate) || string.IsNullOrWhiteSpace(cdate) || string.IsNullOrWhiteSpace(openid) || !doorid.HasValue)
+                return ReturnJsonResult("操作失败,缺少参数!", -1);
+            if (!_courseService.QuickCourse(sdate, cdate, (int)doorid, openid)) return ReturnJsonResult("操作失败！", -1);
+            return ReturnJsonResult();
+        }
+
+        [HttpGet]
+        public IHttpActionResult DeleteCourse(int? cid)
+        {
+            if (!cid.HasValue) return ReturnJsonResult("参数错误！", -1);
+            if (!_courseService.DeleteCourse((int)cid)) return ReturnJsonResult("删除失败！", -1);
+            return ReturnJsonResult();
+        }
+
         #endregion
     }
 }

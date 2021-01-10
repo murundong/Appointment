@@ -54,7 +54,7 @@ namespace Appoint.EntityFramework.Rep
 
         Task<TEntity> InsertAsync(TEntity entity);
 
-
+        void Insert(List<TEntity> entitys);
 
         #endregion
 

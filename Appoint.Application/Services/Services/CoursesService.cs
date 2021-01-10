@@ -26,6 +26,12 @@ namespace Appoint.Application.Services
             return null;
         }
 
+        public bool DeleteCourse(int cid)
+        {
+            _repository.Delete(new Courses() { id = cid });
+            return uof.SaveChange() > 0;
+        }
+
         public Courses GetCourseById(int id)
         {
             return _repository.FirstOrDefault(s => s.id == id);
@@ -41,16 +47,16 @@ namespace Appoint.Application.Services
                 query = query.Where(s => s.course_date == input.date);
             }
             res.total = query.Count();
-            var query_end = query.OrderByDescending(s => s.create_time)
+            var query_end = query.OrderBy(s => s.course_time)
                 .Skip((input.page_index - 1) * input.page_size)
                 .Take(input.page_size);
             var lst = AutoMapper.Mapper.Map<List<View_CoursesOutput>>(query_end.ToList());
-            if(lst!=null && lst.Count > 0)
+            if (lst != null && lst.Count > 0)
             {
                 lst.ForEach(s =>
                 {
                     var sub_item = _repositorySubject.FirstOrDefault(p => p.id == s.subject_id);
-                    if(sub_item!=null && sub_item.id > 0)
+                    if (sub_item != null && sub_item.id > 0)
                     {
                         s.Subject = AutoMapper.Mapper.Map<View_SubjectsOutput>(sub_item);
                     }
@@ -58,6 +64,27 @@ namespace Appoint.Application.Services
             }
             res.data = lst;
             return res;
+        }
+
+        public bool QuickCourse(string sdate, string cdate, int doorid, string openid)
+        {
+            List<Courses> insertLst = new List<Courses>();
+            var lstCourse = _repository.GetAll().Where(s => s.course_date == sdate && s.create_openid == openid && s.door_id == doorid);
+            if (lstCourse.Count() <= 0)
+            {
+                return false;
+            }
+            lstCourse.ToList().ForEach(s =>
+            {
+                Courses itemCourse = new Courses();
+                AutoMapper.Mapper.Map(s, itemCourse);
+                itemCourse.course_date = cdate;
+                itemCourse.temp_teacher = string.Empty;
+                itemCourse.create_time = DateTime.Now;
+                insertLst.Add(itemCourse);
+            });
+            _repository.Insert(insertLst);
+            return uof.SaveChange() > 0;
         }
 
         public bool UpdateCourse(Courses model)

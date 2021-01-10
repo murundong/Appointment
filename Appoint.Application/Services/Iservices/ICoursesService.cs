@@ -15,5 +15,8 @@ namespace Appoint.Application.Services
         Courses CreateCourse(Courses model);
         bool UpdateCourse(Courses model);
         Courses GetCourseById(int id);
+        bool QuickCourse(string sdate, string cdate,int doorid, string openid);
+
+        bool DeleteCourse(int cid);
     }
 }
