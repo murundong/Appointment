@@ -34,7 +34,7 @@ namespace Appoint.Application.Services
         public List<ViewDoorCardsSelect> GetDoorCards(int doorId)
         {
             var res= _repository.GetAll().Where(s => s.door_id == doorId);
-            return AutoMapper.Mapper.Map<List<ViewDoorCardsSelect>>(res.ToList());
+            return AutoMapper.Mapper.Map<List<ViewDoorCardsSelect>>(res);
         }
 
         public Base_PageOutput<View_CardTemplateOutputItem> PageCardTemplate(View_CardTemplateInput input)
@@ -47,7 +47,7 @@ namespace Appoint.Application.Services
             var query_end = query.OrderByDescending(s=>s.create_time)
                 .Skip((input.page_index - 1) * input.page_size)
                 .Take(input.page_size);
-            res.data.temps = AutoMapper.Mapper.Map<List<View_CardTemplateOutput>>(query_end.ToList());
+            res.data.temps = AutoMapper.Mapper.Map<List<View_CardTemplateOutput>>(query_end);
             res.data.img = _repositoryDoors.FirstOrDefault(s=>s.id == input.door_id)?.door_img;
             return res;
         }

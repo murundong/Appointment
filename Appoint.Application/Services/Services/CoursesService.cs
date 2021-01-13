@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,7 +51,7 @@ namespace Appoint.Application.Services
             var query_end = query.OrderBy(s => s.course_time)
                 .Skip((input.page_index - 1) * input.page_size)
                 .Take(input.page_size);
-            var lst = AutoMapper.Mapper.Map<List<View_CoursesOutput>>(query_end.ToList());
+            var lst = AutoMapper.Mapper.Map<List<View_CoursesOutput>>(query_end);
             if (lst != null && lst.Count > 0)
             {
                 lst.ForEach(s =>
@@ -64,6 +65,52 @@ namespace Appoint.Application.Services
             }
             res.data = lst;
             return res;
+        }
+
+       
+        public List<View_WeekCourseOutput> GetWeekCourse(View_WeekCourseInput input)
+        {
+            DateTime st_dt , ed_dt ;
+            DateTime dt = DateTime.Now;
+            
+            if(input.tp == -1)
+            {
+                st_dt = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d")) - 7);
+                ed_dt = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d")) + 6 - 7);
+            }
+            else if (input.tp == 1)
+            {
+                st_dt = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d")) + 7);
+                ed_dt = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d")) + 6 + 7);
+            }
+            else
+            {
+                st_dt = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d")));
+                ed_dt = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d")) + 6);
+            }
+            List<View_WeekCourseOutput> res = new List<View_WeekCourseOutput>();
+            string[] Day = new string[] { "周日", "周一", "周二", "周三", "周四", "周五", "周六" };
+            //var query = _repository.GetAll().Where(s => s.door_id == input.door_id
+            //&& DbFunctions.CreateDateTime(Convert.ToInt32( s.course_date.Split('-')[0]), Convert.ToInt32(s.course_date.Split('-')[1]), Convert.ToInt32(s.course_date.Split('-')[2]), 0,0,0) > st_dt
+            ////&& DbFunctions.TruncateTime(DateTimeOffset.Parse(s.course_date)) >= st_dt
+            ////&& DbFunctions.TruncateTime(DateTimeOffset.Parse(s.course_date)) <= ed_dt
+            //);
+            var query = _repository.ExecuteQuerySql($"select * from [dbo].[Courses] where door_id={input.door_id} and course_date >='{st_dt.ToString("yyyy-MM-dd")}'  and course_date <= '{ed_dt.ToString("yyyy-MM-dd")}' order by course_date,course_time");
+            if (query.Count() > 0)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    View_WeekCourseOutput itemModel = new View_WeekCourseOutput()
+                    {
+                        date = st_dt.AddDays(i).ToString("yyyy-MM-dd"),
+                        week = Day[(int)st_dt.AddDays(i).DayOfWeek],
+                        Courses = AutoMapper.Mapper.Map<List<View_CoursesOutput>>(query.Where(s => s.course_date == st_dt.AddDays(i).ToString("yyyy-MM-dd")))
+                    };
+                    res.Add(itemModel);
+                }
+            }
+            return res;
+
         }
 
         public bool QuickCourse(string sdate, string cdate, int doorid, string openid)

@@ -6,7 +6,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>F:\Roden\Appoint\Appoint.Web\bin\Release\Publish</_PublishTargetUrl>
+    <_PublishTargetUrl>H:\Roden\Appoint\Appoint.Web\bin\Release\Publish</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Aliyun.OSS.dll">
@@ -22,43 +22,43 @@
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/Appoint.Application.dll">
-      <publishTime>01/01/2021 10:35:38</publishTime>
+      <publishTime>01/13/2021 01:01:22</publishTime>
     </File>
     <File Include="bin/Appoint.Application.dll.config">
       <publishTime>12/07/2020 22:50:28</publishTime>
     </File>
     <File Include="bin/Appoint.Application.pdb">
-      <publishTime>01/01/2021 10:35:38</publishTime>
+      <publishTime>01/13/2021 01:01:22</publishTime>
     </File>
     <File Include="bin/Appoint.EntityFramework.dll">
-      <publishTime>12/31/2020 00:30:36</publishTime>
+      <publishTime>01/13/2021 01:01:22</publishTime>
     </File>
     <File Include="bin/Appoint.EntityFramework.dll.config">
       <publishTime>12/07/2020 22:50:26</publishTime>
     </File>
     <File Include="bin/Appoint.EntityFramework.pdb">
-      <publishTime>12/31/2020 00:30:36</publishTime>
+      <publishTime>01/13/2021 01:01:22</publishTime>
     </File>
     <File Include="bin/Appoint.Web.dll">
-      <publishTime>01/01/2021 10:35:39</publishTime>
+      <publishTime>01/13/2021 01:01:22</publishTime>
     </File>
     <File Include="bin/Appoint.Web.pdb">
-      <publishTime>01/01/2021 10:35:39</publishTime>
+      <publishTime>01/13/2021 01:01:22</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>01/01/2021 10:35:49</publishTime>
+      <publishTime>01/13/2021 01:01:31</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>01/01/2021 10:35:49</publishTime>
+      <publishTime>01/13/2021 01:01:31</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>12/07/2020 22:50:14</publishTime>
     </File>
     <File Include="bin/BaseClasses.dll">
-      <publishTime>12/31/2020 00:30:36</publishTime>
+      <publishTime>01/13/2021 01:01:21</publishTime>
     </File>
     <File Include="bin/BaseClasses.pdb">
-      <publishTime>12/31/2020 00:30:36</publishTime>
+      <publishTime>01/13/2021 01:01:21</publishTime>
     </File>
     <File Include="bin/Billing.Core.dll">
       <publishTime>12/07/2020 22:50:15</publishTime>
@@ -220,7 +220,7 @@
       <publishTime>12/12/2020 23:39:50</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>01/01/2021 10:35:40</publishTime>
+      <publishTime>01/13/2021 01:01:25</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>12/12/2020 23:41:59</publishTime>
@@ -238,7 +238,7 @@
       <publishTime>12/12/2020 23:39:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/01/2021 10:35:40</publishTime>
+      <publishTime>01/13/2021 01:01:23</publishTime>
     </File>
   </ItemGroup>
 </Project>

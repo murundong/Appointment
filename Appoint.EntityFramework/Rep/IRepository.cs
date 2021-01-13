@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -12,8 +13,8 @@ namespace Appoint.EntityFramework.Rep
         #region Select/Get/Query
 
         IQueryable<TEntity> GetAll();
-
-        IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] propertySelectors);
+        DbSqlQuery<TEntity> ExecuteQuerySql(string sql, params object[] parameters);
+      IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] propertySelectors);
 
         List<TEntity> GetAllList();
 

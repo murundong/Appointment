@@ -21,7 +21,7 @@ namespace Appoint.Application.Services
         public List<View_BannerOutput> GetBanners()
         {
             var res= _repository.GetAll().Where(s => s.active);
-            return AutoMapper.Mapper.Map<List<View_BannerOutput>>(res.ToList());
+            return AutoMapper.Mapper.Map<List<View_BannerOutput>>(res);
         }
     }
 }

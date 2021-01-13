@@ -262,6 +262,14 @@ namespace Appoint.Web.Controllers
             return ReturnJsonResult();
         }
 
+        
+        [HttpPost]
+        public IHttpActionResult GetWeekCourse(View_WeekCourseInput input)
+        {
+            var res = _courseService.GetWeekCourse(input);
+            return ReturnJsonResult(res);
+        }
+
         #endregion
     }
 }

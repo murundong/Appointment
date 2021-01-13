@@ -92,6 +92,8 @@
     <Compile Include="ViewData\View_TeacherDoorInput.cs" />
     <Compile Include="ViewData\View_TearcherDoorOutput.cs" />
     <Compile Include="ViewData\View_UinfoOutput.cs" />
+    <Compile Include="ViewData\View_WeekCourseInput.cs" />
+    <Compile Include="ViewData\View_WeekCourseOutput.cs" />
     <Compile Include="WeixData\W_AUTH_RETURN.cs" />
   </ItemGroup>
   <ItemGroup>

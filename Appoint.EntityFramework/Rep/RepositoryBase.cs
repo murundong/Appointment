@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -176,6 +177,11 @@ namespace Appoint.EntityFramework.Rep
         public void Insert(List<TEntity> entitys)
         {
             Table.AddRange(entitys);
+        }
+
+        public DbSqlQuery<TEntity> ExecuteQuerySql(string sql, params object[] parameters)
+        {
+            return Table.SqlQuery(sql, parameters);
         }
     }
 }

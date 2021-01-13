@@ -58,7 +58,7 @@ namespace Appoint.Application.Services
             var query_end= query.OrderByDescending(s=>s.create_time)
                 .Skip((input.page_index - 1) * input.page_size)
                 .Take(input.page_size);
-            var lst= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end.ToList());
+            var lst= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end);
             return_res.data = lst;
             return return_res;
         }
@@ -79,7 +79,7 @@ namespace Appoint.Application.Services
             var query_end= query.OrderByDescending(s => s.create_time)
                  .Skip((input.page_index - 1) * input.page_size)
                 .Take(input.page_size);
-            res.data= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end.ToList());
+            res.data= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end);
             return res;
         }
 
