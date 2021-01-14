@@ -96,19 +96,48 @@ namespace Appoint.Application.Services
             ////&& DbFunctions.TruncateTime(DateTimeOffset.Parse(s.course_date)) <= ed_dt
             //);
             var query = _repository.ExecuteQuerySql($"select * from [dbo].[Courses] where door_id={input.door_id} and course_date >='{st_dt.ToString("yyyy-MM-dd")}'  and course_date <= '{ed_dt.ToString("yyyy-MM-dd")}' order by course_date,course_time");
-            if (query.Count() > 0)
+
+
+            for (int i = 0; i < 7; i++)
             {
-                for (int i = 0; i < 7; i++)
+                View_WeekCourseOutput itemModel = new View_WeekCourseOutput()
                 {
-                    View_WeekCourseOutput itemModel = new View_WeekCourseOutput()
+
+                    date = st_dt.AddDays(i).ToString("yyyy-MM-dd"),
+                    week = Day[(int)st_dt.AddDays(i).DayOfWeek],
+                    Courses = AutoMapper.Mapper.Map<List<View_CoursesOutput>>(query?.Where(s => s.course_date == st_dt.AddDays(i).ToString("yyyy-MM-dd")))
+                };
+                if (itemModel.Courses?.Count > 0)
+                {
+                    itemModel.Courses.ForEach(s =>
                     {
-                        date = st_dt.AddDays(i).ToString("yyyy-MM-dd"),
-                        week = Day[(int)st_dt.AddDays(i).DayOfWeek],
-                        Courses = AutoMapper.Mapper.Map<List<View_CoursesOutput>>(query.Where(s => s.course_date == st_dt.AddDays(i).ToString("yyyy-MM-dd")))
-                    };
-                    res.Add(itemModel);
+                        s.Subject = AutoMapper.Mapper.Map<View_SubjectsOutput>(_repositorySubject.FirstOrDefault(p => p.id == s.subject_id));
+                    });
                 }
+                res.Add(itemModel);
             }
+
+            //if (query.Count() > 0)
+            //{
+            //    for (int i = 0; i < 7; i++)
+            //    {
+            //        View_WeekCourseOutput itemModel = new View_WeekCourseOutput()
+            //        {
+
+            //            date = st_dt.AddDays(i).ToString("yyyy-MM-dd"),
+            //            week = Day[(int)st_dt.AddDays(i).DayOfWeek],
+            //            Courses = AutoMapper.Mapper.Map<List<View_CoursesOutput>>(query.Where(s => s.course_date == st_dt.AddDays(i).ToString("yyyy-MM-dd")))
+            //        };
+            //        if (itemModel.Courses.Count > 0)
+            //        {
+            //            itemModel.Courses.ForEach(s =>
+            //            {
+            //                s.Subject = AutoMapper.Mapper.Map<View_SubjectsOutput>(_repositorySubject.FirstOrDefault(p => p.id == s.subject_id));
+            //            });
+            //        }
+            //        res.Add(itemModel);
+            //    }
+            //}
             return res;
 
         }
