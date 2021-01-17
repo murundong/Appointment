@@ -38,7 +38,7 @@ namespace Appoint.Application.Services
                 res.door_desc = itemModel.door_desc;
                 if (UModel != null && UModel.uid > 0)
                 {
-                    res.door_manager = UModel.real_name ?? UModel.nick_name;
+                    res.door_manager = string.IsNullOrWhiteSpace( UModel.real_name)? UModel.nick_name : UModel.real_name;
                     res.door_manager_img = UModel.avatar;
                 }
                 res.door_tel = itemModel.door_tel;

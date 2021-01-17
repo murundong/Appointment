@@ -57,6 +57,7 @@ namespace Appoint.Application.Services
                 item.avatar = model.avatar;
                 item.gender = model.gender;
                 item.nick_name = model.nick_name;
+                item.initial = model.initial;
                 _repository.Update(item);
                 return Mapper.Map<View_UinfoOutput>(item);
             }
@@ -90,6 +91,29 @@ namespace Appoint.Application.Services
         {
             var res = _repository.FirstOrDefault(s => s.open_id == openid);
             return Mapper.Map<View_UinfoOutput>(res);
+        }
+
+        public View_InitialUserInfoOutput GetUserLst_Admin(string nick)
+        {
+            View_InitialUserInfoOutput return_res = new View_InitialUserInfoOutput();
+            var query = _repository.GetAll();
+            if (!string.IsNullOrWhiteSpace(nick)) query = query.Where(s => s.nick_name.Contains(nick));
+            var res = Mapper.Map<List<View_UinfoOutput>>(query.OrderBy(s=>s.initial));
+            List<string> lstLetters = res.Select(s => s.initial)?.Distinct()?.ToList();
+            return_res.initials = lstLetters;
+            if (lstLetters?.Count > 0)
+            {
+                lstLetters.ForEach(s =>
+                {
+                    View_InitialUserInfoItemOutput item = new View_InitialUserInfoItemOutput()
+                    {
+                        initial = s,
+                        uinfos = res.Where(p => p.initial == s).ToList()
+                    };
+                    return_res.uinfos.Add(item);
+                });
+            }
+            return return_res;
         }
     }
 }

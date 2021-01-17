@@ -19,5 +19,7 @@ namespace Appoint.Application.Services
         View_UinfoOutput GetUinfoByOpenid(string openid);
 
         bool SaveUserInfo(UserInfos model);
+
+        View_InitialUserInfoOutput GetUserLst_Admin(string nick);
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="Data\Courses.cs" />
     <Compile Include="Data\Doors.cs" />
     <Compile Include="Data\Subjects.cs" />
+    <Compile Include="Data\UserCards.cs" />
     <Compile Include="Data\UserInfos.cs" />
     <Compile Include="DbContextProvider\DbContextProvider.cs" />
     <Compile Include="DbContextProvider\IDbContextProvider.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="ViewData\View_AddCourseData.cs" />
     <Compile Include="ViewData\View_CoursesInput.cs" />
     <Compile Include="ViewData\View_CoursesOutput.cs" />
+    <Compile Include="ViewData\View_InitialUserInfoOutput.cs" />
     <Compile Include="ViewData\View_LessonDoorInfoOutput.cs" />
     <Compile Include="ViewData\View_BannerOutput.cs" />
     <Compile Include="ViewData\View_CardTemplateInput.cs" />

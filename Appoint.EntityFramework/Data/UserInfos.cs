@@ -20,7 +20,7 @@ namespace Appoint.EntityFramework.Data
         public string open_id { get; set; }
         public string tel { get; set; }
         public DateTime create_time { get; set; } = DateTime.Now;
-
+        public string initial { get; set; }
         public Enum_UserRole role { get; set; }
         public string real_name { get; set; }
         public DateTime? birthday { get; set; }

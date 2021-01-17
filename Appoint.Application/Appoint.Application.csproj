@@ -68,6 +68,7 @@
     <Compile Include="Services\Iservices\ICoursesService.cs" />
     <Compile Include="Services\Iservices\IOssService.cs" />
     <Compile Include="Services\Iservices\ISubjectsService.cs" />
+    <Compile Include="Services\Iservices\IUserCardService.cs" />
     <Compile Include="Services\Services\BannerService.cs" />
     <Compile Include="Services\Services\CardTemplateService.cs" />
     <Compile Include="Services\Services\CoursesService.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Services\Iservices\IUserInfoService.cs" />
     <Compile Include="Services\Services\OssService.cs" />
     <Compile Include="Services\Services\SubjectsService.cs" />
+    <Compile Include="Services\Services\UserCardService.cs" />
     <Compile Include="Services\Services\UserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>

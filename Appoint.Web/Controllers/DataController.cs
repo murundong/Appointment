@@ -28,6 +28,11 @@ namespace Appoint.Web.Controllers
         [HttpPost]
         public IHttpActionResult UpdateUserInfoHome(UserInfos model)
         {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(model.nick_name)) model.initial = model.nick_name.GetInitial();
+            }
+            catch{}
             var res = _userInfoService.UpdateUserInfo_home(model);
             return ReturnJsonResult(res);
         }
@@ -270,6 +275,14 @@ namespace Appoint.Web.Controllers
             return ReturnJsonResult(res);
         }
 
+        #endregion
+
+        #region Member
+        public IHttpActionResult GetUserLst_Admin(string nick)
+        {
+            var res = _userInfoService.GetUserLst_Admin(nick);
+            return ReturnJsonResult(res);
+        }
         #endregion
     }
 }
