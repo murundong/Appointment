@@ -10,16 +10,13 @@ using System.Threading.Tasks;
 
 namespace Appoint.EntityFramework.Rep
 {
-    public class RepositoryBase<TDbContext, TEntity> : IRepository<TEntity>
+    public class RepositoryBase<TDbContext, TEntity> : IRepository<TDbContext, TEntity>
         where TEntity : class
         where TDbContext : DbContext
     {
 
-        public readonly IDbContextProvider<TDbContext> _dbContextProvider;
-        public RepositoryBase(IDbContextProvider<TDbContext> dbContextProvider)
-        {
-            _dbContextProvider = dbContextProvider;
-        }
+        public IDbContextProvider<TDbContext> _dbContextProvider { get; set; }
+       
 
 
         public virtual TDbContext Context => _dbContextProvider.GetDbContext();

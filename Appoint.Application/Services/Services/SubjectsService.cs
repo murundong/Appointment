@@ -14,11 +14,8 @@ namespace Appoint.Application.Services
 {
     public class SubjectsService : ISubjectsService
     {
-
-        public static IDbContextProvider<App_DbContext> _provider = new DbContextProvider<App_DbContext>();
-        public IRepository<Subjects> _repository = new RepositoryBase<App_DbContext, Subjects>(_provider);
-        //public IRepository<UserInfos> _repositoryUInfos = new RepositoryBase<App_DbContext, UserInfos>(_provider);
-        public IUnitOfWork uof = new UnitOfWork<App_DbContext, IDbContextProvider<App_DbContext>>(_provider);
+        public IRepository<App_DbContext, Subjects> _repository { get; set; }
+        public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public Subjects CreateSubject(Subjects model)
         {

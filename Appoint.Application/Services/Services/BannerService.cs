@@ -14,9 +14,8 @@ namespace Appoint.Application.Services
 {
     public class BannerService : IBannerService
     {
-        public static IDbContextProvider<App_DbContext> _provider = new DbContextProvider<App_DbContext>();
-        public IRepository<Banners> _repository = new RepositoryBase<App_DbContext, Banners>(_provider);
-        public IUnitOfWork uof = new UnitOfWork<App_DbContext, IDbContextProvider<App_DbContext>>(_provider);
+        public IRepository<App_DbContext, Banners> _repository { get; set; }
+        public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public List<View_BannerOutput> GetBanners()
         {

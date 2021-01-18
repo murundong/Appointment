@@ -15,10 +15,10 @@ namespace Appoint.Application.Services
 {
     public class CoursesService : ICoursesService
     {
-        public static IDbContextProvider<App_DbContext> _provider = new DbContextProvider<App_DbContext>();
-        public IRepository<Courses> _repository = new RepositoryBase<App_DbContext, Courses>(_provider);
-        public IRepository<Subjects> _repositorySubject = new RepositoryBase<App_DbContext, Subjects>(_provider);
-        public IUnitOfWork uof = new UnitOfWork<App_DbContext, IDbContextProvider<App_DbContext>>(_provider);
+        
+        public IRepository<App_DbContext, Courses> _repository { get; set; }
+        public IRepository<App_DbContext, Subjects> _repositorySubject { get; set; }
+        public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public Courses CreateCourse(Courses model)
         {

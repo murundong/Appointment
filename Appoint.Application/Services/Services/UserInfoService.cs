@@ -15,9 +15,8 @@ namespace Appoint.Application.Services
 {
     public class UserInfoService : IUserInfoService
     {
-        public static IDbContextProvider<App_DbContext> _provider = new DbContextProvider<App_DbContext>();
-        public IRepository<UserInfos> _repository = new RepositoryBase<App_DbContext, UserInfos>(_provider);
-        public IUnitOfWork uof = new UnitOfWork<App_DbContext, IDbContextProvider<App_DbContext>>(_provider);
+        public IRepository<App_DbContext, UserInfos> _repository { get; set; }
+        public IUnitOfWork<App_DbContext> uof { get; set; }
 
 
         public View_UinfoOutput GetUserInfo(string openid)

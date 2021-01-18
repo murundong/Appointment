@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Appoint.EntityFramework.Rep
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TDbContext, TEntity> where TEntity : class
+        where TDbContext:DbContext
     {
         #region Select/Get/Query
 

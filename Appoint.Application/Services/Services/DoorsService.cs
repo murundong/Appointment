@@ -14,10 +14,10 @@ namespace Appoint.Application.Services
 {
     public class DoorsService : IDoorsService
     {
-        public static IDbContextProvider<App_DbContext> _provider = new DbContextProvider<App_DbContext>();
-        public IRepository<Doors> _repository = new RepositoryBase<App_DbContext, Doors>(_provider);
-        public IRepository<UserInfos> _repositoryUInfos = new RepositoryBase<App_DbContext, UserInfos>(_provider);
-        public IUnitOfWork uof = new UnitOfWork<App_DbContext, IDbContextProvider<App_DbContext>>(_provider);
+     
+        public IRepository<App_DbContext,Doors> _repository { get; set; }
+        public IRepository<App_DbContext, UserInfos> _repositoryUInfos { get; set; }
+        public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public Doors CreateDoors(Doors model)
         {

@@ -14,10 +14,10 @@ namespace Appoint.Application.Services
 {
     public class CardTemplateService : ICardTemplateService
     {
-        public static IDbContextProvider<App_DbContext> _provider = new DbContextProvider<App_DbContext>();
-        public IRepository<CardTemplate> _repository = new RepositoryBase<App_DbContext, CardTemplate>(_provider);
-        public IRepository<Doors> _repositoryDoors = new RepositoryBase<App_DbContext, Doors>(_provider);
-        public IUnitOfWork uof = new UnitOfWork<App_DbContext, IDbContextProvider<App_DbContext>>(_provider);
+       
+        public IRepository<App_DbContext, CardTemplate> _repository { get; set; }
+        public IRepository<App_DbContext, Doors> _repositoryDoors { get; set; }
+        public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public CardTemplate CreateCardTemplate(CardTemplate model)
         {

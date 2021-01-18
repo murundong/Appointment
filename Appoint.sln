@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appoint.Application", "Appo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appoint.Web", "Appoint.Web\Appoint.Web.csproj", "{BF89A728-FD0E-4F9C-B98C-8E52CEAA2235}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointMvc.Web", "AppointMvc.Web\AppointMvc.Web.csproj", "{3B08E35E-9CF3-47ED-875E-2F635E79366A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appoint.IocManager", "Appoint.IocManager\Appoint.IocManager.csproj", "{5644531D-6124-4239-8CB2-47768656966E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{BF89A728-FD0E-4F9C-B98C-8E52CEAA2235}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF89A728-FD0E-4F9C-B98C-8E52CEAA2235}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF89A728-FD0E-4F9C-B98C-8E52CEAA2235}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B08E35E-9CF3-47ED-875E-2F635E79366A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B08E35E-9CF3-47ED-875E-2F635E79366A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B08E35E-9CF3-47ED-875E-2F635E79366A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B08E35E-9CF3-47ED-875E-2F635E79366A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5644531D-6124-4239-8CB2-47768656966E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5644531D-6124-4239-8CB2-47768656966E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5644531D-6124-4239-8CB2-47768656966E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5644531D-6124-4239-8CB2-47768656966E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace Appoint.EntityFramework.Uow
 {
-    public class UnitOfWork<TDbContext, IDbContextProvider> : IUnitOfWork
+    public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext>
       where TDbContext : DbContext
     {
-        public readonly IDbContextProvider<TDbContext> _dbContextProvider;
-        public UnitOfWork(IDbContextProvider<TDbContext> provider)
-        {
-            _dbContextProvider = provider;
-        }
-
+        public IDbContextProvider<TDbContext> _dbContextProvider { get; set; }
         public TDbContext context => _dbContextProvider.GetDbContext();
 
         public int SaveChange()

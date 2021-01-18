@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -128,6 +129,24 @@ namespace BaseClasses
                 return "#";
             }
             
+        }
+
+        public static void SaveFile(this Stream stream, string name)
+        {
+            using (var fileStream = new FileStream(name, FileMode.Create))
+            {
+                byte[] buffer = new byte[4096];
+                while (true)
+                {
+                    int num = stream.Read(buffer, 0, buffer.Length);
+                    if (num == 0)
+                    {
+                        break;
+                    }
+                    fileStream.Write(buffer, 0, num);
+                }
+                fileStream.Flush();
+            }
         }
     }
 }
