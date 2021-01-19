@@ -10,6 +10,7 @@ using Appoint.EntityFramework.Rep;
 using Appoint.EntityFramework.Data;
 using Appoint.EntityFramework.Uow;
 using AutoMapper;
+using Appoint.EntityFramework.Enum;
 
 namespace Appoint.Application.Services
 {
@@ -113,6 +114,18 @@ namespace Appoint.Application.Services
                 });
             }
             return return_res;
+        }
+
+        public bool AllocRole(int uid, Enum_UserRole role)
+        {
+            var entity = _repository.FirstOrDefault(s => s.uid == uid);
+            if(entity!=null && entity.uid > 0)
+            {
+                entity.role = role;
+                _repository.Update(entity);
+                return uof.SaveChange()>0;
+            }
+            return false;
         }
     }
 }

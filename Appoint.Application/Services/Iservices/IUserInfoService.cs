@@ -1,4 +1,5 @@
 ﻿using Appoint.EntityFramework.Data;
+using Appoint.EntityFramework.Enum;
 using Appoint.EntityFramework.ViewData;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,7 @@ namespace Appoint.Application.Services
         bool SaveUserInfo(UserInfos model);
 
         View_InitialUserInfoOutput GetUserLst_Admin(string nick);
+
+        bool AllocRole(int uid, Enum_UserRole role);
     }
 }

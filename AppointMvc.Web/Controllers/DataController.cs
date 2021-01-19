@@ -275,6 +275,13 @@ namespace AppointMvc.Web.Controllers
             var res = _userInfoService.GetUserLst_Admin(nick);
             return ReturnJsonResult(res);
         }
+
+        public ActionResult AllocRole(int? uid,Enum_UserRole? role)
+        {
+            if (uid == null || uid <= 0 || !role.HasValue) return ReturnJsonResult("更新失败，参数错误!", Enum_ReturnRes.Fail);
+            if (!_userInfoService.AllocRole((int)uid, (Enum_UserRole)role)) return ReturnJsonResult("分配失败！", Enum_ReturnRes.Fail);
+            return ReturnJsonResult();
+        }
         #endregion
     }
 }
