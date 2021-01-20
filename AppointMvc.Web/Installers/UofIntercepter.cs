@@ -19,9 +19,9 @@ namespace AppointMvc.Web.Installers
             {
                 invocation.Proceed();
             }
-            catch
+            catch(Exception e)
             {
-
+                throw e;
             }
             finally
             {

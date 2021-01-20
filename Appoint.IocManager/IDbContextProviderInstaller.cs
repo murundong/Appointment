@@ -16,7 +16,7 @@ namespace Appoint.IocManager
         {
             container.Register(
                 Component.For(typeof(IDbContextProvider<>))
-                .ImplementedBy(typeof(DbContextProvider<>))
+                .ImplementedBy(typeof(DbContextProvider<>)).LifestyleTransient()
                 );
         }
     }

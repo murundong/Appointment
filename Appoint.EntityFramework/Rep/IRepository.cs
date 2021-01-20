@@ -10,13 +10,15 @@ using System.Threading.Tasks;
 namespace Appoint.EntityFramework.Rep
 {
     public interface IRepository<TDbContext, TEntity> where TEntity : class
-        where TDbContext:DbContext
+        where TDbContext : DbContext
     {
         #region Select/Get/Query
 
         IQueryable<TEntity> GetAll();
-        DbSqlQuery<TEntity> ExecuteQuerySql(string sql, params object[] parameters);
-      IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] propertySelectors);
+        DbSqlQuery<TEntity> SqlQuery(string sql, params object[] parameters);
+        DbRawSqlQuery<TEntity> ExecuteSqlQuery(string sql, params object[] parameters);
+        int ExecuteSqlCommand(string sql, params object[] parameters);
+        IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] propertySelectors);
 
         List<TEntity> GetAllList();
 

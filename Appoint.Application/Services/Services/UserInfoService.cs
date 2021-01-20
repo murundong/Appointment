@@ -108,7 +108,7 @@ namespace Appoint.Application.Services
                     View_InitialUserInfoItemOutput item = new View_InitialUserInfoItemOutput()
                     {
                         initial = s,
-                        uinfos = res.Where(p => p.initial == s).ToList()
+                        uinfos = res.Where(p => p.initial == s)?.ToList()
                     };
                     return_res.uinfos.Add(item);
                 });

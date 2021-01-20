@@ -95,7 +95,7 @@ namespace Appoint.Application.Services
             ////&& DbFunctions.TruncateTime(DateTimeOffset.Parse(s.course_date)) >= st_dt
             ////&& DbFunctions.TruncateTime(DateTimeOffset.Parse(s.course_date)) <= ed_dt
             //);
-            var query = _repository.ExecuteQuerySql($"select * from [dbo].[Courses] where door_id={input.door_id} and course_date >='{st_dt.ToString("yyyy-MM-dd")}'  and course_date <= '{ed_dt.ToString("yyyy-MM-dd")}' order by course_date,course_time");
+            var query = _repository.SqlQuery($"select * from [dbo].[Courses] where door_id={input.door_id} and course_date >='{st_dt.ToString("yyyy-MM-dd")}'  and course_date <= '{ed_dt.ToString("yyyy-MM-dd")}' order by course_date,course_time");
 
 
             for (int i = 0; i < 7; i++)

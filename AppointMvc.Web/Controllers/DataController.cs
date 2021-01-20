@@ -276,10 +276,24 @@ namespace AppointMvc.Web.Controllers
             return ReturnJsonResult(res);
         }
 
+        public ActionResult GetUserLst_Door(int? doorid,string nick)
+        {
+            if (!doorid.HasValue || doorid <= 0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _userCardService.GetUserLst_Door((int)doorid, nick);
+            return ReturnJsonResult(res);
+        }
+
         public ActionResult AllocRole(int? uid,Enum_UserRole? role)
         {
             if (uid == null || uid <= 0 || !role.HasValue) return ReturnJsonResult("更新失败，参数错误!", Enum_ReturnRes.Fail);
             if (!_userInfoService.AllocRole((int)uid, (Enum_UserRole)role)) return ReturnJsonResult("分配失败！", Enum_ReturnRes.Fail);
+            return ReturnJsonResult();
+        }
+
+        public ActionResult AddUserAttention(string openid,int? doorid)
+        {
+            if (string.IsNullOrWhiteSpace(openid) || !doorid.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            _userCardService.AddUserAttention(openid, (int)doorid);
             return ReturnJsonResult();
         }
         #endregion

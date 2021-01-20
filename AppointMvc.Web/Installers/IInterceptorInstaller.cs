@@ -13,7 +13,8 @@ namespace AppointMvc.Web.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IInterceptor>().ImplementedBy<UofIntercepter>());
+            container.Register(Component.For<IInterceptor>().ImplementedBy<UofIntercepter>()
+                .LifestyleTransient());
         }
     }
 }

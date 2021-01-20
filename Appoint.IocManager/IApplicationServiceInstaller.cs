@@ -17,7 +17,7 @@ namespace Appoint.IocManager
             container.Register(
                 Classes.FromAssembly(typeof(IApplicationService).Assembly)
                  .BasedOn<IApplicationService>()
-                 .WithService.DefaultInterfaces()
+                 .WithService.DefaultInterfaces().LifestyleTransient()
                  );
         }
 

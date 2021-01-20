@@ -16,7 +16,7 @@ namespace Appoint.IocManager
         {
             container.Register(
                 Component.For(typeof(IUnitOfWork<>))
-                .ImplementedBy(typeof(UnitOfWork<>))
+                .ImplementedBy(typeof(UnitOfWork<>)).LifestyleTransient()
                 );
         }
 

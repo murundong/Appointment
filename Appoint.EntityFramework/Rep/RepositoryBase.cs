@@ -176,9 +176,19 @@ namespace Appoint.EntityFramework.Rep
             Table.AddRange(entitys);
         }
 
-        public DbSqlQuery<TEntity> ExecuteQuerySql(string sql, params object[] parameters)
+        public DbSqlQuery<TEntity> SqlQuery(string sql, params object[] parameters)
         {
             return Table.SqlQuery(sql, parameters);
+        }
+
+        public int ExecuteSqlCommand(string sql, params object[] parameters)
+        {
+            return Context.Database.ExecuteSqlCommand(sql, parameters);
+        }
+
+        public DbRawSqlQuery<TEntity> ExecuteSqlQuery(string sql, params object[] parameters)
+        {
+            return Context.Database.SqlQuery<TEntity>(sql, parameters);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Appoint.IocManager
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(RepositoryBase<,>)));
+            container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(RepositoryBase<,>)).LifestyleTransient());
         }
     }
 }

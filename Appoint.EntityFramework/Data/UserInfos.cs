@@ -24,5 +24,7 @@ namespace Appoint.EntityFramework.Data
         public Enum_UserRole role { get; set; }
         public string real_name { get; set; }
         public DateTime? birthday { get; set; }
+
+        public string remark { get; set; }
     }
 }

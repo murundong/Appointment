@@ -13,9 +13,9 @@ namespace Appoint.EntityFramework.Enum
         /// </summary>
         Black=-1,
         /// <summary>
-        /// 普通会员
+        /// 游客
         /// </summary>
-        Member,
+        Tourist,
         /// <summary>
         /// 馆主
         /// </summary>
@@ -28,6 +28,9 @@ namespace Appoint.EntityFramework.Enum
         /// 管理员
         /// </summary>
         Admin,
-       
+        /// <summary>
+        /// 会员
+        /// </summary>
+        Member,
     }
 }

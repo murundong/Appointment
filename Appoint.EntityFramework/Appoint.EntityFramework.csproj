@@ -83,6 +83,7 @@
     <Compile Include="ViewData\View_AddCourseData.cs" />
     <Compile Include="ViewData\View_CoursesInput.cs" />
     <Compile Include="ViewData\View_CoursesOutput.cs" />
+    <Compile Include="ViewData\View_InitialUserCardsInfoOutput.cs" />
     <Compile Include="ViewData\View_InitialUserInfoOutput.cs" />
     <Compile Include="ViewData\View_LessonDoorInfoOutput.cs" />
     <Compile Include="ViewData\View_BannerOutput.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="ViewData\View_TeacherDoorInput.cs" />
     <Compile Include="ViewData\View_TearcherDoorOutput.cs" />
     <Compile Include="ViewData\View_UinfoOutput.cs" />
+    <Compile Include="ViewData\View_UserCardsInfoOutput.cs" />
     <Compile Include="ViewData\View_WeekCourseInput.cs" />
     <Compile Include="ViewData\View_WeekCourseOutput.cs" />
     <Compile Include="WeixData\W_AUTH_RETURN.cs" />
