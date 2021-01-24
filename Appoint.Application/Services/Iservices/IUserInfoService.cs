@@ -24,5 +24,7 @@ namespace Appoint.Application.Services
         View_InitialUserInfoOutput GetUserLst_Admin(string nick);
 
         bool AllocRole(int uid, Enum_UserRole role);
+
+        bool SetUSerRemark(int uid,string remark);
     }
 }

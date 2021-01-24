@@ -21,7 +21,16 @@ namespace Appoint.EntityFramework.ViewData
         public string initial { get; set; }
 
         public string real_name { get; set; }
-        public string birthday { get; set; }
+        public DateTime? birthday { get; set; }
+
+        public string str_birthday
+        {
+            get
+            {
+                return birthday?.ToString("yyyy-MM-dd");
+            }
+        }
+
         public Enum_UserRole door_role { get; set; }
         public string door_remark { get; set; }
 

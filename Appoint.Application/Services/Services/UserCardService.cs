@@ -1,5 +1,6 @@
 ﻿using Appoint.EntityFramework;
 using Appoint.EntityFramework.Data;
+using Appoint.EntityFramework.Enum;
 using Appoint.EntityFramework.Rep;
 using Appoint.EntityFramework.Uow;
 using Appoint.EntityFramework.ViewData;
@@ -31,14 +32,15 @@ namespace Appoint.Application.Services
             _repository.ExecuteSqlCommand(sql, sqlParam);
         }
 
+       
         public View_InitialUserCardsInfoOutput GetUserLst_Door(int doorid, string nick)
         {
             View_InitialUserCardsInfoOutput return_res = new View_InitialUserCardsInfoOutput();
             string sql = @"select id,A.uid,B.role,[door_role]=A.role,[door_remark]=A.remark,cid,ctype,card_sttime,card_edtime,stop_day,extend_day,effective_time,limit_week_time,limit_day_time,is_freeze,
-	                             open_id,nick_name,avatar,gender,tel,initial from  [dbo].[UserCards] A
+	                             open_id,nick_name,avatar,gender,tel,birthday,real_name,initial from  [dbo].[UserCards] A
                             left join [dbo].[UserInfos] B
                             on A.uid = B.uid
-                            where door_id=@doorid and nick_name like @nick order by B.initial;";
+                            where door_id=@doorid and ( nick_name like @nick or A.remark like @nick ) order by B.initial;";
             var sqlParm = new SqlParameter[] {
                 new SqlParameter("@doorid",doorid),
                 new SqlParameter("@nick",$"%{nick}%"),
@@ -59,6 +61,30 @@ namespace Appoint.Application.Services
             }
             return return_res;
         }
+
+        public bool SetUSerRemark(int uid, string remark)
+        {
+            var entity = _repository.FirstOrDefault(s => s.id == uid);
+            if (entity != null && entity.uid > 0)
+            {
+                entity.remark = remark;
+                _repository.Update(entity);
+                return uof.SaveChange() > 0;
+            }
+            return false;
+        }
+        public bool AllocRole(int uid, Enum_UserRole role)
+        {
+            var entity = _repository.FirstOrDefault(s => s.id == uid);
+            if (entity != null && entity.uid > 0)
+            {
+                entity.role = role;
+                _repository.Update(entity);
+                return uof.SaveChange() > 0;
+            }
+            return false;
+        }
+
     }
 }
 

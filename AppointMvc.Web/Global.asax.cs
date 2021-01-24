@@ -20,9 +20,6 @@ namespace AppointMvc.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-
-
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile(new MappingConfigProfile());

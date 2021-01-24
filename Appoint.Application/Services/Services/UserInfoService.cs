@@ -34,6 +34,7 @@ namespace Appoint.Application.Services
         public void AddUser(UserInfos model)
         {
             _repository.Insert(model);
+            uof.SaveChange();
         }
 
         public bool SaveUserInfo(UserInfos model)
@@ -59,6 +60,7 @@ namespace Appoint.Application.Services
                 item.nick_name = model.nick_name;
                 item.initial = model.initial;
                 _repository.Update(item);
+                uof.SaveChange();
                 return Mapper.Map<View_UinfoOutput>(item);
             }
             
@@ -82,6 +84,7 @@ namespace Appoint.Application.Services
                 item.gender = model.gender;
                 item.nick_name = model.nick_name;
                 _repository.Update(item);
+                uof.SaveChange();
                 return Mapper.Map<View_UinfoOutput>(item);
             }
             
@@ -97,7 +100,7 @@ namespace Appoint.Application.Services
         {
             View_InitialUserInfoOutput return_res = new View_InitialUserInfoOutput();
             var query = _repository.GetAll();
-            if (!string.IsNullOrWhiteSpace(nick)) query = query.Where(s => s.nick_name.Contains(nick));
+            if (!string.IsNullOrWhiteSpace(nick)) query = query.Where(s => s.nick_name.Contains(nick) || s.remark.Contains(nick));
             var res = Mapper.Map<List<View_UinfoOutput>>(query.OrderBy(s=>s.initial));
             List<string> lstLetters = res.Select(s => s.initial)?.Distinct()?.ToList();
             return_res.initials = lstLetters;
@@ -124,6 +127,18 @@ namespace Appoint.Application.Services
                 entity.role = role;
                 _repository.Update(entity);
                 return uof.SaveChange()>0;
+            }
+            return false;
+        }
+
+        public bool SetUSerRemark(int uid, string remark)
+        {
+            var entity = _repository.FirstOrDefault(s => s.uid == uid);
+            if (entity != null && entity.uid > 0)
+            {
+                entity.remark = remark;
+                _repository.Update(entity);
+                return uof.SaveChange() > 0;
             }
             return false;
         }

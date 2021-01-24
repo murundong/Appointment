@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Appoint.EntityFramework.ViewData
 {
-  public   class View_TearcherDoorOutput
+    public   class View_TearcherDoorOutput
     {
         private string _door_img;
 

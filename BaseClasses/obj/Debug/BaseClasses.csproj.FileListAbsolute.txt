@@ -97,6 +97,7 @@ H:\Roden\Appoint\BaseClasses\bin\Debug\log4net.dll
 H:\Roden\Appoint\BaseClasses\bin\Debug\Newtonsoft.Json.dll
 H:\Roden\Appoint\BaseClasses\bin\Debug\log4net.xml
 H:\Roden\Appoint\BaseClasses\bin\Debug\Newtonsoft.Json.xml
+H:\Roden\Appoint\BaseClasses\obj\Debug\BaseClasses.csprojAssemblyReference.cache
 H:\Roden\Appoint\BaseClasses\obj\Debug\BaseClasses.csproj.CoreCompileInputs.cache
 H:\Roden\Appoint\BaseClasses\obj\Debug\BaseClasses.csproj.CopyComplete
 H:\Roden\Appoint\BaseClasses\obj\Debug\BaseClasses.dll

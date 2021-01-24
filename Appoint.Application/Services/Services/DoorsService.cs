@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,26 @@ namespace Appoint.Application.Services
      
         public IRepository<App_DbContext,Doors> _repository { get; set; }
         public IRepository<App_DbContext, UserInfos> _repositoryUInfos { get; set; }
+        public IRepository<App_DbContext,UserCards> _repositoryCardsUser { get; set; }
         public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public Doors CreateDoors(Doors model)
         {
             _repository.Insert(model);
-            if (uof.SaveChange() > 0) return model;
+            if (uof.SaveChange() > 0)
+            {
+                    string sql = @"merge into  [dbo].[UserCards] T
+                using (select door_id=@door_id,uid=(select top 1 uid from [dbo].[UserInfos] where open_id=@open_id),role=1) S
+                on T.door_id = S.door_id and T.uid = S.uid
+                when not matched then
+	                insert (door_id,uid,role,create_time) values(S.door_id,S.uid,S.role,getdate());";
+                    var sqlParam = new SqlParameter[] {
+                    new SqlParameter("@door_id",model.id),
+                    new SqlParameter("@open_id",model.create_openid)
+                    };
+                _repository.ExecuteSqlCommand(sql, sqlParam);
+                return model;
+            }
             return null;
         }
 

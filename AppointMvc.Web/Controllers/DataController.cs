@@ -270,6 +270,26 @@ namespace AppointMvc.Web.Controllers
         #endregion
 
         #region Member
+
+        public ActionResult RemarkUser(int? uid,string rmk,bool isMain=true)
+        {
+            if(!uid.HasValue || uid<=0) return ReturnJsonResult("备注失败，参数错误！", Enum_ReturnRes.Fail);
+            if (isMain)
+            {
+                if (!_userInfoService.SetUSerRemark((int)uid, rmk))
+                {
+                    return ReturnJsonResult("备注失败！",Enum_ReturnRes.Fail);
+                }
+            }
+            else
+            {
+                if (!_userCardService.SetUSerRemark((int)uid, rmk))
+                {
+                    return ReturnJsonResult("备注失败！", Enum_ReturnRes.Fail);
+                }
+            }
+            return ReturnJsonResult();
+        }
         public ActionResult GetUserLst_Admin(string nick)
         {
             var res = _userInfoService.GetUserLst_Admin(nick);
@@ -283,10 +303,17 @@ namespace AppointMvc.Web.Controllers
             return ReturnJsonResult(res);
         }
 
-        public ActionResult AllocRole(int? uid,Enum_UserRole? role)
+        public ActionResult AllocRole(int? uid,Enum_UserRole? role,bool isMain=true)
         {
             if (uid == null || uid <= 0 || !role.HasValue) return ReturnJsonResult("更新失败，参数错误!", Enum_ReturnRes.Fail);
-            if (!_userInfoService.AllocRole((int)uid, (Enum_UserRole)role)) return ReturnJsonResult("分配失败！", Enum_ReturnRes.Fail);
+            if (isMain)
+            {
+                if (!_userInfoService.AllocRole((int)uid, (Enum_UserRole)role)) return ReturnJsonResult("分配失败！", Enum_ReturnRes.Fail);
+            }
+            else
+            {
+                if(!_userCardService.AllocRole((int)uid, (Enum_UserRole)role)) return ReturnJsonResult("分配失败！", Enum_ReturnRes.Fail);
+            }
             return ReturnJsonResult();
         }
 

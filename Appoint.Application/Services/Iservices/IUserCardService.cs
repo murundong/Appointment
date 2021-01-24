@@ -1,4 +1,5 @@
-﻿using Appoint.EntityFramework.ViewData;
+﻿using Appoint.EntityFramework.Enum;
+using Appoint.EntityFramework.ViewData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace Appoint.Application.Services
     {
         void AddUserAttention(string openid, int doorid);
         View_InitialUserCardsInfoOutput GetUserLst_Door(int doorid,string nick);
+
+        bool SetUSerRemark(int uid, string remark);
+        bool AllocRole(int uid, Enum_UserRole role);
     }
 }
