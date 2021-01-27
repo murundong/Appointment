@@ -324,5 +324,16 @@ namespace AppointMvc.Web.Controllers
             return ReturnJsonResult();
         }
         #endregion
+
+        #region Cards
+
+        public ActionResult GetUserCards(string openid, Enum_CardStatus cardStatus= Enum_CardStatus.All)
+        {
+            var res= _userCardService.GetUserALlCards(openid,cardStatus);
+            return ReturnJsonResult(res);
+        }
+
+        #endregion
+
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="Data\UserInfos.cs" />
     <Compile Include="DbContextProvider\DbContextProvider.cs" />
     <Compile Include="DbContextProvider\IDbContextProvider.cs" />
+    <Compile Include="Enum\Enum_CardStatus.cs" />
     <Compile Include="Enum\Enum_CardType.cs" />
     <Compile Include="Enum\Enum_DoorStatus.cs" />
     <Compile Include="Enum\Enum_Gender.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="ViewData\View_CardTemplateOutput.cs" />
     <Compile Include="ViewData\View_DoorInput.cs" />
     <Compile Include="ViewData\View_DoorsOutput.cs" />
+    <Compile Include="ViewData\View_LstUserAllCardsOutput.cs" />
     <Compile Include="ViewData\View_SubjectsInput.cs" />
     <Compile Include="ViewData\View_SubjectsOutput.cs" />
     <Compile Include="ViewData\View_TeacherDoorInput.cs" />

@@ -16,7 +16,9 @@ namespace Appoint.Application.Services
     public class UserCardService : IUserCardService
     {
         public IRepository<App_DbContext, UserCards> _repository { get; set; }
+        public IRepository<App_DbContext,Doors> _repositoryDoors { get; set; }
         public IRepository<App_DbContext, View_UserCardsInfoOutput> _repositorySql { get; set; }
+        public IRepository<App_DbContext, View_LstUserAllCardsOutput_CardsInfo> _repositoryUserCardSql { get; set; }
         public IUnitOfWork<App_DbContext> uof { get; set; }
         public void AddUserAttention(string openid, int doorid)
         {
@@ -85,6 +87,52 @@ namespace Appoint.Application.Services
             return false;
         }
 
+        public List<View_LstUserAllCardsOutput> GetUserALlCards(string openid,Enum_CardStatus cardStatus)
+        {
+            List<View_LstUserAllCardsOutput> res = new List<View_LstUserAllCardsOutput>();
+
+            string sql = @"select card_name,card_desc, A.* from [dbo].[UserCards] A 
+	            left join  [dbo].[CardTemplate] B on A.cid = B.id 
+	            Left join  [dbo].[UserInfos] C on A.uid = C.uid
+            where A.cid <> null and C.open_id = @open_id ";
+
+            switch (cardStatus)
+            {
+                case Enum_CardStatus.Expired:
+                    sql += " and stop_day <= GETDATE()";
+                    break;
+                case Enum_CardStatus.Freezed:
+                    sql += " and is_freeze=1";
+                    break;
+                default:
+                    break;
+            }
+
+            var sqlParm = new SqlParameter[] {
+                new SqlParameter("@open_id",openid),
+            };
+            List<View_LstUserAllCardsOutput_CardsInfo> uCardLst = _repositoryUserCardSql.ExecuteSqlQuery(sql, sqlParm)?.ToList();
+            
+            List<int> lstDoors = new List<int>();
+            if (uCardLst?.Count > 0)
+            {
+                lstDoors = uCardLst.Select(s => s.door_id).Distinct().ToList();
+            }
+            if (lstDoors?.Count > 0)
+            {
+                var query = _repositoryDoors.GetAll().Where(s => lstDoors.Contains(s.id));
+                lstDoors.ForEach(s =>
+                {
+                    View_LstUserAllCardsOutput item = new View_LstUserAllCardsOutput();
+                    var queryItem = query.FirstOrDefault(p => p.id == s);
+                    item.door_id = s;
+                    item.door_name = queryItem?.door_name;
+                    item.door_img = queryItem?.door_img;
+                    item.CardsInfo = uCardLst.Where(p => p.door_id == s)?.ToList();
+                });
+            }
+            return res;
+        }
     }
 }
 

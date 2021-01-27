@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,8 @@ namespace Appoint.EntityFramework.Data
         public bool is_freeze { get; set; }
         public string remark { get; set; }
         public DateTime create_time { get; set; } = DateTime.Now;
+
+       
 
     }
 }
