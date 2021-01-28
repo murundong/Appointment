@@ -333,6 +333,12 @@ namespace AppointMvc.Web.Controllers
             return ReturnJsonResult(res);
         }
 
+        public ActionResult GetUserDoorCards(string openid,int? doorId)
+        {
+            if (string.IsNullOrWhiteSpace(openid) || !doorId.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _userCardService.GetUserDoorCards(openid, (int)doorId);
+            return ReturnJsonResult(res);
+        }
         #endregion
 
     }

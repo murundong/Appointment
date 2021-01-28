@@ -17,5 +17,7 @@ namespace Appoint.Application.Services
         bool AllocRole(int uid, Enum_UserRole role);
 
         List<View_LstUserAllCardsOutput> GetUserALlCards(string openid, Enum_CardStatus cardStatus);
+
+        List<View_LstUserAllCardsOutput_CardsInfo> GetUserDoorCards(string openid, int doorId);
     }
 }

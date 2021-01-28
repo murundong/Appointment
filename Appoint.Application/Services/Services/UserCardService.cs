@@ -133,6 +133,21 @@ namespace Appoint.Application.Services
             }
             return res;
         }
+
+        public List<View_LstUserAllCardsOutput_CardsInfo> GetUserDoorCards(string openid, int doorId)
+        {
+            List<View_LstUserAllCardsOutput_CardsInfo> res = new List<View_LstUserAllCardsOutput_CardsInfo>();
+            string sql = @"select card_name,card_desc, A.* from [dbo].[UserCards] A 
+	            left join  [dbo].[CardTemplate] B on A.cid = B.id 
+	            Left join  [dbo].[UserInfos] C on A.uid = C.uid
+            where A.cid <> null and C.open_id = @open_id and A.door_id=@doorId";
+            var sqlParm = new SqlParameter[] {
+                new SqlParameter("@open_id",openid),
+                new SqlParameter("@doorId",doorId),
+            };
+            res = _repositoryUserCardSql.ExecuteSqlQuery(sql, sqlParm)?.ToList();
+            return res;
+        }
     }
 }
 
