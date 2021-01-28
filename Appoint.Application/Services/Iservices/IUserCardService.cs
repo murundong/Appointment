@@ -1,4 +1,5 @@
-﻿using Appoint.EntityFramework.Enum;
+﻿using Appoint.EntityFramework.Data;
+using Appoint.EntityFramework.Enum;
 using Appoint.EntityFramework.ViewData;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,7 @@ namespace Appoint.Application.Services
         List<View_LstUserAllCardsOutput> GetUserALlCards(string openid, Enum_CardStatus cardStatus);
 
         List<View_LstUserAllCardsOutput_CardsInfo> GetUserDoorCards(string openid, int doorId);
+
+        View_UserCardsInfoOutput GetUserInfoById(int? id);
     }
 }

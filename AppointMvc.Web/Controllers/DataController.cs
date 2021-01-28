@@ -339,6 +339,21 @@ namespace AppointMvc.Web.Controllers
             var res = _userCardService.GetUserDoorCards(openid, (int)doorId);
             return ReturnJsonResult(res);
         }
+
+        public ActionResult GetDoorCardTemplates(int? doorId)
+        {
+            if(!doorId.HasValue || doorId <=0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _cardTemplateService.GetAllDoorCardsTemplate((int)doorId);
+            return ReturnJsonResult(res);
+        }
+
+        public ActionResult GetUserCardsInfo(int? id)
+        {
+            if(!id.HasValue || id<=0) return  ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _userCardService.GetUserInfoById((int)id);
+            return ReturnJsonResult(res);
+        }
+
         #endregion
 
     }

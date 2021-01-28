@@ -17,5 +17,7 @@ namespace Appoint.Application.Services
         bool UpdateCardTemplate(CardTemplate model);
 
         List<ViewDoorCardsSelect> GetDoorCards(int doorId);
+
+        List<CardTemplate> GetAllDoorCardsTemplate(int doorId);
     }
 }

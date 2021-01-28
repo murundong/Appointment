@@ -148,6 +148,19 @@ namespace Appoint.Application.Services
             res = _repositoryUserCardSql.ExecuteSqlQuery(sql, sqlParm)?.ToList();
             return res;
         }
+
+        public View_UserCardsInfoOutput GetUserInfoById(int? id)
+        {
+            string sql = @"select id,A.uid,B.role,[door_role]=A.role,[door_remark]=A.remark,cid,ctype,card_sttime,card_edtime,stop_day,extend_day,effective_time,limit_week_time,limit_day_time,is_freeze,
+	                             open_id,nick_name,avatar,gender,tel,birthday,real_name,initial from  [dbo].[UserCards] A
+                            left join [dbo].[UserInfos] B
+                            on A.uid = B.uid
+                            where A.id=@id ";
+            var sqlParm = new SqlParameter[] {
+                new SqlParameter("@id",id),
+            };
+            return _repositorySql.ExecuteSqlQuery(sql, sqlParm)?.FirstOrDefault();
+        }
     }
 }
 

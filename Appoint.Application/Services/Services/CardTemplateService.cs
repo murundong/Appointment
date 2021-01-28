@@ -26,6 +26,12 @@ namespace Appoint.Application.Services
             return null;
         }
 
+        public List<CardTemplate> GetAllDoorCardsTemplate(int doorId)
+        {
+            var res = _repository.GetAll().Where(s => s.door_id == doorId);
+            return res.ToList();
+        }
+
         public CardTemplate GetCardsTemplateById(int id)
         {
             return _repository.FirstOrDefault(s => s.id == id);

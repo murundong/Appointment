@@ -19,6 +19,8 @@ namespace Appoint.Application.Services
         bool DeleteCourse(int cid);
         
         List<View_WeekCourseOutput> GetWeekCourse(View_WeekCourseInput input);
+
+
        
     }
 }
