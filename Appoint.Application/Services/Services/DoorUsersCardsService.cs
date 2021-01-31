@@ -67,7 +67,8 @@ namespace Appoint.Application.Services
                         on A.du_id = D.id
                         left join [dbo].[UserInfos] E
                         on D.uid = E.uid
-                        where  A.cid is not null and E.open_id = @openid  ";
+                        where  A.cid is not null and E.open_id = @openid 
+                        order by A.id desc ;";
             switch (cardStatus)
             {
                 case Enum_CardStatus.Expired:
@@ -120,7 +121,8 @@ namespace Appoint.Application.Services
                         on A.cid = C.id
                         left join [dbo].[DoorUsers] D
                         on A.du_id = D.id
-                        where A.cid is not null and D.uid = @uid and A.door_id = @doorId";
+                        where A.cid is not null and D.uid = @uid and A.door_id = @doorId
+                        order by A.id desc ;";
             var sqlParm = new SqlParameter[] {
                 new SqlParameter("@uid",uid),
                 new SqlParameter("@doorId",doorId),
