@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="JavaScript.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
