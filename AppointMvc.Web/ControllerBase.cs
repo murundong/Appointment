@@ -21,7 +21,8 @@ namespace AppointMvc.Web
         public ICardTemplateService _cardTemplateService { get; set; }
         public ISubjectsService _subjectService { get; set; }
         public ICoursesService _courseService { get; set; }
-        public IUserCardService _userCardService { get; set; }
+        public IDoorUsersService _doorUserService { get; set; }
+        public IDoorUsersCardsService  _doorUserCardService { get; set; }
         public static string errImg = ConfigurationHelper.GetAppSetting<string>("ErrorImg");
 
         //protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)

@@ -283,13 +283,35 @@ namespace AppointMvc.Web.Controllers
             }
             else
             {
-                if (!_userCardService.SetUSerRemark((int)uid, rmk))
+                if (!_doorUserService.SetUSerRemark((int)uid, rmk))
                 {
                     return ReturnJsonResult("备注失败！", Enum_ReturnRes.Fail);
                 }
             }
             return ReturnJsonResult();
         }
+
+        public ActionResult AddUserAttention(string openid, int? doorid)
+        {
+            if (string.IsNullOrWhiteSpace(openid) || !doorid.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            _doorUserService.AddUserAttention(openid, (int)doorid);
+            return ReturnJsonResult();
+        }
+
+        public ActionResult AllocRole(int? uid, Enum_UserRole? role, bool isMain = true)
+        {
+            if (uid == null || uid <= 0 || !role.HasValue) return ReturnJsonResult("更新失败，参数错误!", Enum_ReturnRes.Fail);
+            if (isMain)
+            {
+                if (!_userInfoService.AllocRole((int)uid, (Enum_UserRole)role)) return ReturnJsonResult("分配失败！", Enum_ReturnRes.Fail);
+            }
+            else
+            {
+                if (!_doorUserService.AllocRole((int)uid, (Enum_UserRole)role)) return ReturnJsonResult("分配失败！", Enum_ReturnRes.Fail);
+            }
+            return ReturnJsonResult();
+        }
+
         public ActionResult GetUserLst_Admin(string nick)
         {
             var res = _userInfoService.GetUserLst_Admin(nick);
@@ -299,60 +321,60 @@ namespace AppointMvc.Web.Controllers
         public ActionResult GetUserLst_Door(int? doorid,string nick)
         {
             if (!doorid.HasValue || doorid <= 0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
-            var res = _userCardService.GetUserLst_Door((int)doorid, nick);
+            var res = _doorUserCardService.GetUserLst_Door((int)doorid, nick);
             return ReturnJsonResult(res);
         }
-
-        public ActionResult AllocRole(int? uid,Enum_UserRole? role,bool isMain=true)
-        {
-            if (uid == null || uid <= 0 || !role.HasValue) return ReturnJsonResult("更新失败，参数错误!", Enum_ReturnRes.Fail);
-            if (isMain)
-            {
-                if (!_userInfoService.AllocRole((int)uid, (Enum_UserRole)role)) return ReturnJsonResult("分配失败！", Enum_ReturnRes.Fail);
-            }
-            else
-            {
-                if(!_userCardService.AllocRole((int)uid, (Enum_UserRole)role)) return ReturnJsonResult("分配失败！", Enum_ReturnRes.Fail);
-            }
-            return ReturnJsonResult();
-        }
-
-        public ActionResult AddUserAttention(string openid,int? doorid)
-        {
-            if (string.IsNullOrWhiteSpace(openid) || !doorid.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
-            _userCardService.AddUserAttention(openid, (int)doorid);
-            return ReturnJsonResult();
-        }
+        
         #endregion
 
         #region Cards
-
-        public ActionResult GetUserCards(string openid, Enum_CardStatus cardStatus= Enum_CardStatus.All)
-        {
-            var res= _userCardService.GetUserALlCards(openid,cardStatus);
-            return ReturnJsonResult(res);
-        }
-
-        public ActionResult GetUserDoorCards(string openid,int? doorId)
-        {
-            if (string.IsNullOrWhiteSpace(openid) || !doorId.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
-            var res = _userCardService.GetUserDoorCards(openid, (int)doorId);
-            return ReturnJsonResult(res);
-        }
-
         public ActionResult GetDoorCardTemplates(int? doorId)
         {
-            if(!doorId.HasValue || doorId <=0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            if (!doorId.HasValue || doorId <= 0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
             var res = _cardTemplateService.GetAllDoorCardsTemplate((int)doorId);
             return ReturnJsonResult(res);
         }
 
-        public ActionResult GetUserCardsInfo(int? id)
+
+        public ActionResult GetUserCards(string openid, Enum_CardStatus cardStatus= Enum_CardStatus.All)
         {
-            if(!id.HasValue || id<=0) return  ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
-            var res = _userCardService.GetUserInfoById((int)id);
+            var res= _doorUserCardService.GetUserALlCards(openid,cardStatus);
             return ReturnJsonResult(res);
         }
+
+        public ActionResult GetUserDoorCards(int? uid,int? doorId)
+        {
+            if (!uid.HasValue || !doorId.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _doorUserCardService.GetUserDoorCards((int)uid, (int)doorId);
+            return ReturnJsonResult(res);
+        }
+
+        public ActionResult GetDoorUserInfo(int? id)
+        {
+            if (!id.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res= _doorUserService.GetDoorUserInfo((int)id);
+            return ReturnJsonResult(res);
+        }
+     
+        //public ActionResult GetUserCardsInfo(int? id)
+        //{
+        //    if(!id.HasValue || id<=0) return  ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+        //    var res = _doorUserCardService.GetUserInfoById((int)id);
+        //    return ReturnJsonResult(res);
+        //}
+
+        public ActionResult AddUserACard(DoorUsersCards model)
+        {
+            if(model.du_id<=0 || model.cid<=0 || !model.ctype.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            if(!_doorUserCardService.AddUserCards(model)) return ReturnJsonResult("操作失败！", Enum_ReturnRes.Fail);
+            return ReturnJsonResult();
+        }
+        //public ActionResult UpdateUserCardsInfo(DoorUsersCards model )
+        //{
+        //    if (model.id <= 0 || model.cid <= 0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+        //    if (!_doorUserCardService.UpdateUserCardsInfo(model)) return ReturnJsonResult("操作失败！", Enum_ReturnRes.Fail);
+        //    return ReturnJsonResult();
+        //}
 
         #endregion
 

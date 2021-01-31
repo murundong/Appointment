@@ -9,18 +9,15 @@ using System.Threading.Tasks;
 
 namespace Appoint.Application.Services
 {
-    public interface IUserCardService:IApplicationService
+    public interface IDoorUsersCardsService :IApplicationService
     {
-        void AddUserAttention(string openid, int doorid);
         View_InitialUserCardsInfoOutput GetUserLst_Door(int doorid,string nick);
-
-        bool SetUSerRemark(int uid, string remark);
-        bool AllocRole(int uid, Enum_UserRole role);
-
         List<View_LstUserAllCardsOutput> GetUserALlCards(string openid, Enum_CardStatus cardStatus);
-
-        List<View_LstUserAllCardsOutput_CardsInfo> GetUserDoorCards(string openid, int doorId);
+        List<View_UserCardsInfoOutput> GetUserDoorCards(int uid, int doorId);
 
         View_UserCardsInfoOutput GetUserInfoById(int? id);
+
+        bool AddUserCards(DoorUsersCards model);
+        //bool UpdateUserCardsInfo(DoorUsersCards model);
     }
 }

@@ -18,7 +18,7 @@ namespace Appoint.Application.Services
      
         public IRepository<App_DbContext,Doors> _repository { get; set; }
         public IRepository<App_DbContext, UserInfos> _repositoryUInfos { get; set; }
-        public IRepository<App_DbContext,UserCards> _repositoryCardsUser { get; set; }
+        public IRepository<App_DbContext,DoorUsersCards> _repositoryCardsUser { get; set; }
         public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public Doors CreateDoors(Doors model)

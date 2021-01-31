@@ -18,6 +18,6 @@ namespace Appoint.Application.Services
 
         List<ViewDoorCardsSelect> GetDoorCards(int doorId);
 
-        List<CardTemplate> GetAllDoorCardsTemplate(int doorId);
+        List<View_PrevCardTemplateOutput> GetAllDoorCardsTemplate(int doorId);
     }
 }

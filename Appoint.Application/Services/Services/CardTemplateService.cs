@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace Appoint.Application.Services
        
         public IRepository<App_DbContext, CardTemplate> _repository { get; set; }
         public IRepository<App_DbContext, Doors> _repositoryDoors { get; set; }
+        public IRepository<App_DbContext, View_PrevCardTemplateOutput> _repositoryPrevTemplate { get; set; }
         public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public CardTemplate CreateCardTemplate(CardTemplate model)
@@ -26,9 +28,14 @@ namespace Appoint.Application.Services
             return null;
         }
 
-        public List<CardTemplate> GetAllDoorCardsTemplate(int doorId)
+        public List<View_PrevCardTemplateOutput> GetAllDoorCardsTemplate(int doorId)
         {
-            var res = _repository.GetAll().Where(s => s.door_id == doorId);
+            string sql = @"select [door_img]=(select door_img from [dbo].[Doors] where id =[dbo].[CardTemplate].door_id ), * from [dbo].[CardTemplate]
+                            where door_id = @doorId";
+            var SqlParam = new SqlParameter[] {
+                new SqlParameter("@doorId",doorId)
+            };
+            var res = _repositoryPrevTemplate.ExecuteSqlQuery(sql,SqlParam);
             return res.ToList();
         }
 
