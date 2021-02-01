@@ -17,6 +17,7 @@ namespace Appoint.Application.Services
     {
         public IRepository<App_DbContext, DoorUsersCards> _repository { get; set; }
         public IRepository<App_DbContext,Doors> _repositoryDoors { get; set; }
+        public IRepository<App_DbContext, DoorUsers> _repositoryDoorUsers { get; set; }
         public IRepository<App_DbContext, View_UserCardsInfoOutput> _repositorySql { get; set; }
         public IUnitOfWork<App_DbContext> uof { get; set; }
 
@@ -67,8 +68,8 @@ namespace Appoint.Application.Services
                         on A.du_id = D.id
                         left join [dbo].[UserInfos] E
                         on D.uid = E.uid
-                        where  A.cid is not null and E.open_id = @openid 
-                        order by A.id desc ;";
+                        where  A.cid is not null and E.open_id = @openid and A.is_delete=0
+                      ";
             switch (cardStatus)
             {
                 case Enum_CardStatus.Expired:
@@ -78,9 +79,10 @@ namespace Appoint.Application.Services
                     sql += " and is_freeze=1";
                     break;
                 default:
+                    sql += " and (card_edtime > GETDATE() or card_edtime is null) and is_freeze =0";
                     break;
             }
-
+            sql += "  order by A.id desc ;";
             var sqlParm = new SqlParameter[] {
                 new SqlParameter("@openid",openid),
             };
@@ -121,7 +123,7 @@ namespace Appoint.Application.Services
                         on A.cid = C.id
                         left join [dbo].[DoorUsers] D
                         on A.du_id = D.id
-                        where A.cid is not null and D.uid = @uid and A.door_id = @doorId
+                        where A.cid is not null and D.uid = @uid and A.door_id = @doorId and A.is_delete=0
                         order by A.id desc ;";
             var sqlParm = new SqlParameter[] {
                 new SqlParameter("@uid",uid),
@@ -131,22 +133,15 @@ namespace Appoint.Application.Services
             return res;
         }
 
-        public View_UserCardsInfoOutput GetUserInfoById(int? id)
+        public View_UserCardsInfoOutput GetUserCardsInfo(int? id)
         {
-            string sql = @"select A.id,A.door_id,A.uid,[door_role]=A.role, [door_remark]= A.remark,
-                        open_id,nick_name,avatar,gender,C.role,tel,initial,real_name,birthday,
-                        B.cid,E.card_name,E.card_desc,D.door_img,
-                        B.ctype,B.card_sttime,B.card_edtime,B.effective_time,B.limit_week_time,B.limit_day_time,B.is_freeze,B.freeze_edtime
-                        from [dbo].[DoorUsers] A
-                        left join [dbo].[DoorUsersCards] B
-                        on A.id = B.du_id
-                        left join [dbo].[UserInfos] C
-                        on A.uid = C.uid
-                        left join [dbo].[Doors] D
-                        on A.door_id = D.id
-                        left join [dbo].[CardTemplate] E
-                        on B.cid = E.id
-                        where A.id=@id ";
+            string sql = @"select  A.* ,[door_remark]= B.remark,avatar,nick_name
+			                from  [dbo].[DoorUsersCards] A
+			                left join [dbo].[DoorUsers] B
+			                on A.du_id = B.id
+			                left join [dbo].[UserInfos] C
+			                on B.uid = C.uid
+			                where A.id=@id ";
             var sqlParm = new SqlParameter[] {
                 new SqlParameter("@id",id),
             };
@@ -156,29 +151,46 @@ namespace Appoint.Application.Services
         public bool AddUserCards(DoorUsersCards model)
         {
             _repository.Insert(model);
+            var entity = _repositoryDoorUsers.FirstOrDefault(s => s.id == model.du_id);
+            if(entity!=null && entity.id > 0)
+            {
+                if(entity.role == Enum_UserRole.Tourist)
+                {
+                    entity.role = Enum_UserRole.Member;
+                    _repositoryDoorUsers.Update(entity);
+                }
+            }
             return uof.SaveChange() > 0;
         }
-
-        //public bool UpdateUserCardsInfo(DoorUsersCards model)
-        //{
-        //    var entity= _repository.FirstOrDefault(s => s.id == model.id); 
-        //    if(entity!=null && entity.id > 0)
-        //    {
-        //        entity.cid = model.cid;
-        //        entity.role = Enum_UserRole.Member;
-        //        entity.ctype = model.ctype;
-        //        entity.card_sttime = model.card_sttime;
-        //        entity.card_edtime = model.card_edtime;
-        //        entity.effective_time = model.effective_time;
-        //        entity.limit_week_time = model.limit_week_time;
-        //        entity.limit_day_time = model.limit_day_time;
-        //        entity.freeze_edtime = model.freeze_edtime;
-        //        entity.is_freeze = model.is_freeze;
-        //        _repository.Update(entity);
-        //        return uof.SaveChange() > 0;
-        //    }
-        //    return false;
-        //}
+        public bool DeleteUserCards(int? id)
+        {
+            var entity = _repository.FirstOrDefault(s => s.id == id);
+            if(entity!=null && entity.id > 0)
+            {
+                entity.is_delete = true;
+                _repository.Update(entity);
+            }
+            return uof.SaveChange() > 0;
+        }
+        public bool UpdateUserCardsInfo(DoorUsersCards model)
+        {
+            var entity = _repository.FirstOrDefault(s => s.id == model.id);
+            if (entity != null && entity.id > 0)
+            {
+                entity.cid = model.cid;
+                entity.ctype = model.ctype;
+                entity.card_sttime = model.card_sttime;
+                entity.card_edtime = model.card_edtime;
+                entity.effective_time = model.effective_time;
+                entity.limit_week_time = model.limit_week_time;
+                entity.limit_day_time = model.limit_day_time;
+                entity.freeze_edtime = model.freeze_edtime;
+                entity.is_freeze = model.is_freeze;
+                _repository.Update(entity);
+                return uof.SaveChange() > 0;
+            }
+            return false;
+        }
     }
 }
 

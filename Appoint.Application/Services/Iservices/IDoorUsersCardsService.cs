@@ -15,9 +15,13 @@ namespace Appoint.Application.Services
         List<View_LstUserAllCardsOutput> GetUserALlCards(string openid, Enum_CardStatus cardStatus);
         List<View_UserCardsInfoOutput> GetUserDoorCards(int uid, int doorId);
 
-        View_UserCardsInfoOutput GetUserInfoById(int? id);
+        View_UserCardsInfoOutput GetUserCardsInfo(int? id);
 
         bool AddUserCards(DoorUsersCards model);
-        //bool UpdateUserCardsInfo(DoorUsersCards model);
+
+        bool UpdateUserCardsInfo(DoorUsersCards model);
+
+        bool DeleteUserCards(int? id);
+      
     }
 }

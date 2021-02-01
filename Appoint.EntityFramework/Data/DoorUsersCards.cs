@@ -25,6 +25,8 @@ namespace Appoint.EntityFramework.Data
         public int? limit_day_time { get; set; }
         public bool is_freeze { get; set; }
         public DateTime? freeze_edtime { get; set; }
+
+        public bool is_delete { get; set; } = false;
         public DateTime create_time { get; set; } = DateTime.Now;
 
        

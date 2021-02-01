@@ -28,6 +28,7 @@ namespace Appoint.Application.Services
             return null;
         }
 
+      
         public List<View_PrevCardTemplateOutput> GetAllDoorCardsTemplate(int doorId)
         {
             string sql = @"select [door_img]=(select door_img from [dbo].[Doors] where id =[dbo].[CardTemplate].door_id ), * from [dbo].[CardTemplate]

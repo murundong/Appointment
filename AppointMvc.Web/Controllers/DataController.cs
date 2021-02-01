@@ -356,12 +356,6 @@ namespace AppointMvc.Web.Controllers
             return ReturnJsonResult(res);
         }
      
-        //public ActionResult GetUserCardsInfo(int? id)
-        //{
-        //    if(!id.HasValue || id<=0) return  ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
-        //    var res = _doorUserCardService.GetUserInfoById((int)id);
-        //    return ReturnJsonResult(res);
-        //}
 
         public ActionResult AddUserACard(DoorUsersCards model)
         {
@@ -369,12 +363,27 @@ namespace AppointMvc.Web.Controllers
             if(!_doorUserCardService.AddUserCards(model)) return ReturnJsonResult("操作失败！", Enum_ReturnRes.Fail);
             return ReturnJsonResult();
         }
-        //public ActionResult UpdateUserCardsInfo(DoorUsersCards model )
-        //{
-        //    if (model.id <= 0 || model.cid <= 0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
-        //    if (!_doorUserCardService.UpdateUserCardsInfo(model)) return ReturnJsonResult("操作失败！", Enum_ReturnRes.Fail);
-        //    return ReturnJsonResult();
-        //}
+
+        public ActionResult GetUserCardsInfo(int? id)
+        {
+            if (!id.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _doorUserCardService.GetUserCardsInfo(id);
+            return ReturnJsonResult(res);
+        }
+
+        public ActionResult UpdateUserCardsInfo(DoorUsersCards model)
+        {
+            if (model.id <= 0 || model.cid <= 0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            if (!_doorUserCardService.UpdateUserCardsInfo(model)) return ReturnJsonResult("操作失败！", Enum_ReturnRes.Fail);
+            return ReturnJsonResult();
+        }
+
+        public ActionResult DeleteUserCards(int? id)
+        {
+            if (!id.HasValue) return ReturnJsonResult("操作失败,参数错误！", Enum_ReturnRes.Fail);
+            if (!_doorUserCardService.DeleteUserCards(id)) return ReturnJsonResult("操作失败！", Enum_ReturnRes.Fail);
+            return ReturnJsonResult();
+        }
 
         #endregion
 
