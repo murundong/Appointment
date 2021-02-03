@@ -67,7 +67,31 @@ namespace Appoint.Application.Services
             return res;
         }
 
-       
+        public Base_PageOutput<List<View_CourseShowOutput>> GetDoorAppointCourse(View_AppointCourseInput input)
+        {
+            Base_PageOutput<List<View_CourseShowOutput>> return_res = new Base_PageOutput<List<View_CourseShowOutput>>();
+            var query =  _repository.GetAll().Where(s => s.door_id == input.doorId && s.course_date == input.date && s.active);
+            var querySubject = _repositorySubject.GetAll().Where(s => s.door_id == input. doorId);
+            var lstCourse = AutoMapper.Mapper.Map<List<View_CourseShowOutput>>(query.ToList());
+            if (lstCourse?.Count > 0)
+            {
+                lstCourse.ForEach(s =>
+                {
+                    var subject_item = querySubject.FirstOrDefault(p => p.id == s.subject_id);
+                    s.Subject = AutoMapper.Mapper.Map<View_SubjectsOutput>(subject_item);
+                });
+                if (!string.IsNullOrWhiteSpace(input.tag))
+                {
+                    lstCourse = lstCourse?.Where(s => s.Subject.subject_tag.Contains(input.tag))?.ToList();
+                }
+                return_res.total = lstCourse.Count;
+                return_res.data= lstCourse.OrderBy(s=>s.course_time)
+                     .Skip((input.page_index - 1) * input.page_size)
+                     .Take(input.page_size)?.ToList();
+            }
+            return return_res;
+        }
+
         public List<View_WeekCourseOutput> GetWeekCourse(View_WeekCourseInput input)
         {
             DateTime st_dt , ed_dt ;
@@ -90,11 +114,7 @@ namespace Appoint.Application.Services
             }
             List<View_WeekCourseOutput> res = new List<View_WeekCourseOutput>();
             string[] Day = new string[] { "周日", "周一", "周二", "周三", "周四", "周五", "周六" };
-            //var query = _repository.GetAll().Where(s => s.door_id == input.door_id
-            //&& DbFunctions.CreateDateTime(Convert.ToInt32( s.course_date.Split('-')[0]), Convert.ToInt32(s.course_date.Split('-')[1]), Convert.ToInt32(s.course_date.Split('-')[2]), 0,0,0) > st_dt
-            ////&& DbFunctions.TruncateTime(DateTimeOffset.Parse(s.course_date)) >= st_dt
-            ////&& DbFunctions.TruncateTime(DateTimeOffset.Parse(s.course_date)) <= ed_dt
-            //);
+            
             var query = _repository.SqlQuery($"select * from [dbo].[Courses] where door_id={input.door_id} and course_date >='{st_dt.ToString("yyyy-MM-dd")}'  and course_date <= '{ed_dt.ToString("yyyy-MM-dd")}' order by course_date,course_time");
 
 
@@ -116,28 +136,6 @@ namespace Appoint.Application.Services
                 }
                 res.Add(itemModel);
             }
-
-            //if (query.Count() > 0)
-            //{
-            //    for (int i = 0; i < 7; i++)
-            //    {
-            //        View_WeekCourseOutput itemModel = new View_WeekCourseOutput()
-            //        {
-
-            //            date = st_dt.AddDays(i).ToString("yyyy-MM-dd"),
-            //            week = Day[(int)st_dt.AddDays(i).DayOfWeek],
-            //            Courses = AutoMapper.Mapper.Map<List<View_CoursesOutput>>(query.Where(s => s.course_date == st_dt.AddDays(i).ToString("yyyy-MM-dd")))
-            //        };
-            //        if (itemModel.Courses.Count > 0)
-            //        {
-            //            itemModel.Courses.ForEach(s =>
-            //            {
-            //                s.Subject = AutoMapper.Mapper.Map<View_SubjectsOutput>(_repositorySubject.FirstOrDefault(p => p.id == s.subject_id));
-            //            });
-            //        }
-            //        res.Add(itemModel);
-            //    }
-            //}
             return res;
 
         }

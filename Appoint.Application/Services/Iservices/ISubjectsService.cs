@@ -17,5 +17,7 @@ namespace Appoint.Application.Services
         Subjects CreateSubject(Subjects model);
         bool UpdateSubject(Subjects model);
         Subjects GetSubjectById(int id);
+
+        List<string> GetDoorTags(int? doorId);
     }
 }

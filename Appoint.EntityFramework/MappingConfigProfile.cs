@@ -28,6 +28,7 @@ namespace Appoint.EntityFramework
             CreateMap<Subjects, Subjects>();
             CreateMap<Courses, Courses>();
             CreateMap<Courses, View_CoursesOutput>();
+            CreateMap<Courses, View_CourseShowOutput>();
             CreateMap<CardTemplate, ViewDoorCardsSelect>();
         }
 

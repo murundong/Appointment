@@ -25,6 +25,20 @@ namespace Appoint.Application.Services
 
         }
 
+        public List<string> GetDoorTags(int? doorId)
+        {
+            List<string> res = new List<string>();
+            var query= _repository.GetAll().Where(s => s.door_id == doorId && s.active && s.subject_tag!=null && s.subject_tag!="")?.Select(s => s.subject_tag);
+            if(query!=null && query.Count() > 0)
+            {
+                query.ToList().ForEach(s =>
+                {
+                    res.AddRange(s.Split(','));
+                });
+            }
+            return res;
+        }
+
         public Subjects GetSubjectById(int id)
         {
             return _repository.FirstOrDefault(s => s.id == id);

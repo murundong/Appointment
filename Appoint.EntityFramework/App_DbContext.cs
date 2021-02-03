@@ -21,8 +21,8 @@ namespace Appoint.EntityFramework
         public DbSet<Subjects> Set_Subjects { get; set; }
         public DbSet<Courses> Set_Courses { get; set; }
         public DbSet<DoorUsersCards> Set_DoorUsersCards { get; set; }
-        public DbSet<DoorUsers> SetDoorUsers { get; set; }
-
+        public DbSet<DoorUsers> Set_DoorUsers { get; set; }
+        public DbSet<DoorUsersAppoints> Set_DoorUserAppoints { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

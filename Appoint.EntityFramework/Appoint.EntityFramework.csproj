@@ -62,11 +62,13 @@
     <Compile Include="Data\Courses.cs" />
     <Compile Include="Data\Doors.cs" />
     <Compile Include="Data\DoorUsers.cs" />
+    <Compile Include="Data\DoorUsersAppoints.cs" />
     <Compile Include="Data\Subjects.cs" />
     <Compile Include="Data\DoorUsersCards.cs" />
     <Compile Include="Data\UserInfos.cs" />
     <Compile Include="DbContextProvider\DbContextProvider.cs" />
     <Compile Include="DbContextProvider\IDbContextProvider.cs" />
+    <Compile Include="Enum\Enum_AppointStatus.cs" />
     <Compile Include="Enum\Enum_CardStatus.cs" />
     <Compile Include="Enum\Enum_CardType.cs" />
     <Compile Include="Enum\Enum_DoorStatus.cs" />
@@ -83,6 +85,8 @@
     <Compile Include="ViewData\Base_PageOutput.cs" />
     <Compile Include="ViewData\ViewDoorCardsSelect.cs" />
     <Compile Include="ViewData\View_AddCourseData.cs" />
+    <Compile Include="ViewData\View_AppointCourseInput.cs" />
+    <Compile Include="ViewData\View_CourseShowOutput.cs" />
     <Compile Include="ViewData\View_CoursesInput.cs" />
     <Compile Include="ViewData\View_CoursesOutput.cs" />
     <Compile Include="ViewData\View_DoorUserInfoOutput.cs" />

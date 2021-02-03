@@ -20,7 +20,7 @@ namespace Appoint.Application.Services
         
         List<View_WeekCourseOutput> GetWeekCourse(View_WeekCourseInput input);
 
+        Base_PageOutput< List<View_CourseShowOutput>> GetDoorAppointCourse(View_AppointCourseInput input);
 
-       
     }
 }

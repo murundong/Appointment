@@ -14,6 +14,20 @@ namespace Appoint.EntityFramework.ViewData
         public int id { get; set; }
         public string subject_name { get; set; }
         public string subject_tag { get; set; }
+
+        public List<string> lst_subject_tag
+        {
+            get
+            {
+                List<string> res = new List<string>();
+                if (!string.IsNullOrWhiteSpace(subject_tag))
+                {
+                    res.AddRange(subject_tag.Split(','));
+                }
+                return res;
+            }
+        }
+
         public string subject_teacher { get; set; }
         public int subject_duration { get; set; }
         public int? subject_price { get; set; }

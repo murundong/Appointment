@@ -66,6 +66,7 @@
     <Compile Include="IWeixinApi\WeixinService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Iservices\ICoursesService.cs" />
+    <Compile Include="Services\Iservices\IDoorUsersAppointsService.cs" />
     <Compile Include="Services\Iservices\IDoorUsersService.cs" />
     <Compile Include="Services\Iservices\IOssService.cs" />
     <Compile Include="Services\Iservices\ISubjectsService.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Services\Iservices\ICardTemplateService.cs" />
     <Compile Include="Services\Iservices\IDoorsService.cs" />
     <Compile Include="Services\Iservices\IUserInfoService.cs" />
+    <Compile Include="Services\Services\DoorUsersAppointsService.cs" />
     <Compile Include="Services\Services\DoorUsersService.cs" />
     <Compile Include="Services\Services\OssService.cs" />
     <Compile Include="Services\Services\SubjectsService.cs" />
