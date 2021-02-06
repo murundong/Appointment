@@ -15,6 +15,7 @@ namespace Appoint.EntityFramework.Data
         public int id { get; set; }
         public int door_id { get; set; }
         public int du_id { get; set; }
+        public int uid { get; set; }
         public int? cid { get; set; }
         public Enum_CardType? ctype { get; set; }
         public DateTime? card_sttime { get; set; }

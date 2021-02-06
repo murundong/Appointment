@@ -148,5 +148,10 @@ namespace BaseClasses
                 fileStream.Flush();
             }
         }
+
+        public static bool TheSameDayAs(this DateTime dt,DateTime cp)
+        {
+            return dt.Year == cp.Year && dt.Month == cp.Month && dt.Day == cp.Day;
+        }
     }
 }

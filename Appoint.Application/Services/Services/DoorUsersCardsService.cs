@@ -64,10 +64,8 @@ namespace Appoint.Application.Services
                         on A.door_id = B.id
                         left join [dbo].[CardTemplate] C
                         on A.cid = C.id
-                        left join [dbo].[DoorUsers] D
-                        on A.du_id = D.id
                         left join [dbo].[UserInfos] E
-                        on D.uid = E.uid
+                        on A.uid = E.uid
                         where  A.cid is not null and E.open_id = @openid and A.is_delete=0
                       ";
             switch (cardStatus)
@@ -121,9 +119,7 @@ namespace Appoint.Application.Services
                         on A.door_id = B.id
                         left join [dbo].[CardTemplate] C
                         on A.cid = C.id
-                        left join [dbo].[DoorUsers] D
-                        on A.du_id = D.id
-                        where A.cid is not null and D.uid = @uid and A.door_id = @doorId and A.is_delete=0
+                        where A.cid is not null and A.uid = @uid and A.door_id = @doorId and A.is_delete=0
                         order by A.id desc ;";
             var sqlParm = new SqlParameter[] {
                 new SqlParameter("@uid",uid),

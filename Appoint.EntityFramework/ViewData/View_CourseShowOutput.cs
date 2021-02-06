@@ -21,6 +21,17 @@ namespace Appoint.EntityFramework.ViewData
         //public string need_cards { get; set; }
         public View_SubjectsOutput Subject { get; set; } = new View_SubjectsOutput();
         public Enum_AppointStatus AppointStatus { get; set; }
-        public int NowAppointCount { get; set; }
+        public List<View_CourseShowOutput_AppointUser> AppointUsers = new List<View_CourseShowOutput_AppointUser>();
     }
+
+    public class View_CourseShowOutput_AppointUser {
+        public int course_id { get; set; }
+        public int du_id { get; set; }
+        public int uid { get; set; }
+        public string avatar { get; set; }
+        public string door_remark { get; set; }
+        public string nick_name { get; set; }
+
+    }
+
 }

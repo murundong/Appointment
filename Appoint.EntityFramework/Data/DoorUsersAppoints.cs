@@ -11,6 +11,8 @@ namespace Appoint.EntityFramework.Data
     {
         [Key]
         public int id { get; set; }
+        public int du_id { get; set; }
+        public int uid { get; set; }
         public int course_id { get; set; }
         public int? user_card_id { get; set; }
         public bool is_signed { get; set; }

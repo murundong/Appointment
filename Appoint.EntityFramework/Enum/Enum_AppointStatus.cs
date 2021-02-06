@@ -9,6 +9,18 @@ namespace Appoint.EntityFramework.Enum
     public enum Enum_AppointStatus
     {
         /// <summary>
+        /// 只允许当日预约
+        /// </summary>
+        SHOW_ONLYTODY=-3,
+        /// <summary>
+        /// 预约人满了
+        /// </summary>
+        SHOW_FULLPEOPLE=-2,
+        /// <summary>
+        /// 不能预约的时间
+        /// </summary>
+        SHOW_TIMEEXPIRED=-1,
+        /// <summary>
         /// 不显示
         /// </summary>
         SHOW_NULL=0,
@@ -21,5 +33,9 @@ namespace Appoint.EntityFramework.Enum
         /// 显示取消
         /// </summary>
         SHOW_CANCEL,
+        /// <summary>
+        /// 显示排队
+        /// </summary>
+        SHOW_QUEUE,
     }
 }

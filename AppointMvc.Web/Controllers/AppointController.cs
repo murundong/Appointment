@@ -16,6 +16,13 @@ namespace AppointMvc.Web.Controllers
             if(input==null || input.doorId <= 0 || string.IsNullOrWhiteSpace(input.date)) ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
             if (input.tag == "全部课程") input.tag = null;
             var res= _courseService.GetDoorAppointCourse(input);
+            if(res!=null && res.total > 0)
+            {
+                res.data.ForEach(s =>
+                {
+                    s.AppointStatus = _doorUserAppointService.GetCourseAppointStatus(input.uid,s.id);
+                });
+            }
             return ReturnJsonResult(res);
         }
 

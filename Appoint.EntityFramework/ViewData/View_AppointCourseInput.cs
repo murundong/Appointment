@@ -11,5 +11,6 @@ namespace Appoint.EntityFramework.ViewData
         public string date { get; set; }
         public string tag { get; set; }
         public int doorId { get; set; }
+        public int uid { get; set; }
     }
 }

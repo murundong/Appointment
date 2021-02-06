@@ -18,6 +18,7 @@ namespace Appoint.Application.Services
         
         public IRepository<App_DbContext, Courses> _repository { get; set; }
         public IRepository<App_DbContext, Subjects> _repositorySubject { get; set; }
+        public IRepository<App_DbContext, View_CourseShowOutput_AppointUser> _repositoryAppointUser { get; set; }
         public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public Courses CreateCourse(Courses model)
@@ -60,7 +61,9 @@ namespace Appoint.Application.Services
                     if (sub_item != null && sub_item.id > 0)
                     {
                         s.Subject = AutoMapper.Mapper.Map<View_SubjectsOutput>(sub_item);
+                        
                     }
+                    
                 });
             }
             res.data = lst;
@@ -88,6 +91,20 @@ namespace Appoint.Application.Services
                 return_res.data= lstCourse.OrderBy(s=>s.course_time)
                      .Skip((input.page_index - 1) * input.page_size)
                      .Take(input.page_size)?.ToList();
+                if (return_res.data?.Count > 0)
+                {
+                    string sql = $@"select du_id,A.uid,avatar,[door_remark]= B.remark,nick_name from  [dbo].[DoorUsersAppoints] A
+			                        Left join [dbo].[DoorUsers] B
+			                        on A.du_id = B.id
+			                        left join  [dbo].[UserInfos] C
+			                        on A.uid = C.uid
+			                        where course_id in ({string.Join(",", return_res.data.Select(s=>s.id))})";
+                    var queryAppointUser = _repositoryAppointUser.ExecuteSqlQuery(sql)?.ToList();
+                    return_res.data.ForEach(s =>
+                    {
+                        s.AppointUsers = queryAppointUser?.Where(p => p.course_id == s.id)?.ToList();
+                    });
+                }
             }
             return return_res;
         }
