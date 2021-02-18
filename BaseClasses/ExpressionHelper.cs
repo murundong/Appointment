@@ -9,12 +9,6 @@ namespace BaseClasses
 {
     public static class ExpressionHelper
     {
-        //public static void 
-        public static DateTime GetNowMonth(this DateTime dt)
-        {
-            var res= dt.AddHours(-6);
-            return new DateTime(res.Year, res.Month,1);
-        }
         
 
         public static string GetInitial(this string str)
@@ -152,6 +146,41 @@ namespace BaseClasses
         public static bool TheSameDayAs(this DateTime dt,DateTime cp)
         {
             return dt.Year == cp.Year && dt.Month == cp.Month && dt.Day == cp.Day;
+        }
+
+        public static DateTime GetDateTimeWithoutTimt(this DateTime dt)
+        {
+            return Convert.ToDateTime(dt.ToString("yyyy-MM-dd"));
+        }
+
+        public static string GetDateTimeWithoutDate(this DateTime dt)
+        {
+            return dt.ToString("HH:mm");
+        }
+
+        public static DateTime  GetFirstDayOfWeek(this DateTime dt)
+        {
+            int weeknow = (int)dt.DayOfWeek;
+            weeknow = (weeknow == 0 ? (7 - 1) : (weeknow - 1));
+            int daydiff = (-1) * weeknow;
+
+            return Convert.ToDateTime(dt.AddDays(daydiff).ToString("yyyy-MM-dd"));
+        }
+
+        public static DateTime GetLastDayOfWeek (this DateTime dt)
+        {
+            int weeknow = Convert.ToInt32(dt.DayOfWeek);
+            weeknow = (weeknow == 0 ? 7 : weeknow);
+            int daydiff = (7 - weeknow);
+            
+            return Convert.ToDateTime(dt.AddDays(daydiff).ToString("yyyy-MM-dd"));
+        }
+
+        public static string GetWeekOfTime(this DateTime dt)
+        {
+            string[] Day = new string[] { "周日", "周一", "周二", "周三", "周四", "周五", "周六" };
+            string week = Day[Convert.ToInt32(dt.DayOfWeek.ToString("d"))].ToString();
+            return week;
         }
     }
 }

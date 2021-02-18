@@ -4,6 +4,7 @@ using Appoint.EntityFramework.Enum;
 using Appoint.EntityFramework.Rep;
 using Appoint.EntityFramework.Uow;
 using Appoint.EntityFramework.ViewData;
+using BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,16 +14,18 @@ using System.Threading.Tasks;
 
 namespace Appoint.Application.Services
 {
-    public class DoorUsersCardsService : IDoorUsersCardsService 
+    public class DoorUsersCardsService : IDoorUsersCardsService
     {
         public IRepository<App_DbContext, DoorUsersCards> _repository { get; set; }
-        public IRepository<App_DbContext,Doors> _repositoryDoors { get; set; }
+        public IRepository<App_DbContext, DoorUsersAppoints> _repositoryAppoints { get; set; }
+        public IRepository<App_DbContext, Doors> _repositoryDoors { get; set; }
         public IRepository<App_DbContext, DoorUsers> _repositoryDoorUsers { get; set; }
         public IRepository<App_DbContext, View_UserCardsInfoOutput> _repositorySql { get; set; }
+        public IRepository<App_DbContext, View_Appoint_UsersCardsInfo> _repositoryAppointDoorUserCardsInfoSql { get; set; }
         public IUnitOfWork<App_DbContext> uof { get; set; }
 
 
-       
+
         public View_InitialUserCardsInfoOutput GetUserLst_Door(int doorid, string nick)
         {
             View_InitialUserCardsInfoOutput return_res = new View_InitialUserCardsInfoOutput();
@@ -35,25 +38,26 @@ namespace Appoint.Application.Services
                 new SqlParameter("@nick",$"%{nick}%"),
             };
             var query = _repositorySql.ExecuteSqlQuery(sql, sqlParm)?.ToList();
-            List<string> LstLetters= query.Select(s => s.initial)?.Distinct()?.ToList();
+            List<string> LstLetters = query.Select(s => s.initial)?.Distinct()?.ToList();
             return_res.initials = LstLetters;
             if (LstLetters?.Count > 0)
             {
                 LstLetters.ForEach(s =>
                 {
-                    View_InitialUserCardsInfoItemOutput item = new View_InitialUserCardsInfoItemOutput() {
+                    View_InitialUserCardsInfoItemOutput item = new View_InitialUserCardsInfoItemOutput()
+                    {
                         initial = s,
                         uinfos = query.Where(p => p.initial == s)?.ToList()
                     };
-                    return_res.uinfos.Add(item); 
+                    return_res.uinfos.Add(item);
                 });
             }
             return return_res;
         }
 
-      
 
-        public List<View_LstUserAllCardsOutput> GetUserALlCards(string openid,Enum_CardStatus cardStatus)
+
+        public List<View_LstUserAllCardsOutput> GetUserALlCards(string openid, Enum_CardStatus cardStatus)
         {
             List<View_LstUserAllCardsOutput> res = new List<View_LstUserAllCardsOutput>();
 
@@ -148,9 +152,9 @@ namespace Appoint.Application.Services
         {
             _repository.Insert(model);
             var entity = _repositoryDoorUsers.FirstOrDefault(s => s.id == model.du_id);
-            if(entity!=null && entity.id > 0)
+            if (entity != null && entity.id > 0)
             {
-                if(entity.role == Enum_UserRole.Tourist)
+                if (entity.role == Enum_UserRole.Tourist)
                 {
                     entity.role = Enum_UserRole.Member;
                     _repositoryDoorUsers.Update(entity);
@@ -161,7 +165,7 @@ namespace Appoint.Application.Services
         public bool DeleteUserCards(int? id)
         {
             var entity = _repository.FirstOrDefault(s => s.id == id);
-            if(entity!=null && entity.id > 0)
+            if (entity != null && entity.id > 0)
             {
                 entity.is_delete = true;
                 _repository.Update(entity);
@@ -186,6 +190,88 @@ namespace Appoint.Application.Services
                 return uof.SaveChange() > 0;
             }
             return false;
+        }
+
+        public List<View_Appoint_UsersCardsInfo> GetAppointDoorUserCardsInfo(int? doorId, int? uid)
+        {
+            string sql = @"select B.card_name,B.card_type, A.* from [dbo].[DoorUsersCards] A
+		                    Left join [dbo].[CardTemplate] B
+		                    on A.cid = B.id
+		                    where A.door_id=@door_id and uid=@uid and is_delete<>1 ;";
+            SqlParameter[] SqlParm = new SqlParameter[]
+            {
+                new SqlParameter("@door_id",doorId),
+                new SqlParameter("@uid",uid),
+            };
+            return _repositoryAppointDoorUserCardsInfoSql.ExecuteSqlQuery(sql, SqlParm).ToList();
+        }
+
+        public bool CheckCardsCanUse(int id)
+        {
+            var entity = _repository.FirstOrDefault(s => s.id == id);
+            if (entity == null || entity.id <= 0) return false;
+            if (entity.effective_time.HasValue && entity.effective_time <= 0) return false;
+            if (entity.card_sttime.HasValue && entity.card_sttime <= DateTime.Now
+                && ((entity.card_edtime.HasValue && entity.card_edtime > DateTime.Now) || !entity.card_edtime.HasValue
+                && !entity.is_freeze))
+                return true;
+            return false;
+        }
+
+        public bool DeductionUserCards(int id)
+        {
+            string sql = @"merge into [dbo].[DoorUsersCards] T
+                        using( select id= @id ) AS S
+                        on T.id = S.id and isnull(T.effective_time,0) >0
+                        when matched then
+                            update set T.effective_time =  (T.effective_time-1);";
+            SqlParameter[] SqlParam = new SqlParameter[] {
+                new SqlParameter("@id",id)
+            };
+            return _repository.ExecuteSqlCommand(sql, SqlParam) >0;
+        }
+
+        public bool CheckCardLimitTimes(int uid, int card_id)
+        {
+            var entity = _repository.FirstOrDefault(s => s.id == card_id);
+            if (entity == null || entity.id <= 0) return false;
+            if (entity.limit_day_time.HasValue)
+            {
+                //获取今天预约了几次
+                DateTime dt = DateTime.Now.GetDateTimeWithoutTimt();
+                DateTime edTime = dt.AddDays(1).GetDateTimeWithoutTimt();
+                int count= _repositoryAppoints.Count(s => s.uid == uid && s.user_card_id == card_id && s.create_time >= dt && s.create_time < edTime);
+                if (count >= entity.limit_day_time) return false;
+            }
+            if (entity.limit_week_time.HasValue)
+            {
+                //获取这周预约了几次
+                DateTime dt = DateTime.Now.GetFirstDayOfWeek();
+                DateTime edTime = DateTime.Now.GetLastDayOfWeek();
+                int count = _repositoryAppoints.Count(s => s.uid == uid && s.user_card_id == card_id && s.create_time >= dt && s.create_time < edTime);
+                if (count >= entity.limit_week_time) return false;
+            }
+
+            return true;
+        }
+
+        public bool RebackUserCards(int? uid,int? course_id)
+        {
+            string sql = @"merge into [dbo].[DoorUsersCards] T
+                        using( select id=  ( select user_card_id from [dbo].[DoorUsersAppoints] where uid=@uid and course_id=@course_id ) ) AS S
+                        on T.id = S.id and isnull(T.effective_time,0) >0
+                        when matched then
+                            update set T.effective_time =  (T.effective_time+1);";
+            SqlParameter[] SqlParam = new SqlParameter[] {
+                new SqlParameter("@uid",uid),
+                new SqlParameter("@course_id",course_id),
+            };
+            return _repository.ExecuteSqlCommand(sql, SqlParam) > 0;
+        }
+
+        public int GetCardTempalteId(int id)
+        {
+            return _repository.FirstOrDefault(s => s.id == id).cid??0;
         }
     }
 }

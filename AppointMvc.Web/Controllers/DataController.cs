@@ -46,6 +46,15 @@ namespace AppointMvc.Web.Controllers
             var res = _userInfoService.GetUinfoByOpenid(openid);
             return ReturnJsonResult(res);
         }
+
+        public ActionResult CheckUserHasManageMenu(int? uid)
+        {
+            if (!uid.HasValue) return ReturnJsonResult(false);
+            var res = _doorUserService.CheckHasAdminMenu((int)uid);
+            return ReturnJsonResult(res);
+        }
+
+
         
         public ActionResult DecodeUserInfo(string signature, string encryptedData, string iv, string sk)
         {
@@ -114,6 +123,12 @@ namespace AppointMvc.Web.Controllers
             var res = _doorService.UpdateDoors(model);
             if (res) return ReturnJsonResult();
             return ReturnJsonResult("更新失败！", Enum_ReturnRes.Fail);
+        }
+
+        public ActionResult CheckUserBlack(string openid,int? doorid)
+        {
+            var res = _doorUserService.CheckUserBlackList(openid, (int)doorid);
+            return ReturnJsonResult(res);
         }
         #endregion
 
@@ -283,7 +298,7 @@ namespace AppointMvc.Web.Controllers
             }
             else
             {
-                if (!_doorUserService.SetUSerRemark((int)uid, rmk))
+                if (!_doorUserService.SetUserRemark((int)uid, rmk))
                 {
                     return ReturnJsonResult("备注失败！", Enum_ReturnRes.Fail);
                 }
@@ -359,7 +374,7 @@ namespace AppointMvc.Web.Controllers
 
         public ActionResult AddUserACard(DoorUsersCards model)
         {
-            if(model.du_id<=0 || model.cid<=0 || !model.ctype.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            if(model.du_id<=0 || model.cid<=0 || !model.ctype.HasValue || model.uid <=0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
             if(!_doorUserCardService.AddUserCards(model)) return ReturnJsonResult("操作失败！", Enum_ReturnRes.Fail);
             return ReturnJsonResult();
         }

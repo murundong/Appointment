@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace Appoint.EntityFramework.ViewData
 {
-    public class View_AppointCourseInput
+    public class View_MyAppointWaitInput:Base_PageInput
     {
-        public int door_id { get; set; }
-        public int course_id { get; set; }
-        public string open_id { get; set; }
         public int uid { get; set; }
-        public int? card_id { get; set; }
-
     }
 }

@@ -14,7 +14,8 @@ namespace Appoint.EntityFramework.ViewData
         public string course_time { get; set; }
         public int subject_id { get; set; }
         public View_SubjectsOutput Subject { get; set; } = new View_SubjectsOutput();
-
+        public List<View_CourseShowOutput_AppointUser> AppointUsers = new List<View_CourseShowOutput_AppointUser>();
+        public List<View_CourseShowOutput_AppointUser> QueueAppointUsers = new List<View_CourseShowOutput_AppointUser>();
         public int max_allow { get; set; }
         public int min_allow { get; set; }
         /// <summary>

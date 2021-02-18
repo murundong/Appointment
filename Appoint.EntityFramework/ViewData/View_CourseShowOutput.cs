@@ -22,9 +22,12 @@ namespace Appoint.EntityFramework.ViewData
         public View_SubjectsOutput Subject { get; set; } = new View_SubjectsOutput();
         public Enum_AppointStatus AppointStatus { get; set; }
         public List<View_CourseShowOutput_AppointUser> AppointUsers = new List<View_CourseShowOutput_AppointUser>();
+        public List<View_CourseShowOutput_AppointUser> QueueAppointUsers = new List<View_CourseShowOutput_AppointUser>();
+        public List<string> NeedCardNames = new List<string>();
     }
 
     public class View_CourseShowOutput_AppointUser {
+        public int id { get; set; }
         public int course_id { get; set; }
         public int du_id { get; set; }
         public int uid { get; set; }

@@ -45,6 +45,24 @@ namespace Appoint.Application.Services
             return false;
         }
 
+        public bool CheckHasAdminMenu(int uid)
+        {
+            return _repository.Count(s=>s.role == Enum_UserRole.Admin || s.role == Enum_UserRole.Curator || s.role == Enum_UserRole.Teacher) > 0;
+        }
+
+        public bool CheckUserBlackList(string openid, int doorid)
+        {
+            string sql = @"select * from  [dbo].[DoorUsers] 
+	where door_id = @door_id and uid = (select uid  from  [dbo].[UserInfos] where open_id=@open_id )";
+            var SqlParam = new SqlParameter[]
+          {
+                new SqlParameter("@door_id",doorid),
+                new SqlParameter("@open_id",openid)
+          };
+            var query= _repository.ExecuteSqlQuery(sql,SqlParam).FirstOrDefault();
+            return query.role == Enum_UserRole.Black;
+        }
+
         public View_DoorUserInfoOutput GetDoorUserInfo(int id)
         {
             string sql = @"select B.avatar,B.nick_name,A.* from [dbo].[DoorUsers] A
@@ -58,7 +76,7 @@ namespace Appoint.Application.Services
             return _repositoryDoorUserInfo.ExecuteSqlQuery(sql, SqlParam).FirstOrDefault();
         }
 
-        public bool SetUSerRemark(int id, string remark)
+        public bool SetUserRemark(int id, string remark)
         {
             var entity = _repository.FirstOrDefault(s => s.id == id);
             if(entity!=null && entity.uid > 0)

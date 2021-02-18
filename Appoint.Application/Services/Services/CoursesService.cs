@@ -18,8 +18,33 @@ namespace Appoint.Application.Services
         
         public IRepository<App_DbContext, Courses> _repository { get; set; }
         public IRepository<App_DbContext, Subjects> _repositorySubject { get; set; }
+        public IRepository<App_DbContext, CardTemplate> _repositoryCards { get; set; }
         public IRepository<App_DbContext, View_CourseShowOutput_AppointUser> _repositoryAppointUser { get; set; }
+        public IRepository<App_DbContext, View_JudgeCourseOutput> _repositoryJudgeCourse { get; set; }
         public IUnitOfWork<App_DbContext> uof { get; set; }
+
+        public bool CheckCourseCanCancel(int courseid)
+        {
+            try
+            {
+                var entity = _repository.FirstOrDefault(s => s.id == courseid);
+                if (entity == null || entity.id <= 0) return false;
+                var entitySubject = _repositorySubject.FirstOrDefault(s => s.id == entity.subject_id);
+                if (entitySubject == null || entitySubject.id <= 0) return false;
+                if (entity.cancel_duration.HasValue)
+                {
+                    DateTime sttime;
+                    if (!DateTime.TryParse($"{entity.course_date} {entity.course_time}", out sttime)) return false;
+                    if (DateTime.Now >= sttime.AddMinutes(Convert.ToDouble((entity.cancel_duration * -1)))) return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return false;
+        }
 
         public Courses CreateCourse(Courses model)
         {
@@ -39,6 +64,13 @@ namespace Appoint.Application.Services
             return _repository.FirstOrDefault(s => s.id == id);
         }
 
+        public List<int> GetCourseCards(int courseid)
+        {
+            var query = _repository.FirstOrDefault(s => s.id == courseid);
+            if (query == null || string.IsNullOrWhiteSpace(query.need_cards)) return null;
+            return query.need_cards.Split(',')?.Select<string,int>(s=>Convert.ToInt32(s))?.ToList();
+        }
+
         public Base_PageOutput<List<View_CoursesOutput>> GetCourses(View_CoursesInput input)
         {
             Base_PageOutput<List<View_CoursesOutput>> res = new Base_PageOutput<List<View_CoursesOutput>>();
@@ -55,22 +87,41 @@ namespace Appoint.Application.Services
             var lst = AutoMapper.Mapper.Map<List<View_CoursesOutput>>(query_end);
             if (lst != null && lst.Count > 0)
             {
+                //已预约名单
+                string sql = $@"select  A.id,du_id,course_id,A.uid,avatar,[door_remark]= B.remark,nick_name from  [dbo].[DoorUsersAppoints] A
+			                        Left join [dbo].[DoorUsers] B
+			                        on A.du_id = B.id
+			                        left join  [dbo].[UserInfos] C
+			                        on A.uid = C.uid
+			                        where course_id in ({string.Join(",", lst.Select(s => s.id))}) and is_canceled = 0 order by A.create_time;";
+                var queryAppointUser = _repositoryAppointUser.ExecuteSqlQuery(sql)?.ToList();
+                //排队名单
+                string sqlQueue = $@"select  A.id,du_id,course_id,A.uid,avatar,[door_remark]= B.remark,nick_name from  [dbo].[DoorUsersQueueAppoints]  A
+			                        Left join [dbo].[DoorUsers] B
+			                        on A.du_id = B.id
+			                        left join  [dbo].[UserInfos] C
+			                        on A.uid = C.uid
+			                        where course_id in ({string.Join(",", lst.Select(s => s.id))}) order by A.create_time;";
+                var queryQueueAppointUser = _repositoryAppointUser.ExecuteSqlQuery(sqlQueue)?.ToList();
                 lst.ForEach(s =>
                 {
                     var sub_item = _repositorySubject.FirstOrDefault(p => p.id == s.subject_id);
                     if (sub_item != null && sub_item.id > 0)
                     {
                         s.Subject = AutoMapper.Mapper.Map<View_SubjectsOutput>(sub_item);
-                        
                     }
-                    
+                    s.AppointUsers = queryAppointUser?.Where(p => p.course_id == s.id)?.ToList();
+                    if (s.allow_queue)
+                    {
+                        s.QueueAppointUsers = queryQueueAppointUser?.Where(p => p.course_id == s.id)?.ToList();
+                    }
                 });
             }
             res.data = lst;
             return res;
         }
 
-        public Base_PageOutput<List<View_CourseShowOutput>> GetDoorAppointCourse(View_AppointCourseInput input)
+        public Base_PageOutput<List<View_CourseShowOutput>> GetDoorAppointCourse(View_GetAppointCourseInput input)
         {
             Base_PageOutput<List<View_CourseShowOutput>> return_res = new Base_PageOutput<List<View_CourseShowOutput>>();
             var query =  _repository.GetAll().Where(s => s.door_id == input.doorId && s.course_date == input.date && s.active);
@@ -82,10 +133,11 @@ namespace Appoint.Application.Services
                 {
                     var subject_item = querySubject.FirstOrDefault(p => p.id == s.subject_id);
                     s.Subject = AutoMapper.Mapper.Map<View_SubjectsOutput>(subject_item);
+                    s.NeedCardNames = _repositoryCards.GetAll().Where(p => s.need_cards.Contains(p.id.ToString())).Select(p => p.card_name).ToList();
                 });
                 if (!string.IsNullOrWhiteSpace(input.tag))
                 {
-                    lstCourse = lstCourse?.Where(s => s.Subject.subject_tag.Contains(input.tag))?.ToList();
+                    lstCourse = lstCourse?.Where(s => s.Subject.subject_tag?.Contains(input.tag)==true)?.ToList();
                 }
                 return_res.total = lstCourse.Count;
                 return_res.data= lstCourse.OrderBy(s=>s.course_time)
@@ -93,20 +145,44 @@ namespace Appoint.Application.Services
                      .Take(input.page_size)?.ToList();
                 if (return_res.data?.Count > 0)
                 {
-                    string sql = $@"select du_id,A.uid,avatar,[door_remark]= B.remark,nick_name from  [dbo].[DoorUsersAppoints] A
+                    //已预约名单
+                    string sql = $@"select  A.id,du_id,course_id,A.uid,avatar,[door_remark]= B.remark,nick_name from  [dbo].[DoorUsersAppoints] A
 			                        Left join [dbo].[DoorUsers] B
 			                        on A.du_id = B.id
 			                        left join  [dbo].[UserInfos] C
 			                        on A.uid = C.uid
-			                        where course_id in ({string.Join(",", return_res.data.Select(s=>s.id))})";
+			                        where course_id in ({string.Join(",", return_res.data.Select(s=>s.id))}) and is_canceled = 0 order by A.create_time;";
                     var queryAppointUser = _repositoryAppointUser.ExecuteSqlQuery(sql)?.ToList();
+                  
+                    //排队名单
+                    string sqlQueue = $@"select  A.id,du_id,course_id,A.uid,avatar,[door_remark]= B.remark,nick_name from  [dbo].[DoorUsersQueueAppoints]  A
+			                        Left join [dbo].[DoorUsers] B
+			                        on A.du_id = B.id
+			                        left join  [dbo].[UserInfos] C
+			                        on A.uid = C.uid
+			                        where course_id in ({string.Join(",", return_res.data.Select(s => s.id))}) order by A.create_time;";
+                    var queryQueueAppointUser = _repositoryAppointUser.ExecuteSqlQuery(sqlQueue)?.ToList();
                     return_res.data.ForEach(s =>
                     {
                         s.AppointUsers = queryAppointUser?.Where(p => p.course_id == s.id)?.ToList();
+                        if (s.allow_queue)
+                        {
+                            s.QueueAppointUsers = queryQueueAppointUser?.Where(p => p.course_id == s.id)?.ToList();
+                        }
                     });
+
                 }
             }
             return return_res;
+        }
+
+        public View_JudgeCourseOutput GetJudgeCourseInfo(int? cid)
+        {
+            string sql = $@"select B.subject_name,subject_teacher,subject_img,subject_duration, A.* from [dbo].[Courses] A
+	                        left join [dbo].[Subjects] B
+	                        on A.subject_id = B.id
+	                        where A.id={cid} ;";
+            return _repositoryJudgeCourse.ExecuteSqlQuery(sql).FirstOrDefault();
         }
 
         public List<View_WeekCourseOutput> GetWeekCourse(View_WeekCourseInput input)
@@ -157,6 +233,8 @@ namespace Appoint.Application.Services
 
         }
 
+     
+
         public bool QuickCourse(string sdate, string cdate, int doorid, string openid)
         {
             List<Courses> insertLst = new List<Courses>();
@@ -189,5 +267,7 @@ namespace Appoint.Application.Services
             _repository.Update(entity);
             return uof.SaveChange() > 0;
         }
+
+
     }
 }

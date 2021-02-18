@@ -1,4 +1,6 @@
-﻿using Appoint.EntityFramework.Enum;
+﻿using Appoint.EntityFramework.Data;
+using Appoint.EntityFramework.Enum;
+using Appoint.EntityFramework.ViewData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +14,16 @@ namespace Appoint.Application.Services
         Enum_AppointStatus GetCourseAppointStatus(int uid, int cid);
 
         int GetCourseAppointCount(int cid);
+
+        bool AddUserAppoint(int uid, int doorid, int courseid,int? cardid);
+
+        bool IsUserAlreadyCancel(int? uid, int? courseid);
+        bool CancelAppoint(int? uid, int? courseid);
+
+        bool CopyQueueAppoint(DoorUsersQueueAppoints model);
+
+        Base_PageOutput< List<View_MyAppointWaitOutput>> GetMyAppointWait(View_MyAppointWaitInput input);
+
+        Base_PageOutput< List<View_MyAppointCompOutput>> GetMyAppointComp(View_MyAppointWaitInput input);
     }
 }

@@ -11,9 +11,13 @@ namespace Appoint.Application.Services
     public interface IDoorUsersService:IApplicationService
     {
         void AddUserAttention(string openid, int doorid);
-        bool SetUSerRemark(int id, string remark);
+
+        bool CheckUserBlackList(string openid,int doorid);
+        bool SetUserRemark(int id, string remark);
         bool AllocRole(int id, Enum_UserRole role);
 
         View_DoorUserInfoOutput GetDoorUserInfo(int id);
+
+        bool CheckHasAdminMenu(int uid);
     }
 }

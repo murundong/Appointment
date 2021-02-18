@@ -22,6 +22,18 @@ namespace Appoint.Application.Services
         bool UpdateUserCardsInfo(DoorUsersCards model);
 
         bool DeleteUserCards(int? id);
-      
+
+        List<View_Appoint_UsersCardsInfo> GetAppointDoorUserCardsInfo(int? doorId,int? uid);
+
+        bool CheckCardsCanUse(int id);
+
+
+        bool DeductionUserCards(int id);
+        bool RebackUserCards(int? uid ,int? course_id);
+
+        bool CheckCardLimitTimes(int uid, int card_id);
+
+        int GetCardTempalteId(int id);
+
     }
 }

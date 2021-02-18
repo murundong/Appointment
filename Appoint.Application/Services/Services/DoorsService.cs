@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Appoint.EntityFramework;
 using Appoint.EntityFramework.Data;
 using Appoint.EntityFramework.DbContextProvider;
+using Appoint.EntityFramework.Enum;
 using Appoint.EntityFramework.Rep;
 using Appoint.EntityFramework.Uow;
 using Appoint.EntityFramework.ViewData;
@@ -26,7 +27,7 @@ namespace Appoint.Application.Services
             _repository.Insert(model);
             if (uof.SaveChange() > 0)
             {
-                    string sql = @"merge into  [dbo].[UserCards] T
+                    string sql = @"merge into  [dbo].[DoorUsers] T
                 using (select door_id=@door_id,uid=(select top 1 uid from [dbo].[UserInfos] where open_id=@open_id),role=1) S
                 on T.door_id = S.door_id and T.uid = S.uid
                 when not matched then
@@ -86,15 +87,35 @@ namespace Appoint.Application.Services
         public Base_PageOutput<List<View_TearcherDoorOutput>> GetTeacherDoors(View_TeacherDoorInput input)
         {
             Base_PageOutput<List<View_TearcherDoorOutput>> res = new Base_PageOutput<List<View_TearcherDoorOutput>>() { data = new List<View_TearcherDoorOutput>() };
-            if (input == null || string.IsNullOrWhiteSpace(input.open_id)) return res;
-            var query = _repository.GetAll()
-                .Where(s => s.create_openid == input.open_id);
-            res.total = query.Count();
+            try
+            {
+                if (input == null || string.IsNullOrWhiteSpace(input.open_id)) return res;
+                string sql = $@"select * from [dbo].[Doors]  where create_openid='{input.open_id}' or
+                            (
+                             id in (select A.door_id from [dbo].[DoorUsers] A 
+				                            left join [dbo].[UserInfos] B 
+				                            on A.uid = B.uid 
+				                            where B.open_id='{input.open_id}' and A.role={(int)Enum_UserRole.Teacher})
+                            );";
+                var query = _repository.ExecuteSqlQuery(sql);
+                res.total = query.Count();
+                var query_end = query.OrderByDescending(s => s.create_time)
+                     .Skip((input.page_index - 1) * input.page_size)
+                    .Take(input.page_size);
+                res.data = AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end);
+            }
+            catch (Exception ex)
+            {
+            }
 
-            var query_end= query.OrderByDescending(s => s.create_time)
-                 .Skip((input.page_index - 1) * input.page_size)
-                .Take(input.page_size);
-            res.data= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end);
+            //var query = _repository.GetAll()
+            //    .Where(s => s.create_openid == input.open_id);
+            //res.total = query.Count();
+
+            //var query_end= query.OrderByDescending(s => s.create_time)
+            //     .Skip((input.page_index - 1) * input.page_size)
+            //    .Take(input.page_size);
+            //res.data= AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end);
             return res;
         }
 
