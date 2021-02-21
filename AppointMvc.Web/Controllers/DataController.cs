@@ -339,7 +339,13 @@ namespace AppointMvc.Web.Controllers
             var res = _doorUserCardService.GetUserLst_Door((int)doorid, nick);
             return ReturnJsonResult(res);
         }
-        
+        public ActionResult GetUserLst_SelfAppint(int? doorid, int? course_id, string nick)
+        {
+            if (!doorid.HasValue || doorid <= 0 ||!course_id.HasValue || course_id<=0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _doorUserCardService.GetUserLst_SelfAppint((int)doorid, (int)course_id, nick);
+            return ReturnJsonResult(res);
+        }
+
         #endregion
 
         #region Cards

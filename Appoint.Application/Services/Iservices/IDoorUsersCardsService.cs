@@ -12,6 +12,7 @@ namespace Appoint.Application.Services
     public interface IDoorUsersCardsService :IApplicationService
     {
         View_InitialUserCardsInfoOutput GetUserLst_Door(int doorid,string nick);
+        View_InitialUserCardsInfoOutput GetUserLst_SelfAppint(int doorid,int course_id, string nick);
         List<View_LstUserAllCardsOutput> GetUserALlCards(string openid, Enum_CardStatus cardStatus);
         List<View_UserCardsInfoOutput> GetUserDoorCards(int uid, int doorId);
 

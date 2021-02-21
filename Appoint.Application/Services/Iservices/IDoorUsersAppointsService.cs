@@ -19,7 +19,7 @@ namespace Appoint.Application.Services
 
         bool IsUserAlreadyCancel(int? uid, int? courseid);
         bool CancelAppoint(int? uid, int? courseid);
-
+        bool ReturnAppoint(int? uid, int? courseid);
         bool CopyQueueAppoint(DoorUsersQueueAppoints model);
 
         Base_PageOutput< List<View_MyAppointWaitOutput>> GetMyAppointWait(View_MyAppointWaitInput input);

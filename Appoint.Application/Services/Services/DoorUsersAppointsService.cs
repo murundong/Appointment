@@ -34,7 +34,7 @@ namespace Appoint.Application.Services.Services
                                     ,create_time=getdate()) S
                             on T.uid = S.uid and T.course_id= S.course_id
                             when matched then 
-	                            update set T.is_signed=0,T.signed_time=null,T.is_canceled=0,T.create_time=S.create_time
+	                            update set T.is_signed=0,T.signed_time=null,T.is_canceled=0,T.is_returncard=0,T.create_time=S.create_time
                             when not matched then 
 	                            insert ([du_id]
                                        ,[uid]
@@ -77,6 +77,17 @@ namespace Appoint.Application.Services.Services
             }
             return false;
         }
+        public bool ReturnAppoint(int? uid, int? courseid)
+        {
+            var entity = _repository.FirstOrDefault(s => s.uid == uid && s.course_id == courseid);
+            if (entity != null && entity.id > 0)
+            {
+                entity.is_returncard = true;
+                _repository.Update(entity);
+                return uof.SaveChange() > 0;
+            }
+            return false;
+        }
 
         public bool CopyQueueAppoint(DoorUsersQueueAppoints model)
         {
@@ -93,13 +104,13 @@ namespace Appoint.Application.Services.Services
 
         public int GetCourseAppointCount(int cid)
         {
-            return _repository.Count(s => s.course_id == cid && !s.is_canceled);
+            return _repository.Count(s => s.course_id == cid && !s.is_canceled && !s.is_returncard);
         }
 
         public Enum_AppointStatus GetCourseAppointStatus(int uid, int cid)
         {
             if (uid <= 0) return Enum_AppointStatus.SHOW_NULL;
-            if (_repository.Count(s => s.uid == uid && s.course_id == cid && !s.is_canceled) > 0)  return Enum_AppointStatus.SHOW_CANCEL;
+            if (_repository.Count(s => s.uid == uid && s.course_id == cid && !s.is_canceled && !s.is_returncard) > 0)  return Enum_AppointStatus.SHOW_CANCEL;
             var CourseItem = _repositoryCourse.FirstOrDefault(s => s.id == cid && s.active);
             if (CourseItem == null || CourseItem.id <= 0) return Enum_AppointStatus.SHOW_NULL;
             //时间
@@ -140,7 +151,7 @@ namespace Appoint.Application.Services.Services
 		                on A.course_id = D.id
 		                left join [dbo].[Subjects] E
 		                on D.subject_id = E.id
-                where A.uid = {input.uid} and A.is_canceled=0
+                where A.uid = {input.uid} and A.is_canceled=0  
                 and  dateadd(mi,E.subject_duration,  CONVERT(datetime,D.course_date+' '+D.course_time,20 )) > GETDATE() ;";
                 var query = _repositoryMyWaitAppoint.ExecuteSqlQuery(sql);
                 res.total = query.Count();
@@ -203,6 +214,12 @@ namespace Appoint.Application.Services.Services
             return res;
 
         }
+
+       
+
+
+
+
 
 
         //public Base_PageOutput<List<View_MyAppointCompOutput>> GetMyAppointComp(View_MyAppointWaitInput input)

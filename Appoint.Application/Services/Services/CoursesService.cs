@@ -46,6 +46,13 @@ namespace Appoint.Application.Services
             return false;
         }
 
+        public bool CheckCourseNeedCards(int course_id)
+        {
+            var entity= _repository.FirstOrDefault(s => s.id == course_id);
+            if (entity == null || entity.id <= 0) return false;
+            return !string.IsNullOrWhiteSpace(entity.need_cards);
+        }
+
         public Courses CreateCourse(Courses model)
         {
             _repository.Insert(model);
@@ -93,7 +100,7 @@ namespace Appoint.Application.Services
 			                        on A.du_id = B.id
 			                        left join  [dbo].[UserInfos] C
 			                        on A.uid = C.uid
-			                        where course_id in ({string.Join(",", lst.Select(s => s.id))}) and is_canceled = 0 order by A.create_time;";
+			                        where course_id in ({string.Join(",", lst.Select(s => s.id))}) and is_canceled = 0 and is_returncard=0 order by A.create_time;";
                 var queryAppointUser = _repositoryAppointUser.ExecuteSqlQuery(sql)?.ToList();
                 //排队名单
                 string sqlQueue = $@"select  A.id,du_id,course_id,A.uid,avatar,[door_remark]= B.remark,nick_name from  [dbo].[DoorUsersQueueAppoints]  A
@@ -151,7 +158,7 @@ namespace Appoint.Application.Services
 			                        on A.du_id = B.id
 			                        left join  [dbo].[UserInfos] C
 			                        on A.uid = C.uid
-			                        where course_id in ({string.Join(",", return_res.data.Select(s=>s.id))}) and is_canceled = 0 order by A.create_time;";
+			                        where course_id in ({string.Join(",", return_res.data.Select(s=>s.id))}) and is_canceled = 0 and is_returncard = 0 order by A.create_time;";
                     var queryAppointUser = _repositoryAppointUser.ExecuteSqlQuery(sql)?.ToList();
                   
                     //排队名单

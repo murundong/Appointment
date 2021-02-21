@@ -60,7 +60,7 @@ namespace Appoint.Application.Services
                 new SqlParameter("@open_id",openid)
           };
             var query= _repository.ExecuteSqlQuery(sql,SqlParam).FirstOrDefault();
-            return query.role == Enum_UserRole.Black;
+            return query?.role == Enum_UserRole.Black;
         }
 
         public View_DoorUserInfoOutput GetDoorUserInfo(int id)

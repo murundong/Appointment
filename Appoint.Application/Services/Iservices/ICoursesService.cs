@@ -17,7 +17,9 @@ namespace Appoint.Application.Services
         Courses GetCourseById(int id);
         bool QuickCourse(string sdate, string cdate,int doorid, string openid);
         bool DeleteCourse(int cid);
-        
+
+        bool CheckCourseNeedCards(int course_id);
+
         List<View_WeekCourseOutput> GetWeekCourse(View_WeekCourseInput input);
 
         Base_PageOutput< List<View_CourseShowOutput>> GetDoorAppointCourse(View_GetAppointCourseInput input);

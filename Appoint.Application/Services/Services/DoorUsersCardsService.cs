@@ -240,7 +240,7 @@ namespace Appoint.Application.Services
                 //获取今天预约了几次
                 DateTime dt = DateTime.Now.GetDateTimeWithoutTimt();
                 DateTime edTime = dt.AddDays(1).GetDateTimeWithoutTimt();
-                int count= _repositoryAppoints.Count(s => s.uid == uid && s.user_card_id == card_id && s.create_time >= dt && s.create_time < edTime);
+                int count= _repositoryAppoints.Count(s => s.uid == uid && s.user_card_id == card_id && !s.is_canceled && !s.is_returncard &&  s.create_time >= dt && s.create_time < edTime);
                 if (count >= entity.limit_day_time) return false;
             }
             if (entity.limit_week_time.HasValue)
@@ -248,7 +248,7 @@ namespace Appoint.Application.Services
                 //获取这周预约了几次
                 DateTime dt = DateTime.Now.GetFirstDayOfWeek();
                 DateTime edTime = DateTime.Now.GetLastDayOfWeek();
-                int count = _repositoryAppoints.Count(s => s.uid == uid && s.user_card_id == card_id && s.create_time >= dt && s.create_time < edTime);
+                int count = _repositoryAppoints.Count(s => s.uid == uid && s.user_card_id == card_id &&!s.is_canceled && !s.is_returncard && s.create_time >= dt && s.create_time < edTime);
                 if (count >= entity.limit_week_time) return false;
             }
 
@@ -272,6 +272,42 @@ namespace Appoint.Application.Services
         public int GetCardTempalteId(int id)
         {
             return _repository.FirstOrDefault(s => s.id == id).cid??0;
+        }
+
+        public View_InitialUserCardsInfoOutput GetUserLst_SelfAppint(int doorid, int course_id, string nick)
+        {
+            //and A.role not in (-1,1)
+            View_InitialUserCardsInfoOutput return_res = new View_InitialUserCardsInfoOutput();
+            string sql = @"select A.id,A.door_id,A.uid,[door_role]=A.role,[door_remark]=A.remark,B.open_id,B.nick_name,B.avatar,B.gender,B.role,B.tel,B.initial,B.real_name,B.birthday 
+			from [dbo].[DoorUsers] A
+		    left join [dbo].[UserInfos] B
+		    on A.uid = B.uid
+		    where A.door_id = @doorid 
+			and A.uid not in (select uid from  [dbo].[DoorUsersAppoints] where course_id=@course_id  and is_canceled=0 and is_returncard=0)
+			and A.role not in (-1)
+			and (nick_name like @nick or A.remark like @nick) 
+			order by initial;";
+            var sqlParm = new SqlParameter[] {
+                new SqlParameter("@doorid",doorid),
+                new SqlParameter("@course_id",course_id),
+                new SqlParameter("@nick",$"%{nick}%"),
+            };
+            var query = _repositorySql.ExecuteSqlQuery(sql, sqlParm)?.ToList();
+            List<string> LstLetters = query.Select(s => s.initial)?.Distinct()?.ToList();
+            return_res.initials = LstLetters;
+            if (LstLetters?.Count > 0)
+            {
+                LstLetters.ForEach(s =>
+                {
+                    View_InitialUserCardsInfoItemOutput item = new View_InitialUserCardsInfoItemOutput()
+                    {
+                        initial = s,
+                        uinfos = query.Where(p => p.initial == s)?.ToList()
+                    };
+                    return_res.uinfos.Add(item);
+                });
+            }
+            return return_res;
         }
     }
 }
