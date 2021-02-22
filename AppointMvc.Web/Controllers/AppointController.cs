@@ -239,6 +239,18 @@ namespace AppointMvc.Web.Controllers
             return ReturnJsonResult();
         }
 
+        /// <summary>
+        /// 教师取消该课程
+        /// </summary>
+        /// <param name="courseid"></param>
+        /// <returns></returns>
+        public ActionResult CancelTheCourse(int? courseid)
+        {
+            if (!courseid.HasValue || courseid <= 0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            if(!_doorUserAppointService.CancselCourse((int)courseid)) return ReturnJsonResult("操作失败！",Enum_ReturnRes.Fail);
+            return ReturnJsonResult();
+        }
+
 
         public ActionResult GetMyAppointWait(View_MyAppointWaitInput input)
         {

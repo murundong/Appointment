@@ -215,7 +215,39 @@ namespace Appoint.Application.Services.Services
 
         }
 
-       
+        public bool CancselCourse(int course_id)
+        {
+            string sql = string.Empty;
+            //取消排队
+            string queueSql = $@";delete [dbo].[DoorUsersQueueAppoints] where course_id={course_id} ;";
+            //课程取消
+            string cancelCourseSql = $@";update [dbo].[Courses] set active=0 where id={course_id};";
+            sql += queueSql;
+            sql += cancelCourseSql;
+
+            //得到已经预约的人
+            var query= _repository.GetAll().Where(s => s.course_id == course_id && !s.is_canceled && !s.is_returncard).Select(s=>s.uid);
+            if (query.Count() > 0)
+            {
+                foreach (var item in query)
+                {
+                    //退卡
+                    string rebackSql = $@";merge into [dbo].[DoorUsersCards] T
+                        using( select id=  ( select user_card_id from [dbo].[DoorUsersAppoints] where uid={item} and course_id={course_id} ) ) AS S
+                        on T.id = S.id and isnull(T.effective_time,0) >0
+                        when matched then
+                            update set T.effective_time =  (T.effective_time+1);";
+                    //取消预约
+                    string cancelSql = $@";update [dbo].[DoorUsersAppoints] set is_canceled=1,is_returncard=0  where course_id={course_id} and uid={item} ;";
+
+                    sql += rebackSql;
+                    sql += cancelSql;
+                }
+            }
+            return _repository.ExecuteSqlCommand(sql) > 0;
+        }
+
+
 
 
 

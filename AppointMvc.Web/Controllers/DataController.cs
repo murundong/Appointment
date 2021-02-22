@@ -263,7 +263,7 @@ namespace AppointMvc.Web.Controllers
         {
             if (string.IsNullOrWhiteSpace(sdate) || string.IsNullOrWhiteSpace(cdate) || string.IsNullOrWhiteSpace(openid) || !doorid.HasValue)
                 return ReturnJsonResult("操作失败,缺少参数!", Enum_ReturnRes.Fail);
-            if (!_courseService.QuickCourse(sdate, cdate, (int)doorid, openid)) return ReturnJsonResult("操作失败！", Enum_ReturnRes.Fail);
+            if (!_courseService.QuickCourse(sdate, cdate, (int)doorid, openid)) return ReturnJsonResult("操作失败或没有可复制的课程！", Enum_ReturnRes.Fail);
             return ReturnJsonResult();
         }
 

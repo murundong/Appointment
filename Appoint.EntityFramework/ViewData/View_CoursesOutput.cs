@@ -42,5 +42,7 @@ namespace Appoint.EntityFramework.ViewData
         public int? limit_appoint_duration { get; set; }
 
         public string temp_teacher { get; set; }
+
+        public bool active { get; set; }
     }
 }

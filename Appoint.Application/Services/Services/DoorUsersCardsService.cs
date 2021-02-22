@@ -276,7 +276,6 @@ namespace Appoint.Application.Services
 
         public View_InitialUserCardsInfoOutput GetUserLst_SelfAppint(int doorid, int course_id, string nick)
         {
-            //and A.role not in (-1,1)
             View_InitialUserCardsInfoOutput return_res = new View_InitialUserCardsInfoOutput();
             string sql = @"select A.id,A.door_id,A.uid,[door_role]=A.role,[door_remark]=A.remark,B.open_id,B.nick_name,B.avatar,B.gender,B.role,B.tel,B.initial,B.real_name,B.birthday 
 			from [dbo].[DoorUsers] A
@@ -284,7 +283,7 @@ namespace Appoint.Application.Services
 		    on A.uid = B.uid
 		    where A.door_id = @doorid 
 			and A.uid not in (select uid from  [dbo].[DoorUsersAppoints] where course_id=@course_id  and is_canceled=0 and is_returncard=0)
-			and A.role not in (-1)
+			and A.role not in (-1,1)
 			and (nick_name like @nick or A.remark like @nick) 
 			order by initial;";
             var sqlParm = new SqlParameter[] {

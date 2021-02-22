@@ -131,7 +131,7 @@ namespace Appoint.Application.Services
         public Base_PageOutput<List<View_CourseShowOutput>> GetDoorAppointCourse(View_GetAppointCourseInput input)
         {
             Base_PageOutput<List<View_CourseShowOutput>> return_res = new Base_PageOutput<List<View_CourseShowOutput>>();
-            var query =  _repository.GetAll().Where(s => s.door_id == input.doorId && s.course_date == input.date && s.active);
+            var query =  _repository.GetAll().Where(s => s.door_id == input.doorId && s.course_date == input.date );
             var querySubject = _repositorySubject.GetAll().Where(s => s.door_id == input. doorId);
             var lstCourse = AutoMapper.Mapper.Map<List<View_CourseShowOutput>>(query.ToList());
             if (lstCourse?.Count > 0)
@@ -245,7 +245,7 @@ namespace Appoint.Application.Services
         public bool QuickCourse(string sdate, string cdate, int doorid, string openid)
         {
             List<Courses> insertLst = new List<Courses>();
-            var lstCourse = _repository.GetAll().Where(s => s.course_date == sdate && s.create_openid == openid && s.door_id == doorid);
+            var lstCourse = _repository.GetAll().Where(s => s.course_date == sdate && s.create_openid == openid && s.door_id == doorid && s.active);
             if (lstCourse.Count() <= 0)
             {
                 return false;
