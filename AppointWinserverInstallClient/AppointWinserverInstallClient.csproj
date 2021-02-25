@@ -84,11 +84,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AppointWinService\AppointWinService.csproj">
-      <Project>{50b9709c-b647-446c-876a-5b00a81e796e}</Project>
-      <Name>AppointWinService</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

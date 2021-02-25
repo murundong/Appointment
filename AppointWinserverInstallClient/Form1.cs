@@ -38,10 +38,12 @@ namespace AppointWinserverInstallClient
                     MessageBox.Show("请先填写服务名称和服务路径");
                     return;
                 }
-                if (IsServiceExisted(txt_servname.Text)) UninstallService(txt_servname.Text, txt_servpath.Text);
+                if (IsServiceExisted(txt_servname.Text))
+                {
+                    UninstallService(txt_servname.Text, txt_servpath.Text);
+                }
                 this.InstallService(txt_servpath.Text, txt_servpath.Text);
                 MessageBox.Show("安装服务成功！");
-                return;
             }
             catch (Exception ex)
             {
