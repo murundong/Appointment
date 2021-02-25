@@ -308,6 +308,32 @@ namespace Appoint.Application.Services
             }
             return return_res;
         }
+
+        public void ProcessFreezeCard()
+        {
+            var lst_process= _repository.GetAll().Where(s => !s.is_delete && s.is_freeze && s.freeze_edtime.HasValue).ToList();
+            List<DoorUsersCards> lst_cards = new List<DoorUsersCards>();
+            if(lst_process!=null && lst_process.Count > 0)
+            {
+                lst_process.ForEach(s =>
+                {
+                    if(Convert.ToDateTime(s.freeze_edtime)<= DateTime.Now)
+                    {
+                        s.freeze_edtime = null;
+                        s.is_freeze = false;
+                        lst_cards.Add(s);
+                    }
+                });
+                if(lst_cards!=null && lst_cards.Count > 0)
+                {
+                    foreach (var item in lst_cards)
+                    {
+                        _repository.Update(item);
+                    }
+                }
+                uof.SaveChange();
+            }
+        }
     }
 }
 

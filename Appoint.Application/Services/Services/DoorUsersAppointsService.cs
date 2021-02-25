@@ -17,6 +17,7 @@ namespace Appoint.Application.Services.Services
     public class DoorUsersAppointsService : IDoorUsersAppointsService
     {
         public IRepository<App_DbContext, DoorUsersAppoints> _repository { get; set; }
+        public IRepository<App_DbContext, View_WinServiceCourseModel> _repositoryWinservice { get; set; }
         public IRepository<App_DbContext, View_MyAppointWaitOutput> _repositoryMyWaitAppoint { get; set; }
         public IRepository<App_DbContext, View_MyAppointCompOutput> _repositoryMyCompAppoint { get; set; }
         public IRepository<App_DbContext, View_MyAppointCompOutput_Detail> _repositoryMyCompDetailAppoint { get; set; }
@@ -69,7 +70,7 @@ namespace Appoint.Application.Services.Services
         public bool CancelAppoint(int? uid, int? courseid)
         {
             var entity = _repository.FirstOrDefault(s => s.uid == uid && s.course_id == courseid);
-            if(entity!=null && entity.id > 0)
+            if (entity != null && entity.id > 0)
             {
                 entity.is_canceled = true;
                 _repository.Update(entity);
@@ -110,7 +111,7 @@ namespace Appoint.Application.Services.Services
         public Enum_AppointStatus GetCourseAppointStatus(int uid, int cid)
         {
             if (uid <= 0) return Enum_AppointStatus.SHOW_NULL;
-            if (_repository.Count(s => s.uid == uid && s.course_id == cid && !s.is_canceled && !s.is_returncard) > 0)  return Enum_AppointStatus.SHOW_CANCEL;
+            if (_repository.Count(s => s.uid == uid && s.course_id == cid && !s.is_canceled && !s.is_returncard) > 0) return Enum_AppointStatus.SHOW_CANCEL;
             var CourseItem = _repositoryCourse.FirstOrDefault(s => s.id == cid && s.active);
             if (CourseItem == null || CourseItem.id <= 0) return Enum_AppointStatus.SHOW_NULL;
             //时间
@@ -120,7 +121,7 @@ namespace Appoint.Application.Services.Services
             if (!sttime.TheSameDayAs(DateTime.Now) && CourseItem.only_today_appoint) return Enum_AppointStatus.SHOW_ONLYTODY;
             //人数
             int ct = GetCourseAppointCount(cid);
-            if (ct >= CourseItem.max_allow && CourseItem.allow_queue)  return Enum_AppointStatus.SHOW_QUEUE;
+            if (ct >= CourseItem.max_allow && CourseItem.allow_queue) return Enum_AppointStatus.SHOW_QUEUE;
             if (ct >= CourseItem.max_allow) return Enum_AppointStatus.SHOW_FULLPEOPLE;
             return Enum_AppointStatus.SHOW_APPOINT;
         }
@@ -128,7 +129,7 @@ namespace Appoint.Application.Services.Services
         {
             return _repository.Count(s => s.uid == uid && s.course_id == courseid && s.is_canceled) > 0;
         }
-        
+
         public Base_PageOutput<List<View_MyAppointWaitOutput>> GetMyAppointWait(View_MyAppointWaitInput input)
         {
             Base_PageOutput<List<View_MyAppointWaitOutput>> res = new Base_PageOutput<List<View_MyAppointWaitOutput>>();
@@ -155,7 +156,7 @@ namespace Appoint.Application.Services.Services
                 and  dateadd(mi,E.subject_duration,  CONVERT(datetime,D.course_date+' '+D.course_time,20 )) > GETDATE() ;";
                 var query = _repositoryMyWaitAppoint.ExecuteSqlQuery(sql);
                 res.total = query.Count();
-                res.data = query.OrderBy(s => s.course_date).OrderBy(s=>s.course_time)
+                res.data = query.OrderBy(s => s.course_date).OrderBy(s => s.course_time)
                       .Skip((input.page_index - 1) * input.page_size)
                       .Take(input.page_size)?.ToList();
             }
@@ -190,10 +191,10 @@ namespace Appoint.Application.Services.Services
                 var query = _repositoryMyCompDetailAppoint.ExecuteSqlQuery(sql);
                 res.total = query.Count();
                 res.data = query?.GroupBy(s => s.dt)?.Select(s => new View_MyAppointCompOutput() { dt = s.Key, ct = s.Count() })?.ToList();
-                var queryPage = query.OrderByDescending(s=>s.course_date).ThenByDescending(s=>s.course_time)
+                var queryPage = query.OrderByDescending(s => s.course_date).ThenByDescending(s => s.course_time)
                                 .Skip((input.page_index - 1) * input.page_size)
                                 .Take(input.page_size);
-                if(res.data!=null && res.data.Count > 0)
+                if (res.data != null && res.data.Count > 0)
                 {
                     string maxdt = Convert.ToDateTime($"{ res.data[0].dt}-01").AddMonths(1).ToString("yyyy-MM-dd");
                     string mindt = $"{ res.data[res.data.Count() - 1].dt}-01";
@@ -226,8 +227,8 @@ namespace Appoint.Application.Services.Services
             sql += cancelCourseSql;
 
             //得到已经预约的人
-            var query= _repository.GetAll().Where(s => s.course_id == course_id && !s.is_canceled && !s.is_returncard).Select(s=>s.uid);
-            if (query.Count() > 0)
+            var query = _repository.GetAll().Where(s => s.course_id == course_id && !s.is_canceled && !s.is_returncard).Select(s => s.uid).ToList();
+            if (query?.Count() > 0)
             {
                 foreach (var item in query)
                 {
@@ -245,6 +246,49 @@ namespace Appoint.Application.Services.Services
                 }
             }
             return _repository.ExecuteSqlCommand(sql) > 0;
+        }
+
+        public void CancselCourse()
+        {
+            StringBuilder sb = new StringBuilder();
+            string sql = @";with cte as(
+                        select [end_appoint_time]= (dateadd(mi,limit_appoint_duration*-1,CONVERT(datetime,course_date +' '+course_time) )),
+	                           [already_appoint] = (select count(1) from  [dbo].[DoorUsersAppoints] where course_id=[dbo].[Courses].id and is_canceled =0 and is_returncard=0 ),
+	                           id,min_allow
+	                           from  [dbo].[Courses] where active=1
+                         )
+                         select * from cte where already_appoint < min_allow and GETDATE() >= end_appoint_time ";
+            var courseQuery= _repositoryWinservice.ExecuteSqlQuery(sql).ToList();
+            if (courseQuery?.Count() >0)
+            {
+                courseQuery.ForEach(s =>
+                {
+                    sb.Append($";delete [dbo].[DoorUsersQueueAppoints] where course_id={s.id} ;");
+                    sb.Append($@";update [dbo].[Courses] set active=0 where id={s.id};");
+                    if (s.already_appoint > 0)
+                    {
+                        var query = _repository.GetAll().Where(p => p.course_id == s.id && !p.is_canceled && !p.is_returncard).Select(p => p.uid).ToList();
+                        if (query?.Count() > 0)
+                        {
+                            foreach (var item in query)
+                            {
+                                //退卡
+                                string rebackSql = $@";merge into [dbo].[DoorUsersCards] T
+                                using( select id=  ( select user_card_id from [dbo].[DoorUsersAppoints] where uid={item} and course_id={s.id} ) ) AS S
+                                on T.id = S.id and isnull(T.effective_time,0) >0
+                                when matched then
+                                update set T.effective_time =  (T.effective_time+1);";
+                                //取消预约
+                                string cancelSql = $@";update [dbo].[DoorUsersAppoints] set is_canceled=1,is_returncard=0  where course_id={s.id} and uid={item} ;";
+                                sb.Append(rebackSql);
+                                sb.Append(cancelSql);
+                            }
+                        }
+                    }
+                
+                });
+                _repository.ExecuteSqlCommand(sb.ToString());
+            }
         }
 
 

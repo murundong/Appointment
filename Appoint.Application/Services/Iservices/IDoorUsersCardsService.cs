@@ -36,5 +36,6 @@ namespace Appoint.Application.Services
 
         int GetCardTempalteId(int id);
 
+        void ProcessFreezeCard();
     }
 }

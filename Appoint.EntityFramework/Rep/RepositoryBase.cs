@@ -162,7 +162,7 @@ namespace Appoint.EntityFramework.Rep
             Context.Entry(entity).State = EntityState.Modified;
             return entity;
         }
-
+        
 
         public Task<TEntity> UpdateAsync(TEntity entity)
         {

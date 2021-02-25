@@ -27,5 +27,7 @@ namespace Appoint.Application.Services
         Base_PageOutput< List<View_MyAppointCompOutput>> GetMyAppointComp(View_MyAppointWaitInput input);
 
         bool CancselCourse(int course_id);
+
+        void CancselCourse();
     }
 }

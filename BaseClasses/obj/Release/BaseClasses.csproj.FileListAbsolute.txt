@@ -101,15 +101,3 @@ F:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.csproj.CoreCompileInputs.ca
 F:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.csproj.CopyComplete
 F:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.dll
 F:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.pdb
-H:\Roden\Appoint\BaseClasses\bin\Release\BaseClasses.dll
-H:\Roden\Appoint\BaseClasses\bin\Release\BaseClasses.pdb
-H:\Roden\Appoint\BaseClasses\bin\Release\Com.QfGame.Sso.dll
-H:\Roden\Appoint\BaseClasses\bin\Release\log4net.dll
-H:\Roden\Appoint\BaseClasses\bin\Release\Newtonsoft.Json.dll
-H:\Roden\Appoint\BaseClasses\bin\Release\log4net.xml
-H:\Roden\Appoint\BaseClasses\bin\Release\Newtonsoft.Json.xml
-H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.csprojAssemblyReference.cache
-H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.csproj.CoreCompileInputs.cache
-H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.csproj.CopyComplete
-H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.dll
-H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.pdb
