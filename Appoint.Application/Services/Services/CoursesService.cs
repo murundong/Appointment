@@ -192,6 +192,26 @@ namespace Appoint.Application.Services
             return _repositoryJudgeCourse.ExecuteSqlQuery(sql).FirstOrDefault();
         }
 
+        public View_CoursesOutput GetSignCourseById(int course_Id)
+        {
+            View_CoursesOutput res = new View_CoursesOutput();
+            var query = _repository.FirstOrDefault(s => s.id == course_Id);
+            res = AutoMapper.Mapper.Map<View_CoursesOutput>(query);
+            if(res!=null)
+            {
+                var query_subject = _repositorySubject.FirstOrDefault(p => p.id == res.subject_id);
+                res.Subject = AutoMapper.Mapper.Map<View_SubjectsOutput>(query_subject);
+                string sql = $@"select  A.id,du_id,course_id,A.uid,avatar,[door_remark]= B.remark,nick_name from  [dbo].[DoorUsersAppoints] A
+			                        Left join [dbo].[DoorUsers] B
+			                        on A.du_id = B.id
+			                        left join  [dbo].[UserInfos] C
+			                        on A.uid = C.uid
+			                        where course_id ={course_Id} and is_canceled = 0 and is_returncard=0 order by A.create_time;";
+                res.AppointUsers = _repositoryAppointUser.ExecuteSqlQuery(sql).ToList();
+            }
+            return res;
+        }
+
         public List<View_WeekCourseOutput> GetWeekCourse(View_WeekCourseInput input)
         {
             DateTime st_dt , ed_dt ;
@@ -245,7 +265,7 @@ namespace Appoint.Application.Services
         public bool QuickCourse(string sdate, string cdate, int doorid, string openid)
         {
             List<Courses> insertLst = new List<Courses>();
-            var lstCourse = _repository.GetAll().Where(s => s.course_date == sdate && s.create_openid == openid && s.door_id == doorid && s.active);
+            var lstCourse = _repository.GetAll().Where(s => s.course_date == sdate && s.create_openid == openid && s.door_id == doorid);
             if (lstCourse.Count() <= 0)
             {
                 return false;
@@ -257,6 +277,7 @@ namespace Appoint.Application.Services
                 itemCourse.course_date = cdate;
                 itemCourse.temp_teacher = string.Empty;
                 itemCourse.create_time = DateTime.Now;
+                itemCourse.active = true;
                 insertLst.Add(itemCourse);
             });
             _repository.Insert(insertLst);

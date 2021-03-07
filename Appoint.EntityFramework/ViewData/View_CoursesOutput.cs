@@ -17,6 +17,7 @@ namespace Appoint.EntityFramework.ViewData
         public List<View_CourseShowOutput_AppointUser> AppointUsers = new List<View_CourseShowOutput_AppointUser>();
         public List<View_CourseShowOutput_AppointUser> QueueAppointUsers = new List<View_CourseShowOutput_AppointUser>();
         public int max_allow { get; set; }
+        public int? door_id { get; set; }
         public int min_allow { get; set; }
         /// <summary>
         /// 取消时间(离课程开始多长时间不能取消)

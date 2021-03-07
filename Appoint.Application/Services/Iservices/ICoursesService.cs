@@ -11,7 +11,7 @@ namespace Appoint.Application.Services
     public interface ICoursesService : IApplicationService
     {
         Base_PageOutput<List<View_CoursesOutput>> GetCourses(View_CoursesInput input);
-
+        View_CoursesOutput GetSignCourseById(int course_Id);
         Courses CreateCourse(Courses model);
         bool UpdateCourse(Courses model);
         Courses GetCourseById(int id);

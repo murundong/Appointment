@@ -112,3 +112,4 @@ H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.csproj.CoreCompileInputs.ca
 H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.csproj.CopyComplete
 H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.dll
 H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.pdb
+H:\Roden\Appoint\BaseClasses\obj\Release\BaseClasses.csprojAssemblyReference.cache

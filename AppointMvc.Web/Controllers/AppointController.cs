@@ -1,8 +1,11 @@
 ﻿using Appoint.EntityFramework.Data;
 using Appoint.EntityFramework.Enum;
 using Appoint.EntityFramework.ViewData;
+using QRCoder;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -286,6 +289,76 @@ namespace AppointMvc.Web.Controllers
             return ReturnJsonResult();
         }
 
+        public ActionResult QrCode(int? cid)
+        {
+            if (!cid.HasValue && cid <= 0)
+            {
+                return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            }
+            string text = $"{{\"cid\":{cid}}}";
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.L);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+
+            MemoryStream ms = new MemoryStream();
+            qrCodeImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            qrCodeImage.Dispose();
+            return File(ms.ToArray(), "image/jpeg");
+        }
+
+        public ActionResult GetSignCourse(int? cid)
+        {
+            if(!cid.HasValue ||cid<=0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _courseService.GetSignCourseById((int)cid);
+            return ReturnJsonResult(res);
+        }
+
+
+        public ActionResult SignAppointCourse(View_AppointCourseInput input)
+        {
+            if (input.course_id <= 0 || input.uid <= 0) return ReturnJsonResult("预约失败！参数错误！", Enum_ReturnRes.Fail);
+            //校验课程
+            Enum_AppointStatus status = _doorUserAppointService.GetCourseAppointStatus(input.uid, input.course_id);
+            if (status == Enum_AppointStatus.SHOW_CANCEL) return ReturnJsonResult("请不要重复预约统一节课程！", Enum_ReturnRes.Fail);
+            //switch (status)
+            //{
+            //    case Enum_AppointStatus.SHOW_ONLYTODY:
+            //        return ReturnJsonResult("该课程仅允许当日预约！", Enum_ReturnRes.Fail);
+            //    case Enum_AppointStatus.SHOW_FULLPEOPLE:
+            //    case Enum_AppointStatus.SHOW_QUEUE:
+            //        return ReturnJsonResult("该课程已经约满了哦！", Enum_ReturnRes.Fail);
+            //    case Enum_AppointStatus.SHOW_TIMEEXPIRED:
+            //        return ReturnJsonResult("现在不在可约课时间段哦！", Enum_ReturnRes.Fail);
+            //    case Enum_AppointStatus.SHOW_NULL:
+            //        return ReturnJsonResult("暂时不可以预约哦", Enum_ReturnRes.Fail);
+            //    case Enum_AppointStatus.SHOW_CANCEL:
+            //        return ReturnJsonResult("请不要重复预约哦！", Enum_ReturnRes.Fail);
+            //    default:
+            //        break;
+            //}
+            //if (status != Enum_AppointStatus.SHOW_APPOINT) return ReturnJsonResult("暂时不可以预约哦", Enum_ReturnRes.Fail);
+            //课程是否需要会员卡
+            var card_need = _courseService.GetCourseCards(input.course_id);
+            if (card_need != null && card_need.Count > 0)
+            {
+                if (!input.card_id.HasValue) return ReturnJsonResult("没有选择可用的会员卡！", Enum_ReturnRes.Fail);
+                //获取会员卡模板
+                int template_cardid = _doorUserCardService.GetCardTempalteId((int)input.card_id);
+                if (input.card_id <= 0 || !card_need.Contains(template_cardid)) return ReturnJsonResult("没有选择可用的会员卡！", Enum_ReturnRes.Fail);
+                //判断会员卡是否可用(次数、时间、冻结等)
+                if (!_doorUserCardService.CheckCardsCanUse((int)input.card_id)) return ReturnJsonResult("选择的会员卡不可用！", Enum_ReturnRes.Fail);
+                //每周/每日限制
+                if (!_doorUserCardService.CheckCardLimitTimes((int)input.uid, (int)input.card_id)) return ReturnJsonResult("该会员卡达到 每日/周 预约上限！", Enum_ReturnRes.Fail);
+                //扣卡
+                _doorUserCardService.DeductionUserCards((int)input.card_id);
+            }
+            if (!_doorUserAppointService.AddUserAppoint(input.uid, input.door_id, input.course_id, input.card_id)) return ReturnJsonResult("预约失败，请稍后尝试！", Enum_ReturnRes.Fail);
+            return ReturnJsonResult();
+        }
+
+
+
         void ProcessQueue(int courseid)
         {
             try
@@ -331,5 +404,7 @@ namespace AppointMvc.Web.Controllers
             {
             }
         }
+
+      
     }
 }
