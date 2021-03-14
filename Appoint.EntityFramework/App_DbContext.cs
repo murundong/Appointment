@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Appoint.EntityFramework
 {
-    public class App_DbContext: DbContext
+    public class App_DbContext : DbContext
     {
-        public App_DbContext():base("name=default")
+        public App_DbContext() : base("name=default")
         {
 
         }
@@ -25,6 +25,8 @@ namespace Appoint.EntityFramework
         public DbSet<DoorUsersAppoints> Set_DoorUserAppoints { get; set; }
         public DbSet<DoorUsersQueueAppoints> Set_DoorUserQueueAppoints { get; set; }
         public DbSet<DoorUsersCourseComments> SetF_DoorUsersCourseComments { get; set; }
+        public DbSet<DoorNotice> Set_DoorNotice { get; set; }
+        public DbSet<Notice> Set_Notice { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

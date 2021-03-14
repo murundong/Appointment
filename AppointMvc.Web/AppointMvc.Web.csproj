@@ -123,6 +123,7 @@
     <Compile Include="Controllers\AppointController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="JsonNetResult.cs" />
     <Compile Include="WindsorControllerFactory.cs" />
     <Compile Include="ControllerBase.cs" />
@@ -151,9 +152,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Appoint\" />
-    <Folder Include="Views\Data\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Appoint.Application\Appoint.Application.csproj">

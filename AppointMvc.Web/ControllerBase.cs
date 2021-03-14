@@ -27,6 +27,8 @@ namespace AppointMvc.Web
         public IDoorUsersQueueAppointsService _doorUserQueueAppointService { get; set; }
 
         public IDoorUsersCourseCommentsService _doorUserCourseCommentService { get; set; }
+        public IDoorNoticeService _doorNoticeService { get; set; }
+        public INoticeService _noticeService { get; set; }
 
         public static string errImg = ConfigurationHelper.GetAppSetting<string>("ErrorImg");
 

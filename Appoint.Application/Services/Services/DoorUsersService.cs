@@ -76,6 +76,11 @@ namespace Appoint.Application.Services
             return _repositoryDoorUserInfo.ExecuteSqlQuery(sql, SqlParam).FirstOrDefault();
         }
 
+        public DoorUsers GetDoorUsersByUID(int door_id, int uid)
+        {
+            return _repository.FirstOrDefault(s => s.door_id == door_id && uid == uid);
+        }
+
         public bool SetUserRemark(int id, string remark)
         {
             var entity = _repository.FirstOrDefault(s => s.id == id);

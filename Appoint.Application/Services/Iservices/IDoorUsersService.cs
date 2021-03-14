@@ -1,4 +1,5 @@
-﻿using Appoint.EntityFramework.Enum;
+﻿using Appoint.EntityFramework.Data;
+using Appoint.EntityFramework.Enum;
 using Appoint.EntityFramework.ViewData;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,7 @@ namespace Appoint.Application.Services
         View_DoorUserInfoOutput GetDoorUserInfo(int id);
 
         bool CheckHasAdminMenu(int uid);
+
+        DoorUsers GetDoorUsersByUID(int door_id, int uid);
     }
 }

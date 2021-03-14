@@ -60,11 +60,13 @@
     <Compile Include="Data\Banners.cs" />
     <Compile Include="Data\CardTemplate.cs" />
     <Compile Include="Data\Courses.cs" />
+    <Compile Include="Data\DoorNotice.cs" />
     <Compile Include="Data\Doors.cs" />
     <Compile Include="Data\DoorUsers.cs" />
     <Compile Include="Data\DoorUsersAppoints.cs" />
     <Compile Include="Data\DoorUsersCourseComments.cs" />
     <Compile Include="Data\DoorUsersQueueAppoints.cs" />
+    <Compile Include="Data\Notice.cs" />
     <Compile Include="Data\Subjects.cs" />
     <Compile Include="Data\DoorUsersCards.cs" />
     <Compile Include="Data\UserInfos.cs" />
@@ -90,6 +92,8 @@
     <Compile Include="ViewData\View_AppointCourseInput.cs" />
     <Compile Include="ViewData\View_Appoint_UserCanUseCardsOutput.cs" />
     <Compile Include="ViewData\View_Appoint_UsersCardsInfo.cs" />
+    <Compile Include="ViewData\View_DoorNoticeInput.cs" />
+    <Compile Include="ViewData\View_DoorNoticeOutput.cs" />
     <Compile Include="ViewData\View_GetAppointCourseInput.cs" />
     <Compile Include="ViewData\View_CourseShowOutput.cs" />
     <Compile Include="ViewData\View_CoursesInput.cs" />
@@ -108,6 +112,8 @@
     <Compile Include="ViewData\View_MyAppointCompOutput.cs" />
     <Compile Include="ViewData\View_MyAppointWaitInput.cs" />
     <Compile Include="ViewData\View_MyAppointWaitOutput.cs" />
+    <Compile Include="ViewData\View_NoticeInput.cs" />
+    <Compile Include="ViewData\View_NoticeOutput.cs" />
     <Compile Include="ViewData\View_PrevCardTemplateOutput.cs" />
     <Compile Include="ViewData\View_SubjectsInput.cs" />
     <Compile Include="ViewData\View_SubjectsOutput.cs" />

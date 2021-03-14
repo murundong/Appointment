@@ -66,16 +66,19 @@
     <Compile Include="IWeixinApi\WeixinService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Iservices\ICoursesService.cs" />
+    <Compile Include="Services\Iservices\IDoorNoticeService.cs" />
     <Compile Include="Services\Iservices\IDoorUsersAppointsService.cs" />
     <Compile Include="Services\Iservices\IDoorUsersCourseCommentsService.cs" />
     <Compile Include="Services\Iservices\IDoorUsersQueueAppointsService.cs" />
     <Compile Include="Services\Iservices\IDoorUsersService.cs" />
+    <Compile Include="Services\Iservices\INoticeService.cs" />
     <Compile Include="Services\Iservices\IOssService.cs" />
     <Compile Include="Services\Iservices\ISubjectsService.cs" />
     <Compile Include="Services\Iservices\IDoorUsersCardsService.cs" />
     <Compile Include="Services\Services\BannerService.cs" />
     <Compile Include="Services\Services\CardTemplateService.cs" />
     <Compile Include="Services\Services\CoursesService.cs" />
+    <Compile Include="Services\Services\DoorNoticeService.cs" />
     <Compile Include="Services\Services\DoorsService.cs" />
     <Compile Include="Services\Iservices\IBannerService.cs" />
     <Compile Include="Services\Iservices\ICardTemplateService.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Services\Services\DoorUsersCourseCommentsService.cs" />
     <Compile Include="Services\Services\DoorUsersQueueAppointsService.cs" />
     <Compile Include="Services\Services\DoorUsersService.cs" />
+    <Compile Include="Services\Services\NoticeService.cs" />
     <Compile Include="Services\Services\OssService.cs" />
     <Compile Include="Services\Services\SubjectsService.cs" />
     <Compile Include="Services\Services\DoorUsersCardsService.cs" />

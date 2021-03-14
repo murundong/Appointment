@@ -190,10 +190,10 @@ namespace Appoint.Application.Services.Services
 								and dateadd(mi, E.subject_duration, CONVERT(datetime, D.course_date+' ' + D.course_time,20 )) < GETDATE()";
                 var query = _repositoryMyCompDetailAppoint.ExecuteSqlQuery(sql);
                 res.total = query.Count();
-                res.data = query?.GroupBy(s => s.dt)?.Select(s => new View_MyAppointCompOutput() { dt = s.Key, ct = s.Count() })?.ToList();
                 var queryPage = query.OrderByDescending(s => s.course_date).ThenByDescending(s => s.course_time)
                                 .Skip((input.page_index - 1) * input.page_size)
                                 .Take(input.page_size);
+                res.data = queryPage?.GroupBy(s => s.dt)?.Select(s => new View_MyAppointCompOutput() { dt = s.Key, ct = s.Count() })?.ToList();
                 if (res.data != null && res.data.Count > 0)
                 {
                     string maxdt = Convert.ToDateTime($"{ res.data[0].dt}-01").AddMonths(1).ToString("yyyy-MM-dd");

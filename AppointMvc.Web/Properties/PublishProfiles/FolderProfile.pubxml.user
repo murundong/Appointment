@@ -16,49 +16,49 @@
       <publishTime>10/14/2020 07:28:16</publishTime>
     </File>
     <File Include="bin/Appoint.Application.dll">
-      <publishTime>02/23/2021 00:45:09</publishTime>
+      <publishTime>03/07/2021 20:33:00</publishTime>
     </File>
     <File Include="bin/Appoint.Application.dll.config">
-      <publishTime>12/07/2020 22:50:28</publishTime>
+      <publishTime>12/07/2020 22:50:27</publishTime>
     </File>
     <File Include="bin/Appoint.Application.pdb">
-      <publishTime>02/23/2021 00:45:09</publishTime>
+      <publishTime>03/07/2021 20:33:00</publishTime>
     </File>
     <File Include="bin/Appoint.EntityFramework.dll">
-      <publishTime>02/23/2021 00:45:08</publishTime>
+      <publishTime>03/07/2021 20:32:59</publishTime>
     </File>
     <File Include="bin/Appoint.EntityFramework.dll.config">
       <publishTime>12/07/2020 22:50:26</publishTime>
     </File>
     <File Include="bin/Appoint.EntityFramework.pdb">
-      <publishTime>02/23/2021 00:45:08</publishTime>
+      <publishTime>03/07/2021 20:32:59</publishTime>
     </File>
     <File Include="bin/Appoint.IocManager.dll">
-      <publishTime>02/23/2021 00:45:09</publishTime>
+      <publishTime>03/07/2021 20:33:00</publishTime>
     </File>
     <File Include="bin/Appoint.IocManager.pdb">
-      <publishTime>02/23/2021 00:45:09</publishTime>
+      <publishTime>03/07/2021 20:33:00</publishTime>
     </File>
     <File Include="bin/AppointMvc.Web.dll">
-      <publishTime>02/23/2021 00:45:10</publishTime>
+      <publishTime>03/07/2021 20:33:00</publishTime>
     </File>
     <File Include="bin/AppointMvc.Web.pdb">
-      <publishTime>02/23/2021 00:45:10</publishTime>
+      <publishTime>03/07/2021 20:33:00</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>02/23/2021 00:45:18</publishTime>
+      <publishTime>03/07/2021 20:33:08</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>02/23/2021 00:45:18</publishTime>
+      <publishTime>03/07/2021 20:33:08</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>12/07/2020 22:50:14</publishTime>
     </File>
     <File Include="bin/BaseClasses.dll">
-      <publishTime>02/17/2021 23:16:38</publishTime>
+      <publishTime>03/07/2021 15:17:51</publishTime>
     </File>
     <File Include="bin/BaseClasses.pdb">
-      <publishTime>02/17/2021 23:16:38</publishTime>
+      <publishTime>03/07/2021 15:17:51</publishTime>
     </File>
     <File Include="bin/Billing.Core.dll">
       <publishTime>12/07/2020 22:50:15</publishTime>
@@ -92,6 +92,9 @@
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>12/07/2020 22:50:06</publishTime>
+    </File>
+    <File Include="bin/QRCoder.dll">
+      <publishTime>11/17/2020 16:57:42</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>12/07/2020 22:50:47</publishTime>
@@ -217,13 +220,13 @@
       <publishTime>01/18/2021 22:06:06</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>02/23/2021 00:45:11</publishTime>
+      <publishTime>03/07/2021 20:33:02</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>01/18/2021 21:41:29</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/19/2021 01:21:21</publishTime>
+      <publishTime>03/07/2021 20:33:01</publishTime>
     </File>
   </ItemGroup>
 </Project>
