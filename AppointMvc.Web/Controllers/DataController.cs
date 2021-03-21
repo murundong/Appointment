@@ -110,6 +110,13 @@ namespace AppointMvc.Web.Controllers
         }
 
         [HttpPost]
+        public ActionResult GetAdminAllDoors(Base_PageInput input)
+        {
+            var res = _doorService.GetAdminAllDoors(input);
+            return ReturnJsonResult(res);
+        }
+
+        [HttpPost]
         public ActionResult CreateDoors(Doors model)
         {
             var res = _doorService.CreateDoors(model);

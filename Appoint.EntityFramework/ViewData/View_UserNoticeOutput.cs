@@ -6,24 +6,21 @@ using System.Threading.Tasks;
 
 namespace Appoint.EntityFramework.ViewData
 {
-    public class View_DoorNoticeOutput
+    public class View_UserNoticeOutput
     {
-        public int id { get; set; }
-        public int door_id { get; set; }
-        public int du_id { get; set; }
+        public string img { get; set; }
+        public string nick { get; set; }
         public string title { get; set; }
         public string msg { get; set; }
+        public int is_system { get; set; }
         public DateTime create_time { get; set; }
-        public bool active { get; set; }
         public string str_create_time
         {
             get
             {
-                return create_time.ToString("yyyy/MM/dd");
+                return create_time.ToString("yyyy/MM/dd HH:mm:ss");
             }
         }
 
-        public int door_role { get; set; }
-        public string nick_name { get; set; }
     }
 }

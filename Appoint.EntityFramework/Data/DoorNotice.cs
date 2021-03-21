@@ -17,6 +17,7 @@ namespace Appoint.EntityFramework.Data
         public int du_id { get; set; }
         public string title { get; set; }
         public string msg { get; set; }
+        public bool active { get; set; } = true;
         public DateTime create_time { get; set; } = DateTime.Now;
 
     }

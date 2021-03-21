@@ -122,6 +122,8 @@
     <Compile Include="ViewData\View_TearcherDoorOutput.cs" />
     <Compile Include="ViewData\View_UinfoOutput.cs" />
     <Compile Include="ViewData\View_UserCardsInfoOutput.cs" />
+    <Compile Include="ViewData\View_UserNoticeInput.cs" />
+    <Compile Include="ViewData\View_UserNoticeOutput.cs" />
     <Compile Include="ViewData\View_UserStatisticOutput.cs" />
     <Compile Include="ViewData\View_WeekCourseInput.cs" />
     <Compile Include="ViewData\View_WeekCourseOutput.cs" />

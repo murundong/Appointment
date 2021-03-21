@@ -37,7 +37,7 @@ namespace Appoint.Application.Services
 
         public List<View_BannerOutput> GetBanners()
         {
-            var res= _repository.GetAll().Where(s => s.active);
+            var res= _repository.GetAll().Where(s => s.active).OrderBy(s=>s.sort);
             return AutoMapper.Mapper.Map<List<View_BannerOutput>>(res);
         }
 
@@ -47,7 +47,7 @@ namespace Appoint.Application.Services
             if (input == null) input = new Base_PageInput();
             var query = _repository.GetAll();
             res.total = query.Count();
-            res.data = query.OrderByDescending(s => s.create_time)
+            res.data = query.OrderBy(s => s.sort)
                             .Skip((input.page_index - 1) * input.page_size)
                             .Take(input.page_size).ToList(); 
             return res;
@@ -60,6 +60,7 @@ namespace Appoint.Application.Services
             entity.img_type = model.img_type;
             entity.url = model.url;
             entity.active = model.active;
+            entity.sort = model.sort;
             _repository.Update(entity);
             return uof.SaveChange() > 0;
         }

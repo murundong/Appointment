@@ -16,6 +16,7 @@ namespace Appoint.EntityFramework.Data
         public string img { get; set; }
         public string url { get; set; }
         public bool active { get; set; } = true;
+        public int sort { get; set; }
         public DateTime create_time { get; set; } = DateTime.Now;
 
     }

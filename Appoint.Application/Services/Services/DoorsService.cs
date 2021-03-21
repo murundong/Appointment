@@ -42,6 +42,27 @@ namespace Appoint.Application.Services
             return null;
         }
 
+        public Base_PageOutput<List<View_TearcherDoorOutput>> GetAdminAllDoors(Base_PageInput input)
+        {
+            Base_PageOutput<List<View_TearcherDoorOutput>> res = new Base_PageOutput<List<View_TearcherDoorOutput>>() { data = new List<View_TearcherDoorOutput>() };
+            if (input == null) input = new Base_PageInput();
+            try
+            {
+                string sql = $@"select * from [dbo].[Doors] ";
+                var query = _repository.ExecuteSqlQuery(sql);
+                res.total = query.Count();
+                var query_end = query.OrderByDescending(s => s.create_time)
+                     .Skip((input.page_index - 1) * input.page_size)
+                    .Take(input.page_size);
+                res.data = AutoMapper.Mapper.Map<List<View_TearcherDoorOutput>>(query_end);
+            }
+            catch (Exception ex)
+            {
+            }
+            return res;
+
+        }
+
         public View_LessonDoorInfoOutput GetDoorInfo(int doorid)
         {
             View_LessonDoorInfoOutput res = new View_LessonDoorInfoOutput();

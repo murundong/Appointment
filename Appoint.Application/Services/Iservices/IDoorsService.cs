@@ -13,6 +13,7 @@ namespace Appoint.Application.Services
         Base_PageOutput< List<View_TearcherDoorOutput>> GetDoors(View_DoorInput input);
 
         Base_PageOutput<List<View_TearcherDoorOutput>> GetTeacherDoors(View_TeacherDoorInput input);
+        Base_PageOutput<List<View_TearcherDoorOutput>> GetAdminAllDoors(Base_PageInput input);
         Doors CreateDoors(Doors model);
 
         bool UpdateDoors(Doors model);

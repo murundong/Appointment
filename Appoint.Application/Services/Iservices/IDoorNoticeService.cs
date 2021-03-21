@@ -20,5 +20,7 @@ namespace Appoint.Application.Services
         DoorNotice GetDoorNoticeItem(int id);
 
         DoorNotice GetDoorNewestNotice(int door_id);
+
+        Base_PageOutput<List<View_UserNoticeOutput>> GetUserNotice(View_UserNoticeInput input);
     }
 }

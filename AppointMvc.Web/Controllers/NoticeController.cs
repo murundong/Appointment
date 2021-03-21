@@ -112,5 +112,11 @@ namespace AppointMvc.Web.Controllers
             var res = _doorNoticeService.GetDoorNewestNotice((int)door_id);
             return ReturnJsonResult(res);
         }
+
+        public ActionResult GetUsersNoticeBox(View_UserNoticeInput input)
+        {
+            var res = _doorNoticeService.GetUserNotice(input);
+            return ReturnJsonResult(res);
+        }
     }
 }
