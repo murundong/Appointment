@@ -18,5 +18,7 @@ namespace Appoint.Application.Services
         bool DeleteDoorNotice(int id);
 
         DoorNotice GetDoorNoticeItem(int id);
+
+        DoorNotice GetDoorNewestNotice(int door_id);
     }
 }

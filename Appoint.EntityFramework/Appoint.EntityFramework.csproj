@@ -77,6 +77,7 @@
     <Compile Include="Enum\Enum_CardType.cs" />
     <Compile Include="Enum\Enum_DoorStatus.cs" />
     <Compile Include="Enum\Enum_Gender.cs" />
+    <Compile Include="Enum\Enum_ImgType.cs" />
     <Compile Include="Enum\Enum_ReturnRes.cs" />
     <Compile Include="Enum\Enum_UserRole.cs" />
     <Compile Include="MappingConfigProfile.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="ViewData\View_TearcherDoorOutput.cs" />
     <Compile Include="ViewData\View_UinfoOutput.cs" />
     <Compile Include="ViewData\View_UserCardsInfoOutput.cs" />
+    <Compile Include="ViewData\View_UserStatisticOutput.cs" />
     <Compile Include="ViewData\View_WeekCourseInput.cs" />
     <Compile Include="ViewData\View_WeekCourseOutput.cs" />
     <Compile Include="ViewData\View_WinServiceCourseModel.cs" />

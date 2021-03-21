@@ -29,6 +29,11 @@ namespace Appoint.Application.Services
             return uof.SaveChange() > 0;
         }
 
+        public Notice GetNewestNotice()
+        {
+            return _repository.GetAll().OrderByDescending(s => s.create_time).FirstOrDefault();
+        }
+
         public Base_PageOutput<List<View_NoticeOutput>> GetNotice(View_NoticeInput input)
         {
             Base_PageOutput<List<View_NoticeOutput>> res = new Base_PageOutput<List<View_NoticeOutput>>();

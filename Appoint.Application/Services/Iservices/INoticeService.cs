@@ -18,5 +18,8 @@ namespace Appoint.Application.Services
         bool DeleteNotice(int id);
 
         Notice GetNoticeItem(int id);
+
+        Notice GetNewestNotice();
+
     }
 }

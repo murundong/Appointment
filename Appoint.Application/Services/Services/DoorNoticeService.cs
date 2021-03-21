@@ -53,6 +53,11 @@ namespace Appoint.Application.Services
             return _repository.FirstOrDefault(s => s.id == id);
         }
 
+        public DoorNotice GetDoorNewestNotice(int door_id)
+        {
+            return _repository.GetAll().Where(s=>s.door_id == door_id).OrderByDescending(s => s.create_time).FirstOrDefault();
+        }
+
         public bool UpdateDoorNotice(DoorNotice model)
         {
             var entity = _repository.FirstOrDefault(s => s.id == model.id);

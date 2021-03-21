@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Appoint.EntityFramework.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Appoint.EntityFramework.Data
     {
         [Key]
         public int id { get; set; }
+        public Enum_ImgType img_type { get; set; }
         public string img { get; set; }
         public string url { get; set; }
         public bool active { get; set; } = true;

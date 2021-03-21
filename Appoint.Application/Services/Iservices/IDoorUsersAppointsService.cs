@@ -29,5 +29,7 @@ namespace Appoint.Application.Services
         bool CancselCourse(int course_id);
 
         void CancselCourse();
+
+        View_UserStatisticOutput GetUserStatistic(int uid);
     }
 }

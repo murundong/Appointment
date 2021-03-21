@@ -1,4 +1,5 @@
-﻿using Appoint.EntityFramework.ViewData;
+﻿using Appoint.EntityFramework.Data;
+using Appoint.EntityFramework.ViewData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,15 @@ namespace Appoint.Application.Services
    public interface IBannerService:IApplicationService
     {
         List<View_BannerOutput> GetBanners();
+
+        Base_PageOutput<List<Banners>> PageBanners(Base_PageInput input);
+
+        Banners CreateBanners(Banners model);
+
+        bool UpdateBanners(Banners model);
+
+        Banners GetBannerById(int id);
+
+        bool DeleteBanner(int id);
     }
 }

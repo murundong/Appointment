@@ -291,6 +291,32 @@ namespace Appoint.Application.Services.Services
             }
         }
 
+        public View_UserStatisticOutput GetUserStatistic(int uid)
+        {
+            View_UserStatisticOutput res = new View_UserStatisticOutput();
+            var sqlParms = new SqlParameter[]
+            {
+                new SqlParameter("@uid",uid),
+                new SqlParameter("@total_minutes",System.Data.SqlDbType.Int){Direction= System.Data.ParameterDirection.Output },
+                new SqlParameter("@total_times",System.Data.SqlDbType.Int){Direction= System.Data.ParameterDirection.Output },
+                new SqlParameter("@total_days",System.Data.SqlDbType.Int){Direction= System.Data.ParameterDirection.Output },
+            };
+
+            _repository.ExecuteSqlCommand("exec GetUserDataStatistic @uid,@total_minutes out,@total_times out,@total_days out", sqlParms);
+            try
+            {
+                res.total_minutes = (int)(sqlParms[1].Value ?? 0);
+                res.total_times = (int)(sqlParms[2].Value ?? 0);
+                res.total_days = (int)(sqlParms[3].Value ?? 0);
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return res;
+                
+        }
+
 
 
 
@@ -360,3 +386,4 @@ namespace Appoint.Application.Services.Services
 
     }
 }
+

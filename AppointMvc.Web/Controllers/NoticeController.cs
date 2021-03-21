@@ -100,5 +100,17 @@ namespace AppointMvc.Web.Controllers
             var res = _noticeService.GetNoticeItem((int)id);
             return ReturnJsonResult(res);
         }
+
+        public ActionResult GetNewestNotice()
+        {
+            var res= _noticeService.GetNewestNotice();
+            return ReturnJsonResult(res);
+        }
+        public ActionResult GetNewestDoorNotice(int? door_id)
+        {
+            if (!door_id.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _doorNoticeService.GetDoorNewestNotice((int)door_id);
+            return ReturnJsonResult(res);
+        }
     }
 }

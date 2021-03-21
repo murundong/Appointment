@@ -408,5 +408,12 @@ namespace AppointMvc.Web.Controllers
 
         #endregion
 
+        public ActionResult GetUserStatistic(int? uid)
+        {
+            if (!uid.HasValue) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
+            var res = _doorUserAppointService.GetUserStatistic((int)uid);
+            return ReturnJsonResult(res);
+        }
+
     }
 }
