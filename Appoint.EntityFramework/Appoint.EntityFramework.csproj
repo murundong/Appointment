@@ -66,10 +66,12 @@
     <Compile Include="Data\DoorUsersAppoints.cs" />
     <Compile Include="Data\DoorUsersCourseComments.cs" />
     <Compile Include="Data\DoorUsersQueueAppoints.cs" />
+    <Compile Include="Data\DoorUsersSubsMsg.cs" />
     <Compile Include="Data\Notice.cs" />
     <Compile Include="Data\Subjects.cs" />
     <Compile Include="Data\DoorUsersCards.cs" />
     <Compile Include="Data\UserInfos.cs" />
+    <Compile Include="Data\WX_TOKEN.cs" />
     <Compile Include="DbContextProvider\DbContextProvider.cs" />
     <Compile Include="DbContextProvider\IDbContextProvider.cs" />
     <Compile Include="Enum\Enum_AppointStatus.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="ViewData\View_NoticeInput.cs" />
     <Compile Include="ViewData\View_NoticeOutput.cs" />
     <Compile Include="ViewData\View_PrevCardTemplateOutput.cs" />
+    <Compile Include="ViewData\View_ServiceCourseModel.cs" />
     <Compile Include="ViewData\View_SubjectsInput.cs" />
     <Compile Include="ViewData\View_SubjectsOutput.cs" />
     <Compile Include="ViewData\View_TeacherDoorInput.cs" />
@@ -129,6 +132,9 @@
     <Compile Include="ViewData\View_WeekCourseOutput.cs" />
     <Compile Include="ViewData\View_WinServiceCourseModel.cs" />
     <Compile Include="WeixData\W_AUTH_RETURN.cs" />
+    <Compile Include="WeixData\W_RETURN.cs" />
+    <Compile Include="WeixData\W_SUBS_DATA_INPUT.cs" />
+    <Compile Include="WeixData\W_TOKEN_RETURN.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

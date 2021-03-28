@@ -71,10 +71,12 @@
     <Compile Include="Services\Iservices\IDoorUsersCourseCommentsService.cs" />
     <Compile Include="Services\Iservices\IDoorUsersQueueAppointsService.cs" />
     <Compile Include="Services\Iservices\IDoorUsersService.cs" />
+    <Compile Include="Services\Iservices\IDoorUsersSubsMsgService.cs" />
     <Compile Include="Services\Iservices\INoticeService.cs" />
     <Compile Include="Services\Iservices\IOssService.cs" />
     <Compile Include="Services\Iservices\ISubjectsService.cs" />
     <Compile Include="Services\Iservices\IDoorUsersCardsService.cs" />
+    <Compile Include="Services\Iservices\IWX_TOKEN_Service.cs" />
     <Compile Include="Services\Services\BannerService.cs" />
     <Compile Include="Services\Services\CardTemplateService.cs" />
     <Compile Include="Services\Services\CoursesService.cs" />
@@ -88,11 +90,13 @@
     <Compile Include="Services\Services\DoorUsersCourseCommentsService.cs" />
     <Compile Include="Services\Services\DoorUsersQueueAppointsService.cs" />
     <Compile Include="Services\Services\DoorUsersService.cs" />
+    <Compile Include="Services\Services\DoorUsersSubsMsgService.cs" />
     <Compile Include="Services\Services\NoticeService.cs" />
     <Compile Include="Services\Services\OssService.cs" />
     <Compile Include="Services\Services\SubjectsService.cs" />
     <Compile Include="Services\Services\DoorUsersCardsService.cs" />
     <Compile Include="Services\Services\UserInfoService.cs" />
+    <Compile Include="Services\Services\WX_TOKEN_Service.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Appoint.EntityFramework\Appoint.EntityFramework.csproj">

@@ -1,6 +1,9 @@
-﻿using Appoint.EntityFramework.Data;
+﻿using Appoint.EntityFramework;
+using Appoint.EntityFramework.Data;
 using Appoint.EntityFramework.Enum;
 using Appoint.EntityFramework.ViewData;
+using Appoint.EntityFramework.WeixData;
+using BaseClasses;
 using QRCoder;
 using System;
 using System.Collections.Generic;
@@ -251,6 +254,36 @@ namespace AppointMvc.Web.Controllers
         {
             if (!courseid.HasValue || courseid <= 0) return ReturnJsonResult("参数错误！", Enum_ReturnRes.Fail);
             if(!_doorUserAppointService.CancselCourse((int)courseid)) return ReturnJsonResult("操作失败！",Enum_ReturnRes.Fail);
+            var lst_users= _courseService.GetAllCourse((int)courseid);
+            if(lst_users!=null && lst_users.Count > 0)
+            {
+               string token=  GetNowToken();
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        lst_users.ForEach(s =>
+                                  {
+                                      W_SUBS_DATA_INPUT data = new W_SUBS_DATA_INPUT()
+                                      {
+                                          touser = s.open_id,
+                                          access_token = token,
+                                          page = $"pages/Lesson/Lesson?doorId={s.door_id}&doorName={s.door_name}",
+                                          template_id = ConstConfig.template_cancel,
+                                          data = new { thing6 = new { value = s.subject_title }, date2 = new { value = s.course_date + " " + s.course_time }, thing4 = new { value = "场馆工作人员手动取消" } }
+                                      };
+                                      var sendres = _weixinService.SendSubsCribe(data);
+                                      if (sendres.errCode != 0 && sendres.errCode != 43101)
+                                      {
+                                          Log.Error($"CancelTheCourse{sendres.errCode}_{sendres.errMsg}");
+                                      }
+                                  });
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                });
+            }
             return ReturnJsonResult();
         }
 
@@ -399,12 +432,45 @@ namespace AppointMvc.Web.Controllers
                 }
                 _doorUserAppointService.CopyQueueAppoint(queueModel);
                 _doorUserQueueAppointService.DeleteUserQueue(queueModel);
+                //排队通知
+                var notice_model= _doorUserQueueAppointService.GetQueenNoticDetail(queueModel.uid, courseid);
+                if(notice_model!=null && !string.IsNullOrWhiteSpace(notice_model.open_id))
+                {
+                    W_SUBS_DATA_INPUT data = new W_SUBS_DATA_INPUT()
+                    {
+                        touser = notice_model.open_id,
+                        page = $"pages/appointment/appointment",
+                        access_token = GetNowToken(),
+                        template_id = ConstConfig.template_queue,
+                        data = new { thing1 = new { value = notice_model.subject_title }, time3 = new { value = notice_model.course_date + " " + notice_model.course_time }, thing2 = new { value = notice_model.door_name }, thing5 = new { value = $"成功排队,如需取消请在课程开始前{notice_model.cancel_duration}操作" } }
+                    };
+                    var sendres = _weixinService.SendSubsCribe(data);
+                    if (sendres.errCode != 0 && sendres.errCode != 43101)
+                    {
+                        Log.Error($"ProcessQueue{sendres.errCode}_{sendres.errMsg}");
+                    }
+                }
             }
             catch (Exception ex)
             {
             }
         }
 
-      
+        string GetNowToken()
+        {
+            string token = null, appid = ConstConfig.APPID;
+            var TOKENITEM = _tokenService.GetToken(appid);
+            if (TOKENITEM == null || string.IsNullOrWhiteSpace(TOKENITEM?.access_token) || TOKENITEM.create_time.AddSeconds(TOKENITEM.expires_in) <= DateTime.Now.AddMinutes(-10))
+            {
+                var WXTOKEN = _weixinService.GetToken();
+                if (WXTOKEN != null && WXTOKEN.errcode == 0)
+                {
+                    token = WXTOKEN.access_token;
+                    _tokenService.InsertOrUpdateToken(new WX_TOKEN() { appid = appid, access_token = WXTOKEN.access_token, expires_in = WXTOKEN.expires_in });
+                }
+            }
+            else token = TOKENITEM.access_token;
+            return token;
+        }
     }
 }

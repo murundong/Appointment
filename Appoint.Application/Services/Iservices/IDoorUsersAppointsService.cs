@@ -28,8 +28,10 @@ namespace Appoint.Application.Services
 
         bool CancselCourse(int course_id);
 
-        void CancselCourse();
+        void CancselCourse(out Dictionary<int, List<string>> usercids);
 
         View_UserStatisticOutput GetUserStatistic(int uid);
+
+        bool UpdateNoticeAppoint(string ids);
     }
 }

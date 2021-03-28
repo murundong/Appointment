@@ -15,6 +15,7 @@ namespace Appoint.Application.Services
     public class DoorUsersQueueAppointsService : IDoorUsersQueueAppointsService
     {
         public IRepository<App_DbContext, DoorUsersQueueAppoints> _repository { get; set; }
+        public IRepository<App_DbContext, View_ServiceCourseModel> _repositoryServiceCourse { get; set; }
         public IUnitOfWork<App_DbContext> uof { get; set; }
 
         public bool CancelQueue(int uid, int courseid)
@@ -36,9 +37,20 @@ namespace Appoint.Application.Services
             return uof.SaveChange() > 0;
         }
 
+        public View_ServiceCourseModel GetQueenNoticDetail(int uid, int cid)
+        {
+            string sql = $@"select A.id, [open_id]=(select open_id from [dbo].[UserInfos] where uid={uid}) ,
+		B.door_id,door_name,course_date,course_time,subject_id,[subject_title]=subject_name,cancel_duration
+		from [dbo].[Courses]	A
+		left join [dbo].[Subjects] B on A.subject_id = B.id	
+		left join [dbo].[Doors] C on B.door_id = C.id
+		where A.id={cid};";
+            return _repositoryServiceCourse.ExecuteSqlQuery(sql)?.FirstOrDefault();
+        }
+
         public DoorUsersQueueAppoints GetQueueUser(int courseid)
         {
-            var entity= _repository.GetAll().Where(s => s.course_id == courseid).OrderBy(s => s.create_time).FirstOrDefault();
+            var entity = _repository.GetAll().Where(s => s.course_id == courseid).OrderBy(s => s.create_time).FirstOrDefault();
             return entity;
         }
 
@@ -72,15 +84,15 @@ namespace Appoint.Application.Services
                     new SqlParameter("@course_id",input.course_id),
                     new SqlParameter("@user_card_id",input.card_id),
                 };
-                return _repository.ExecuteSqlCommand(sql, SqlParm)>0;
+                return _repository.ExecuteSqlCommand(sql, SqlParm) > 0;
             }
             catch (Exception ex)
             {
-                
+
             }
             return false;
         }
 
-        
+
     }
 }

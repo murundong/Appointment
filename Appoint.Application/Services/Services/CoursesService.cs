@@ -17,6 +17,7 @@ namespace Appoint.Application.Services
     {
         
         public IRepository<App_DbContext, Courses> _repository { get; set; }
+        public IRepository<App_DbContext, View_ServiceCourseModel> _repositoryServiceCourse { get; set; }
         public IRepository<App_DbContext, Subjects> _repositorySubject { get; set; }
         public IRepository<App_DbContext, CardTemplate> _repositoryCards { get; set; }
         public IRepository<App_DbContext, View_CourseShowOutput_AppointUser> _repositoryAppointUser { get; set; }
@@ -64,6 +65,44 @@ namespace Appoint.Application.Services
         {
             _repository.Delete(new Courses() { id = cid });
             return uof.SaveChange() > 0;
+        }
+
+        public List<View_ServiceCourseModel> GetAllCourse(string cids)
+        {
+            List<View_ServiceCourseModel> res = new List<View_ServiceCourseModel>();
+            string sql = $@"select id, door_id,[door_name]=(select door_name from [dbo].[Doors] where id=  [dbo].[Courses].door_id), course_date,course_time,subject_id,cancel_duration,[subject_title]=(select subject_name from [dbo].[Subjects] where id =[dbo].[Courses].subject_id ) 
+                           from [dbo].[Courses] where id in ({cids})";
+            res= _repositoryServiceCourse.ExecuteSqlQuery(sql).ToList();
+            return res;
+        }
+
+        public List<View_ServiceCourseModel> GetAllCourse()
+        {
+            List<View_ServiceCourseModel> res = new List<View_ServiceCourseModel>();
+            string sql = @"select appoint_id=A.id,A.uid,D.open_id,
+                    B.id,B.door_id,E.door_name,B.course_date,B.course_time,B.subject_id,[subject_title]=C.subject_name,B.cancel_duration from [dbo].[DoorUsersAppoints] A
+			                    left join [dbo].[Courses] B on A.course_id = B.id
+			                    left join [dbo].[Subjects] C on B.subject_id = C.id	
+			                    left join [dbo].[UserInfos] D on A.uid = D.uid
+			                    left join [dbo].[Doors] E on B.door_id = E.id
+                    where A.is_canceled=0 and A.is_returncard = 0 and A.is_subsmsg=0 and B.active=1 
+                    and  (dateadd(mi,cancel_duration*-1-20,CONVERT(datetime,course_date +' '+course_time) )) <= GETDATE();";
+            res = _repositoryServiceCourse.ExecuteSqlQuery(sql).ToList();
+            return res;
+        }
+
+        public List<View_ServiceCourseModel> GetAllCourse(int cid)
+        {
+            List<View_ServiceCourseModel> res = new List<View_ServiceCourseModel>();
+            string sql = $@"select appoint_id=A.id,A.uid,D.open_id,
+                    B.id,B.door_id,E.door_name,B.course_date,B.course_time,B.subject_id,[subject_title]=C.subject_name,B.cancel_duration from [dbo].[DoorUsersAppoints] A
+			                    left join [dbo].[Courses] B on A.course_id = B.id
+			                    left join [dbo].[Subjects] C on B.subject_id = C.id	
+			                    left join [dbo].[UserInfos] D on A.uid = D.uid
+			                    left join [dbo].[Doors] E on B.door_id = E.id
+                    where B.id={cid} ;";
+            res = _repositoryServiceCourse.ExecuteSqlQuery(sql).ToList();
+            return res;
         }
 
         public Courses GetCourseById(int id)

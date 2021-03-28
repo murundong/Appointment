@@ -29,5 +29,20 @@ namespace Appoint.Application.Services
         bool CheckCourseCanCancel(int courseid);
 
         View_JudgeCourseOutput GetJudgeCourseInfo(int? cid);
+
+        List<View_ServiceCourseModel> GetAllCourse(string cids);
+
+        /// <summary>
+        /// 根据课程ID获取需要通知的课程用户
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        List<View_ServiceCourseModel> GetAllCourse(int cid);
+
+        /// <summary>
+        /// 获取需要通知的课程用户
+        /// </summary>
+        /// <returns></returns>
+        List<View_ServiceCourseModel> GetAllCourse();
     }
 }

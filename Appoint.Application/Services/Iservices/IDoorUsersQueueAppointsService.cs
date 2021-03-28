@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Appoint.Application.Services
 {
-    public interface IDoorUsersQueueAppointsService:IApplicationService
+    public interface IDoorUsersQueueAppointsService : IApplicationService
     {
         bool CheckUserAlreadyQuee(int uid, int courseid);
 
@@ -19,5 +19,7 @@ namespace Appoint.Application.Services
         DoorUsersQueueAppoints GetQueueUser(int courseid);
 
         bool DeleteUserQueue(DoorUsersQueueAppoints entity);
+
+        View_ServiceCourseModel GetQueenNoticDetail(int uid,int cid);
     }
 }

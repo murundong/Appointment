@@ -11,6 +11,9 @@ namespace Appoint.Application.IWeixinApi
     {
         W_AUTH_RETURN GetOpenIdByCode(string code);
 
-       
+        W_TOKEN_RETURN GetToken();
+
+        W_RETURN SendSubsCribe(W_SUBS_DATA_INPUT input);
+     
     }
 }

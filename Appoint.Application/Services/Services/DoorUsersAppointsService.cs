@@ -17,6 +17,7 @@ namespace Appoint.Application.Services.Services
     public class DoorUsersAppointsService : IDoorUsersAppointsService
     {
         public IRepository<App_DbContext, DoorUsersAppoints> _repository { get; set; }
+        public IRepository<App_DbContext, UserInfos> _repositoryUserInfos { get; set; }
         public IRepository<App_DbContext, View_WinServiceCourseModel> _repositoryWinservice { get; set; }
         public IRepository<App_DbContext, View_MyAppointWaitOutput> _repositoryMyWaitAppoint { get; set; }
         public IRepository<App_DbContext, View_MyAppointCompOutput> _repositoryMyCompAppoint { get; set; }
@@ -248,8 +249,10 @@ namespace Appoint.Application.Services.Services
             return _repository.ExecuteSqlCommand(sql) > 0;
         }
 
-        public void CancselCourse()
+        public void CancselCourse(out Dictionary<int, List<string>> usercids)
         {
+            Dictionary<int, List<string>> dic = new Dictionary<int, List<string>>();
+            usercids = new Dictionary<int, List<string>>();
             StringBuilder sb = new StringBuilder();
             string sql = @";with cte as(
                         select [end_appoint_time]= (dateadd(mi,limit_appoint_duration*-1,CONVERT(datetime,course_date +' '+course_time) )),
@@ -282,12 +285,23 @@ namespace Appoint.Application.Services.Services
                                 string cancelSql = $@";update [dbo].[DoorUsersAppoints] set is_canceled=1,is_returncard=0  where course_id={s.id} and uid={item} ;";
                                 sb.Append(rebackSql);
                                 sb.Append(cancelSql);
+                                string open_id = _repositoryUserInfos.FirstOrDefault(m => m.uid == item)?.open_id;
+                                if (dic.ContainsKey(s.id))
+                                {
+                                    dic[s.id].Add(open_id);
+                                }
+                                else
+                                {
+                                    dic.Add(s.id, new List<string>() { open_id });
+                                }
                             }
                         }
                     }
                 
                 });
+                //course_ids = courseQuery.Select(s => {s.id,s. })?.ToList();
                 _repository.ExecuteSqlCommand(sb.ToString());
+                usercids = dic;
             }
         }
 
@@ -315,6 +329,12 @@ namespace Appoint.Application.Services.Services
             }
             return res;
                 
+        }
+
+        public bool UpdateNoticeAppoint(string ids)
+        {
+            string sql = $"update [dbo].[DoorUsersAppoints] set is_subsmsg=0 where id in ({ids})";
+            return _repository.ExecuteSqlCommand(sql)>0;
         }
 
 

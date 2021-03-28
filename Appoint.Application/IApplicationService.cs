@@ -8,5 +8,6 @@ namespace Appoint.Application
 {
     public interface IApplicationService
     {
+     
     }
 }

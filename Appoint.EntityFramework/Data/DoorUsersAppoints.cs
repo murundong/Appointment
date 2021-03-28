@@ -19,6 +19,7 @@ namespace Appoint.EntityFramework.Data
         public DateTime? signed_time { get; set; }
         public bool is_canceled { get; set; }
         public bool is_returncard { get; set; }
+        public bool is_subsmsg { get; set; }
         public DateTime create_time { get; set; } = DateTime.Now;
     }
 }

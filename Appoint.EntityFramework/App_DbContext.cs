@@ -27,6 +27,8 @@ namespace Appoint.EntityFramework
         public DbSet<DoorUsersCourseComments> SetF_DoorUsersCourseComments { get; set; }
         public DbSet<DoorNotice> Set_DoorNotice { get; set; }
         public DbSet<Notice> Set_Notice { get; set; }
+        public DbSet<DoorUsersSubsMsg> Set_DoorUsersSubsMsg { get; set; }
+        public DbSet<WX_TOKEN> Set_WX_TOKEN { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
