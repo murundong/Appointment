@@ -93,14 +93,27 @@ namespace Appoint.Application.Services.Services
 
         public bool CopyQueueAppoint(DoorUsersQueueAppoints model)
         {
-            DoorUsersAppoints entity = new DoorUsersAppoints()
+
+            var entity = _repository.FirstOrDefault(s => s.uid == model.uid && s.course_id == model.course_id);
+            if(entity!=null && entity.id > 0)
             {
-                course_id = model.course_id,
-                du_id = model.du_id,
-                uid = model.uid,
-                user_card_id = model.user_card_id,
-            };
-            _repository.Insert(entity);
+                entity.user_card_id = model.user_card_id;
+                entity.is_canceled = false;
+                entity.is_returncard = false;
+                entity.is_subsmsg = false;
+                _repository.Update(entity);
+            }
+            else
+            {
+                DoorUsersAppoints entityInsert = new DoorUsersAppoints()
+                {
+                    course_id = model.course_id,
+                    du_id = model.du_id,
+                    uid = model.uid,
+                    user_card_id = model.user_card_id,
+                };
+                _repository.Insert(entityInsert);
+            }
             return uof.SaveChange() > 0;
         }
 
