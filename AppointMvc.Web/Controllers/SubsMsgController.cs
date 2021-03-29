@@ -20,6 +20,8 @@ namespace AppointMvc.Web.Controllers
 
         public ActionResult TestSubs()
         {
+
+            var res= _courseService.GetAllCourse();
             //W_SUBS_DATA_INPUT data = new W_SUBS_DATA_INPUT()
             //{
             //    touser = "odMBJ49aydSHPVtW1VmrlanhFj14",
@@ -28,15 +30,15 @@ namespace AppointMvc.Web.Controllers
             //    template_id = ConstConfig.template_cancel,
             //    data =new   { thing6 = new { value = "是个课程" } , date2 =new { value= "2021年3月28日" }, thing4 =new {value= "人数不足自动取消" } },
             //};
-            W_SUBS_DATA_INPUT data = new W_SUBS_DATA_INPUT()
-            {
-                touser = "odMBJ49aydSHPVtW1VmrlanhFj14",
-                page = $"pages/appointment/appointment",
-                template_id = ConstConfig.template_notice,
-                access_token = GetNowToken(),
-                data = new { thing1 = new { value = "是个课程" }, thing3 = new { value = "还远瑜伽" }, character_string2 = new { value =DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") }, thing4 = new { value = $"课程开始前60分钟内不可取消" } }
-            };
-            var res = _weixinService.SendSubsCribe(data);
+            //W_SUBS_DATA_INPUT data = new W_SUBS_DATA_INPUT()
+            //{
+            //    touser = "odMBJ49aydSHPVtW1VmrlanhFj14",
+            //    page = $"pages/appointment/appointment",
+            //    template_id = ConstConfig.template_notice,
+            //    access_token = GetNowToken(),
+            //    data = new { thing1 = new { value = "是个课程" }, thing3 = new { value = "还远瑜伽" }, character_string2 = new { value =DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") }, thing4 = new { value = $"课程开始前60分钟内不可取消" } }
+            //};
+            //var res = _weixinService.SendSubsCribe(data);
             return ReturnJsonResult(res);
         }
 

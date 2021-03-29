@@ -13,7 +13,8 @@ namespace Appoint.EntityFramework.WeixData
         public string template_id { get; set; }
         public string page { get; set; }
         public object data { get; set; }
-        public string miniprogram_state { get; set; } = "developer";
+        //跳转小程序类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版
+        public string miniprogram_state { get; set; } = "formal";
         public string lang { get; set; } = "zh_CN";
     }
 }

@@ -12,7 +12,7 @@ namespace Appoint.EntityFramework.ViewData
         public int uid { get; set; }
         public int appoint_id { get; set; }
         public string open_id { get; set; }
-        public string door_id { get; set; }
+        public int door_id { get; set; }
         public string door_name { get; set; }
         public string course_date { get; set; }
         public string course_time { get; set; }

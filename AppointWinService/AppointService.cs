@@ -72,6 +72,7 @@ namespace AppointWinService
             try
             {
                 Log.Info("The Serivce starting……");
+                Log.Info(ConstConfig.APPID);
                 AsyncProcess();
             }
             catch (Exception ex)

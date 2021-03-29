@@ -36,7 +36,7 @@ namespace Appoint.Application.Services.Services
                                     ,create_time=getdate()) S
                             on T.uid = S.uid and T.course_id= S.course_id
                             when matched then 
-	                            update set T.is_signed=0,T.signed_time=null,T.is_canceled=0,T.is_returncard=0,T.create_time=S.create_time
+	                            update set T.is_signed=0,T.signed_time=null,T.is_canceled=0,T.is_returncard=0,T.is_subsmsg=0,T.create_time=S.create_time
                             when not matched then 
 	                            insert ([du_id]
                                        ,[uid]
@@ -333,7 +333,7 @@ namespace Appoint.Application.Services.Services
 
         public bool UpdateNoticeAppoint(string ids)
         {
-            string sql = $"update [dbo].[DoorUsersAppoints] set is_subsmsg=0 where id in ({ids})";
+            string sql = $"update [dbo].[DoorUsersAppoints] set is_subsmsg=1 where id in ({ids})";
             return _repository.ExecuteSqlCommand(sql)>0;
         }
 

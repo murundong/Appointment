@@ -47,7 +47,7 @@ namespace Appoint.Application.Services
 
         public bool CheckHasAdminMenu(int uid)
         {
-            return _repository.Count(s=>s.role == Enum_UserRole.Admin || s.role == Enum_UserRole.Curator || s.role == Enum_UserRole.Teacher) > 0;
+            return _repository.Count(s=>s.uid==uid && ( s.role == Enum_UserRole.Admin || s.role == Enum_UserRole.Curator || s.role == Enum_UserRole.Teacher)) > 0;
         }
 
         public bool CheckUserBlackList(string openid, int doorid)
