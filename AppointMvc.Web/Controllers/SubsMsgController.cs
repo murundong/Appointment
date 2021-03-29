@@ -25,6 +25,19 @@ namespace AppointMvc.Web.Controllers
             //W_SUBS_DATA_INPUT data = new W_SUBS_DATA_INPUT()
             //{
             //    touser = "odMBJ49aydSHPVtW1VmrlanhFj14",
+            //    page = $"pages/appointment/appointment",
+            //    access_token = GetNowToken(),
+            //    template_id = ConstConfig.template_queue,
+            //    data = new { thing1 = new { value = "测试下" }, time3 = new { value = "2021/3/29" }, thing2 = new { value = "测试" }, thing5 = new { value = $"成功排队,如需取消请距课程开始60分钟前操作" } }
+            //};
+            //var sendres = _weixinService.SendSubsCribe(data);
+            //if (sendres.errCode != 0 && sendres.errCode != 43101)
+            //{
+                
+            //}
+            //W_SUBS_DATA_INPUT data = new W_SUBS_DATA_INPUT()
+            //{
+            //    touser = "odMBJ49aydSHPVtW1VmrlanhFj14",
             //    page = $"pages/Lesson/Lesson?doorId=10000&doorName=是个场馆",
             //    access_token = GetNowToken(),
             //    template_id = ConstConfig.template_cancel,

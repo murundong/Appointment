@@ -442,7 +442,7 @@ namespace AppointMvc.Web.Controllers
                         page = $"pages/appointment/appointment",
                         access_token = GetNowToken(),
                         template_id = ConstConfig.template_queue,
-                        data = new { thing1 = new { value = notice_model.subject_title }, time3 = new { value = notice_model.course_date + " " + notice_model.course_time }, thing2 = new { value = notice_model.door_name }, thing5 = new { value = $"成功排队,如需取消请在课程开始前{notice_model.cancel_duration}操作" } }
+                        data = new { thing1 = new { value = notice_model.subject_title }, time3 = new { value = notice_model.course_date + " " + notice_model.course_time }, thing2 = new { value = notice_model.door_name }, thing5 = new { value = $"排队成功，请及时确认行程" } }
                     };
                     var sendres = _weixinService.SendSubsCribe(data);
                     if (sendres.errCode != 0 && sendres.errCode != 43101)
